@@ -1,0 +1,23 @@
+import { Action } from "@ngrx/store";
+import { Card } from "../models/card.model";
+
+export const LOAD_CARDS = "LOAD_CARDS";
+export const LOAD_CARDS_SUCCESS = "LOAD_CARDS_SUCCESS";
+export const LOAD_CARDS_ERROR = "LOAD_CARDS_ERROR";
+
+
+export class LoadCards implements Action {
+    readonly type = LOAD_CARDS;
+}
+
+export class LoadCardsSuccess implements Action {
+    readonly type = LOAD_CARDS_SUCCESS;
+    constructor(public payload: Card[]) {}
+}
+
+export class LoadCardsError implements Action {
+    readonly type = LOAD_CARDS_ERROR;
+    constructor(public payload: any) {}
+}
+
+export type CardsAction = LoadCards | LoadCardsSuccess | LoadCardsError;

@@ -1,0 +1,10 @@
+<!-- <ul>
+  <li *ngFor="let card of cardsArray">{{card.wordEn}}</li>
+</ul> -->
+
+<!-- <p *ngIf="cards.pending">Wait for it</p> -->
+<app-card-item 
+  [card]="card"
+  *ngFor="let card of cardsArray">
+</app-card-item>
+<!-- <p *ngIf="cards.error">{{cards.error}}</p> -->
