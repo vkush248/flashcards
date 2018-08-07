@@ -6,11 +6,15 @@ import { CardDisplayComponent } from './card-display/card-display.component';
 import { CardItemComponent } from './card-item/card-item.component';
 import { StoreModule } from '@ngrx/store';
 
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
     CardDisplayComponent,
-    CardItemComponent
+    CardItemComponent,
+
   ],
   imports: [
     BrowserModule,
