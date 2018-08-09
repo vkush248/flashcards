@@ -1,9 +1,9 @@
-import { Action } from "@ngrx/store";
-import { Card } from "../models/card.model";
+import { Action } from '@ngrx/store';
+import { Card } from '../models/card.model';
 
-export const LOAD_CARDS = "LOAD_CARDS";
-export const LOAD_CARDS_SUCCESS = "LOAD_CARDS_SUCCESS";
-export const LOAD_CARDS_ERROR = "LOAD_CARDS_ERROR";
+export const LOAD_CARDS = '[Card] LOAD_CARDS';
+export const LOAD_CARDS_SUCCESS = '[Card] LOAD_CARDS_SUCCESS';
+export const LOAD_CARDS_ERROR = '[Card] LOAD_CARDS_ERROR';
 
 
 export class LoadCards implements Action {

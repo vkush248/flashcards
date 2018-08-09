@@ -5,22 +5,15 @@ import { AppComponent } from './app.component';
 import { CardDisplayComponent } from './card-display/card-display.component';
 import { CardItemComponent } from './card-item/card-item.component';
 import { StoreModule } from '@ngrx/store';
-
-
-
+import { CardService } from './services/card.service';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    CardDisplayComponent,
-    CardItemComponent,
-
-  ],
+  declarations: [AppComponent, CardDisplayComponent, CardItemComponent],
   imports: [
-    BrowserModule,
+    BrowserModule
     // StoreModule.p
   ],
-  providers: [],
+  providers: [CardService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
