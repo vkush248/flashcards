@@ -4,9 +4,9 @@ import { AppComponent } from './app.component';
 import { CardDisplayComponent } from './card-display/card-display.component';
 import { CardItemComponent } from './card-item/card-item.component';
 import { CardUpdateComponent } from './card-update/card-update.component';
+import { HeaderComponent } from './header/header.component';
 import { routing } from './routes/app.routes';
 import { CardService } from './services/card.service';
-import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -16,11 +16,7 @@ import { HeaderComponent } from './header/header.component';
     CardUpdateComponent,
     HeaderComponent
   ],
-  imports: [
-    BrowserModule,
-    routing
-    // StoreModule.p
-  ],
+  imports: [BrowserModule, routing],
   providers: [CardService],
   bootstrap: [AppComponent]
 })
