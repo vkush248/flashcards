@@ -1,13 +1,12 @@
 import { RouterModule, Routes } from '@angular/router';
 import { CardDisplayComponent } from '../card-display/card-display.component';
-import { CardItemComponent } from '../card-item/card-item.component';
 import { CardUpdateComponent } from '../card-update/card-update.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'cards', pathMatch: 'full' },
   { path: 'cards', component: CardDisplayComponent },
   { path: 'card', component: CardUpdateComponent },
-  { path: 'card-details/:id', component: CardItemComponent },
+  { path: 'card-details/:id', component: CardUpdateComponent },
   { path: 'card-update', component: CardUpdateComponent }
 ];
 

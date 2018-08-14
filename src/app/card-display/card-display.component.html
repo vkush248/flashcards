@@ -1,7 +1,2 @@
-<a *ngFor="let card of cards" [routerLink]="['/card-details', card.id]">
-  <!-- <app-card-item 
-  [card]="card"
-  *ngFor="let card of cardsArray">
-</app-card-item> -->
-  {{card.topic}}
-</a>
+<app-card-item [card]="card" *ngFor="let card of cardsArray">
+</app-card-item>
