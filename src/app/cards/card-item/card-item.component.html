@@ -10,3 +10,6 @@
     <img src="{{card.img}}" alt="{{card.wordRu}}">
   </div>
 </div>
+<a [routerLink]="['card-details', card.id]">
+  Edit "{{ card.wordEn }}"
+</a>

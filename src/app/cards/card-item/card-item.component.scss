@@ -1,65 +1,60 @@
 @import url(https://fonts.googleapis.com/css?family=Do+Hyeon:regular);
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,regular,italic,600,600italic,700,700italic,800,800italic);
-
 $headerColor: rgb(182, 216, 255);
-
-@mixin fonts($family, $size){
-    font: {
-        family: $family;
-        size: $size;
-    }
+@mixin fonts($family, $size) {
+  font: {
+    family: $family;
+    size: $size;
+  }
 }
-$font1: "Do Hyeon", 16px;
-$font2: "Open Sans", 14px;
 
-
+$font1: "Do Hyeon",
+16px;
+$font2: "Open Sans",
+14px;
 .card {
-    width: 450px;
-    height: 150px;
-    margin-bottom: 10px;
-    border: 1px solid black;
-    border-radius: 1%;
-    display: grid;
-    grid-template-columns: 1fr 100px;
-    grid-template-rows: min-content;
-    box-shadow: 3px 2px 3px 1px #666;
-    @include fonts($font2...);     
-    
-    .id {
-        padding: 0 10px;
-        background-color: $headerColor;
-        height: 25px;
-        line-height: 25px;
-        font-size: 15px;
-        @include fonts($font1...);     
+  width: 450px;
+  height: 150px;
+  margin-top: 10px;
+  border: 1px solid black;
+  border-radius: 1%;
+  display: grid;
+  grid-template-columns: 1fr 100px;
+  grid-template-rows: min-content;
+  box-shadow: 3px 2px 3px 1px #666;
+  @include fonts($font2...);
+  .id {
+    padding: 0 10px;
+    background-color: $headerColor;
+    height: 25px;
+    line-height: 25px;
+    font-size: 15px;
+    @include fonts($font1...);
+  }
+  .topic {
+    @extend .id;
+    text-align: right;
+  }
+  .info {
+    position: relative;
+    padding: 5px;
+    .word {
+      @include fonts($font1...);
+      font-size: 20px;
     }
-    .topic {
-        @extend .id;
-        text-align: right;
+  }
+  .context {
+    position: absolute;
+    bottom: 10px;
+  }
+  .picture {
+    width: 100px;
+    height: 100px;
+    align-self: center;
+    margin-right: 5px;
+    img {
+      width: 100%;
+      height: 100%;
     }
-    .info {
-        position: relative;
-        padding: 5px;
-
-        .word{
-            @include fonts($font1...);
-            font-size: 20px;
-        }
-    }
-    .context {
-        position: absolute;
-        bottom: 10px;
-    }
-    .picture {
-        width: 100px;
-        height: 100px;
-        align-self: center;
-        margin-right: 5px;
-        
-        img {
-            width: 100%;
-            height: 100%;
-        }
-    }
-    
+  }
 }
