@@ -11,7 +11,6 @@ import { CardService } from '../../services/card.service';
 export class CardDisplayComponent implements OnInit {
   cardsArray: Card[];
   constructor(private cardService: CardService) {
-    console.log(this.cardService.getCards());
     this.cardsArray = this.cardService.getCards();
   }
 

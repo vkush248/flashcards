@@ -6,7 +6,7 @@ import { CardUpdateComponent } from './card-update/card-update.component';
 
 const cardsRoutes: Routes = [
   { path: '', component: CardDisplayComponent },
-  { path: 'card', component: CardUpdateComponent },
+  { path: 'card-update', component: CardUpdateComponent },
   {
     path: 'card-details/:id',
     component: CardDetailsComponent /* ,
