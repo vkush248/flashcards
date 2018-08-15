@@ -5,19 +5,18 @@ export const LOAD_CARDS = '[Card] LOAD_CARDS';
 export const LOAD_CARDS_SUCCESS = '[Card] LOAD_CARDS_SUCCESS';
 export const LOAD_CARDS_ERROR = '[Card] LOAD_CARDS_ERROR';
 
-
 export class LoadCards implements Action {
-    readonly type = LOAD_CARDS;
+  readonly type = LOAD_CARDS;
 }
 
 export class LoadCardsSuccess implements Action {
-    readonly type = LOAD_CARDS_SUCCESS;
-    constructor(public payload: Card[]) {}
+  readonly type = LOAD_CARDS_SUCCESS;
+  constructor(public payload: Card[]) {}
 }
 
 export class LoadCardsError implements Action {
-    readonly type = LOAD_CARDS_ERROR;
-    constructor(public payload: any) {}
+  readonly type = LOAD_CARDS_ERROR;
+  constructor(public payload: any) {}
 }
 
 export type CardsAction = LoadCards | LoadCardsSuccess | LoadCardsError;

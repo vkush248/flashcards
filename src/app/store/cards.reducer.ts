@@ -1,6 +1,5 @@
-import * as actions from './cards.actions';
 import { Card } from '../models/card.model';
-import { CardService } from '../services/card.service';
+import * as actions from './cards.actions';
 
 export interface CardsState {
   data: Card[];

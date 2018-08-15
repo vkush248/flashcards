@@ -1,13 +1,6 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  Input
-} from '@angular/core';
-
-import { getCards } from '../store/cards.reducer';
-import { CardService } from '../services/card.service';
-import { Card } from '../models/card.model';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Card } from '../../models/card.model';
+import { CardService } from '../../services/card.service';
 
 @Component({
   selector: 'app-card-display',
@@ -18,10 +11,10 @@ import { Card } from '../models/card.model';
 export class CardDisplayComponent implements OnInit {
   cardsArray: Card[];
   constructor(private cardService: CardService) {
+    console.log(this.cardService.getCards());
     this.cardsArray = this.cardService.getCards();
   }
 
-  // @Input() cards;
   ngOnInit() {
     console.log(this.cardsArray);
   }

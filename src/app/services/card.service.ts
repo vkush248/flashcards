@@ -29,7 +29,7 @@ export class CardService {
         contextEn:
           'Humanity hungers for international peace, and we crave it with all mankind.',
         img:
-          'https://cdn2.iconfinder.com/data/icons/emoticons-hand-drawn/78/Craving-512.png',
+          'https://pbs.twimg.com/profile_images/823404913371684864/1wOnvWmw_400x400.jpg',
 
         wordRu: 'жаждать',
         exampleRu: 'жаждать внимания',
