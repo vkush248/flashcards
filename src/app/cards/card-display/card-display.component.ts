@@ -1,4 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { pluck } from 'rxjs/operators';
 import { Card } from '../../models/card.model';
 import { CardService } from '../../services/card.service';
 
@@ -9,12 +11,14 @@ import { CardService } from '../../services/card.service';
   styleUrls: ['./card-display.component.scss']
 })
 export class CardDisplayComponent implements OnInit {
-  cardsArray: Card[];
+  cardsArray$: Observable<Card[]>;
   constructor(private cardService: CardService) {
-    this.cardsArray = this.cardService.getCards();
+    this.cardsArray$ = this.cardService
+      .getCards()
+      .pipe(pluck('cardsStore', 'data'));
   }
 
   ngOnInit() {
-    console.log(this.cardsArray);
+    // this.cardsArray$.subscribe(console.log);
   }
 }

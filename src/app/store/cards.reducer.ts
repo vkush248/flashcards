@@ -1,11 +1,6 @@
 import { Card } from '../models/card.model';
+import { CardsState } from '../models/cardsState.model';
 import * as actions from './cards.actions';
-
-export interface CardsState {
-  data: Card[];
-  loaded: boolean;
-  loading: boolean;
-}
 
 export const initialState: CardsState = {
   data: [
@@ -25,7 +20,7 @@ export const initialState: CardsState = {
   loading: false
 };
 
-export function reducer(
+export function cardsReducer(
   state = initialState,
   action: actions.CardsAction
 ): CardsState {
@@ -43,6 +38,6 @@ export function reducer(
   return state;
 }
 
-export const getCards = (state: CardsState) => state.data;
-export const getPizzasLoaded = (state: CardsState) => state.loaded;
-export const getPizzasLoading = (state: CardsState) => state.loading;
+export const getCards = (state: CardsState): Card[] => state.data;
+export const getCardsLoaded = (state: CardsState) => state.loaded;
+export const getCardsLoading = (state: CardsState) => state.loading;

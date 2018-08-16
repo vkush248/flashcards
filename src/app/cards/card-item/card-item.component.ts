@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-card-item',
@@ -7,9 +7,8 @@ import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
   styleUrls: ['./card-item.component.scss']
 })
 export class CardItemComponent {
-  @Input() card;
+  @Input()
+  card;
 
-
-  constructor() { }
-
+  constructor() {}
 }

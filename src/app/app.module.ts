@@ -1,22 +1,19 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { StoreModule } from '@ngrx/store';
 import { AppComponent } from './app.component';
 import { routing } from './app.routes';
-/* import { CardDisplayComponent } from './card-display/card-display.component';
-import { CardItemComponent } from './card-item/card-item.component';
-import { CardUpdateComponent } from './card-update/card-update.component'; */
 import { HeaderComponent } from './header/header.component';
 import { CardService } from './services/card.service';
+import { cardsReducer } from './store/cards.reducer';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    /*  CardDisplayComponent,
-    CardItemComponent,
-    CardUpdateComponent, */
-    HeaderComponent
+  declarations: [AppComponent, HeaderComponent],
+  imports: [
+    BrowserModule,
+    routing,
+    StoreModule.forRoot({ cardsStore: cardsReducer })
   ],
-  imports: [BrowserModule, routing],
   providers: [CardService],
   bootstrap: [AppComponent]
 })
