@@ -1,20 +1,14 @@
 import { ModuleWithProviders } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CardDetailsComponent } from './card-details/card-details.component';
-import { CardDisplayComponent } from './card-display/card-display.component';
-import { CardUpdateComponent } from './card-update/card-update.component';
+import { CardEditComponent } from './card-edit/card-edit.component';
+import { CardListComponent } from './card-list/card-list.component';
 
 const cardsRoutes: Routes = [
-  { path: '', component: CardDisplayComponent },
-  { path: 'card-update', component: CardUpdateComponent },
+  { path: '', component: CardListComponent },
+
   {
-    path: 'card-details/:id',
-    component: CardDetailsComponent /* ,
-    children: [
-      { path: '', redirectTo: 'overview', pathMatch: 'full' },
-      { path: 'overview', component: 'OverviewComponent' },
-      { path: 'update', component: 'UpdateComponent' }
-    ] */
+    path: ':id',
+    component: CardEditComponent
   }
 ];
 

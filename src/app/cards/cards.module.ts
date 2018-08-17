@@ -1,15 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { CardService } from '../services/card.service';
-import { CardDisplayComponent } from './card-display/card-display.component';
+import { CardEditComponent } from './card-edit/card-edit.component';
 import { CardItemComponent } from './card-item/card-item.component';
-import { CardUpdateComponent } from './card-update/card-update.component';
+import { CardListComponent } from './card-list/card-list.component';
 import { routing } from './cards.routes';
-import { CardDetailsComponent } from './card-details/card-details.component';
+import { CardService } from './services/card.service';
 
 @NgModule({
   imports: [routing, CommonModule],
   providers: [CardService],
-  declarations: [CardDisplayComponent, CardUpdateComponent, CardItemComponent, CardDetailsComponent]
+  declarations: [CardListComponent, CardItemComponent, CardEditComponent]
 })
 export class CardsModule {}

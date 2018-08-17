@@ -1,11 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Card } from '../models/card.model';
+import { Store } from '@ngrx/store';
+import { Card } from '../../models/card.model';
+import { CardsState } from '../../models/cardsState.model';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class CardServiceOldie {
-  getCards(): Card[] {
+@Injectable()
+export class CardService {
+  constructor(private store: Store<CardsState>) {}
+
+  getCards(): any {
+    return this.store.select(data => data);
+  }
+
+  getMockedCards(): Card[] {
     return [
       {
         id: 1,
