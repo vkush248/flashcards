@@ -28,6 +28,6 @@ export class CardDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.cardsArray$.subscribe(console.log);
+    this.cardsArray$.subscribe(object => (this.card = object[0]));
   }
 }

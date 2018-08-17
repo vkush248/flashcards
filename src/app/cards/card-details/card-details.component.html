@@ -1,17 +1,15 @@
 <div>
   Details for card #{{id}}
 </div>
-<div>{{cardsArray$ | async | json}}</div>
-<!-- <div class="card">
-  <div class="id">{{ cardsArray$.id | async }}</div>
-  <div class="topic">{{ cardsArray$.topic | async }}</div>
+<div class="card">
+  <div class="id">{{ card.id }}</div>
+  <div class="topic">{{ card.topic }}</div>
   <div class="info">
-    <div class="word">{{ cardsArray$.wordEn | async }}</div>
-    <div class="example">{{ cardsArray$.exampleEn | async }}</div>
-    <div class="context">{{ cardsArray$.contextEn | async }}</div>
+    <div class="word">{{ card.wordEn }}</div>
+    <div class="example">{{ card.exampleEn }}</div>
+    <div class="context">{{ card.contextEn }}</div>
   </div>
   <div class="picture">
-    <img src="{{ cardsArray$.img | async }}" alt="{{ cardsArray$.wordRu | async }}">
+    <img src="{{ card.img }}" alt="{{ card.wordRu }}">
   </div>
 </div>
- -->
