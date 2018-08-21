@@ -93,3 +93,7 @@ video {
   font: inherit;
   vertical-align: baseline;
 }
+
+body {
+  padding: 20px;
+}

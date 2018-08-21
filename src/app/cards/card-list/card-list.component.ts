@@ -1,9 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { pluck } from 'rxjs/operators';
 import { Card } from '../../models/card.model';
-import { CardService } from '../services/card.service';
-
+import * as fromStore from '../../store';
 @Component({
   selector: 'app-card-list',
   templateUrl: './card-list.component.html',
@@ -12,11 +11,11 @@ import { CardService } from '../services/card.service';
 })
 export class CardListComponent implements OnInit {
   cardsArray$: Observable<Card[]>;
-  constructor(private cardService: CardService) {
-    this.cardsArray$ = this.cardService
-      .getCards()
-      .pipe(pluck('cardsStore', 'data'));
-  }
 
-  ngOnInit() {}
+  constructor(private store: Store<fromStore.ProductsState>) {}
+
+  ngOnInit() {
+    this.store.dispatch(new fromStore.LoadCards());
+    this.cardsArray$ = this.store.select(fromStore.getCardState);
+  }
 }
