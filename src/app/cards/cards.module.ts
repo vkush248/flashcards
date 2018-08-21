@@ -7,6 +7,7 @@ import { environment } from '../../environments/environment'; // Angular CLI env
 import { effects, reducers } from '../store';
 import { CardEditComponent } from './card-edit/card-edit.component';
 import { CardItemComponent } from './card-item/card-item.component';
+import { CardListContainerComponent } from './card-list/card-list-container.component';
 import { CardListComponent } from './card-list/card-list.component';
 import { routing } from './cards.routes';
 import { CardService } from './services/card.service';
@@ -24,6 +25,11 @@ import { CardService } from './services/card.service';
   ],
   providers: [CardService],
 
-  declarations: [CardListComponent, CardItemComponent, CardEditComponent]
+  declarations: [
+    CardListComponent,
+    CardItemComponent,
+    CardEditComponent,
+    CardListContainerComponent
+  ]
 })
 export class CardsModule {}
