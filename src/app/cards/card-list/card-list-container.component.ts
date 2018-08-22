@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Card } from '../../models/card.model';
@@ -6,21 +6,17 @@ import * as fromStore from '../../store';
 
 @Component({
   selector: 'app-card-list-container',
-  template: `
-    <div>
-      <app-card-list [cardsArray$]=cardsArray$></app-card-list>
-    </div>
-  `,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  styles: []
+  template: `<app-card-list [cards$]=cards$></app-card-list>`,
 })
-export class CardListContainerComponent implements OnInit {
-  cardsArray$: Observable<Card[]>;
+export class CardListContainerComponent {
+  cards$: Observable<Card[]>;
 
-  constructor(private store: Store<fromStore.ProductsState>) {}
-
-  ngOnInit() {
+  constructor(private store: Store<fromStore.ProductsState>) {
     this.store.dispatch(new fromStore.LoadCards());
-    this.cardsArray$ = this.store.select(fromStore.getCardState);
+    this.store
+      .select(fromStore.getCardState)
+      .subscribe((cards$: Observable<Card[]>) => {
+        this.cards$ = cards$;
+      });
   }
 }

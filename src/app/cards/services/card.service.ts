@@ -1,18 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Observable, of } from 'rxjs';
 import { Card } from '../../models/card.model';
-import { CardsState } from '../../models/cardsState.model';
 
 @Injectable()
 export class CardService {
-  constructor(private store: Store<CardsState>) {}
+  constructor() {}
 
-  getCards(): any {
-    return this.store.select(data => data);
-  }
-
-  getMockedCards(): Card[] {
-    return [
+  getMockedCards(): Observable<Card[]> {
+    return of([
       {
         id: 1,
         topic: 'Management',
@@ -24,7 +19,7 @@ export class CardService {
 
         wordRu: 'Ресурс',
         exampleRu: 'Неиспользованные ресурсы',
-        contextRu: 'Нам не хватало ресурсов, чтобы правильно выполнять работу.'
+        contextRu: 'Нам не хватало ресурсов, чтобы правильно выполнять работу.',
       },
       {
         id: 2,
@@ -32,15 +27,13 @@ export class CardService {
 
         wordEn: 'to сrave',
         exampleEn: 'crave attention',
-        contextEn:
-          'Humanity hungers for international peace, and we crave it with all mankind.',
-        img:
-          'https://pbs.twimg.com/profile_images/823404913371684864/1wOnvWmw_400x400.jpg',
+        contextEn: 'Humanity hungers for international peace, and we crave it with all mankind.',
+        img: 'https://pbs.twimg.com/profile_images/823404913371684864/1wOnvWmw_400x400.jpg',
 
         wordRu: 'жаждать',
         exampleRu: 'жаждать внимания',
         contextRu:
-          'Человечество жаждет международного мира, и мы жаждем его со всем человечеством.'
+          'Человечество жаждет международного мира, и мы жаждем его со всем человечеством.',
       },
       {
         id: 3,
@@ -55,8 +48,7 @@ export class CardService {
 
         wordRu: 'недопустимый',
         exampleRu: 'недопустимые доказательства',
-        contextRu:
-          'Такие предположения допустимы в космологии, но недопустимы в медицине.'
+        contextRu: 'Такие предположения допустимы в космологии, но недопустимы в медицине.',
       },
       {
         id: 4,
@@ -72,8 +64,8 @@ export class CardService {
         wordRu: 'абсурдный',
         exampleRu: 'нелепое предложение',
         contextRu:
-          'Нелепый свадебный контракт, согласно которому женщина должна любить, чтить и повиноваться мужу, является анахронизмом.'
-      }
-    ];
+          'Нелепый свадебный контракт, согласно которому женщина должна любить, чтить и повиноваться мужу, является анахронизмом.',
+      },
+    ]);
   }
 }

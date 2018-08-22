@@ -8,27 +8,27 @@ import { CardService } from '../services/card.service';
 @Component({
   selector: 'app-card-edit',
   templateUrl: './card-edit.component.html',
-  styleUrls: ['./card-edit.component.scss']
+  styleUrls: ['./card-edit.component.scss'],
 })
 export class CardEditComponent implements OnInit {
   id: number;
   card: Card;
   private sub: any;
-  cardsArray$: Observable<Card[]>;
+  cardsArray$: Observable<Card>;
 
   constructor(private route: ActivatedRoute, private cardService: CardService) {
     this.sub = this.route.params.subscribe(params => {
-      this.id = +params['id'];
+      this.id = parseInt(params['id'], 10);
     });
 
     this.cardsArray$ = this.cardService
-      .getCards()
-      .pipe(pluck('cardsStore', 'data'));
+      .getMockedCards()
+      .pipe(pluck(String(this.id - 1)));
   }
 
   ngOnInit(): void {
-    this.cardsArray$.subscribe(cardsArray => {
-      this.card = cardsArray.filter(val => val.id === this.id).pop();
+    this.cardsArray$.subscribe(card => {
+      this.card = card;
     });
   }
 }

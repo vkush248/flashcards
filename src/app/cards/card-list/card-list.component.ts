@@ -4,11 +4,12 @@ import { Card } from '../../models/card.model';
   selector: 'app-card-list',
   templateUrl: './card-list.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ['./card-list.component.scss']
+  styleUrls: ['./card-list.component.scss'],
 })
 export class CardListComponent {
-  @Input()
-  cardsArray$: Card[];
+  // tslint:disable-next-line:no-input-rename
+  @Input('cards$')
+  cards: Card[];
 
   constructor() {}
 }

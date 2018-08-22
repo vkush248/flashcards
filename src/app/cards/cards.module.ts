@@ -18,10 +18,7 @@ import { CardService } from './services/card.service';
     CommonModule,
     StoreModule.forRoot({ cardsStore: reducers.cards }),
     EffectsModule.forRoot(effects),
-    StoreDevtoolsModule.instrument({
-      maxAge: 25, //
-      logOnly: environment.production // Restrict extension to log-only mode
-    })
+    StoreDevtoolsModule.instrument({ logOnly: environment.production }),
   ],
   providers: [CardService],
 
@@ -29,7 +26,7 @@ import { CardService } from './services/card.service';
     CardListComponent,
     CardItemComponent,
     CardEditComponent,
-    CardListContainerComponent
-  ]
+    CardListContainerComponent,
+  ],
 })
 export class CardsModule {}
