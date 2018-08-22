@@ -7,8 +7,7 @@ import { Card } from '../../models/card.model';
   styleUrls: ['./card-list.component.scss'],
 })
 export class CardListComponent {
-  // tslint:disable-next-line:no-input-rename
-  @Input('cards$')
+  @Input()
   cards: Card[];
 
   constructor() {}

@@ -1,35 +1,26 @@
 import {
   ActionReducerMap,
   createFeatureSelector,
-  createSelector
+  createSelector,
 } from '@ngrx/store';
-import { CardsState } from '../../models/cardsState.model';
 import * as fromCards from './cards.reducer';
 
-export interface ProductsState {
-  cards: CardsState;
-  data?: any;
-}
-
-export const reducers: ActionReducerMap<ProductsState> = {
-  cards: fromCards.cardsReducer
+export const reducers: ActionReducerMap<fromCards.AppState> = {
+  cards: fromCards.cardsReducer,
 };
 
-export const getProductsState = createFeatureSelector<ProductsState>(
+export const getCardsFeature = createFeatureSelector<fromCards.AppState>(
   'cardsStore'
 );
 
-export const getCardState = createSelector(
-  getProductsState,
-  (state: ProductsState) => state.data
-);
+export const getAllCards = createSelector(getCardsFeature, fromCards.getCards);
 
-export const getAllCards = createSelector(getCardState, fromCards.getCards);
 export const getCardsLoaded = createSelector(
-  getCardState,
+  getAllCards,
   fromCards.getCardsLoaded
 );
+
 export const getCardsLoading = createSelector(
-  getCardState,
+  getAllCards,
   fromCards.getCardsLoading
 );

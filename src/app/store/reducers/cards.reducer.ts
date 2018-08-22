@@ -1,10 +1,18 @@
-import { CardsState } from '../../models/cardsState.model';
+import { Card } from '../../models/card.model';
 import * as actions from '../actions';
+export interface AppState {
+  cards: CardsState;
+}
+export interface CardsState {
+  cards: Card[];
+  loaded: boolean;
+  loading: boolean;
+}
 
 export const initialState: CardsState = {
-  data: [],
+  cards: [],
   loaded: false,
-  loading: false
+  loading: false,
 };
 
 export function cardsReducer(
@@ -17,12 +25,12 @@ export function cardsReducer(
     }
 
     case actions.LOAD_CARDS_SUCCESS: {
-      const data = action.payload;
+      const cards = action.payload;
       return {
         ...state,
         loading: false,
         loaded: true,
-        data
+        cards,
       };
     }
 
@@ -33,6 +41,6 @@ export function cardsReducer(
   return state;
 }
 
-export const getCards = (state: CardsState) => state.data;
+export const getCards = (state: AppState) => state.cards;
 export const getCardsLoaded = (state: CardsState) => state.loaded;
 export const getCardsLoading = (state: CardsState) => state.loading;
