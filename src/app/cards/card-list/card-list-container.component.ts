@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { Card } from '../../models/card.model';
-import * as fromStore from '../../store';
+import { Card } from '../models/card.model';
+import * as fromStore from '../store';
 
 @Component({
   selector: 'app-card-list-container',

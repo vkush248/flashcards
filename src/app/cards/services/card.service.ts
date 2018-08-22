@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Card } from '../../models/card.model';
+import { Card } from '../models/card.model';
 
 @Injectable()
 export class CardService {
@@ -27,8 +27,10 @@ export class CardService {
 
         wordEn: 'to сrave',
         exampleEn: 'crave attention',
-        contextEn: 'Humanity hungers for international peace, and we crave it with all mankind.',
-        img: 'https://pbs.twimg.com/profile_images/823404913371684864/1wOnvWmw_400x400.jpg',
+        contextEn:
+          'Humanity hungers for international peace, and we crave it with all mankind.',
+        img:
+          'https://pbs.twimg.com/profile_images/823404913371684864/1wOnvWmw_400x400.jpg',
 
         wordRu: 'жаждать',
         exampleRu: 'жаждать внимания',
@@ -48,7 +50,8 @@ export class CardService {
 
         wordRu: 'недопустимый',
         exampleRu: 'недопустимые доказательства',
-        contextRu: 'Такие предположения допустимы в космологии, но недопустимы в медицине.',
+        contextRu:
+          'Такие предположения допустимы в космологии, но недопустимы в медицине.',
       },
       {
         id: 4,

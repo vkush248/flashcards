@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { pluck } from 'rxjs/operators';
-import { Card } from '../../models/card.model';
+import { Card } from '../models/card.model';
 import { CardService } from '../services/card.service';
 
 @Component({
