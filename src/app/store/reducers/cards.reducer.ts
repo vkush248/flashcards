@@ -1,5 +1,11 @@
+import { ActionReducerMap } from '@ngrx/store';
 import { Card } from '../../models/card.model';
 import * as actions from '../actions';
+
+export const reducers: ActionReducerMap<AppState> = {
+  cards: cardsReducer,
+};
+
 export interface AppState {
   cards: CardsState;
 }
