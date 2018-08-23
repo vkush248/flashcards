@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { CardEditContainerComponent } from './card-edit/card-edit-container.component';
 import { CardEditComponent } from './card-edit/card-edit.component';
 import { CardListContainerComponent } from './card-list/card-list-container.component';
 import { CardListComponent } from './card-list/card-list.component';
@@ -22,8 +23,9 @@ import { effects, reducers } from './store';
 
   declarations: [
     CardListComponent,
-    CardEditComponent,
     CardListContainerComponent,
+    CardEditComponent,
+    CardEditContainerComponent,
   ],
 })
 export class CardsModule {}
