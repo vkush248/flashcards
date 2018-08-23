@@ -1,15 +1,18 @@
 <div>
   Details for card #{{id}}
 </div>
+<button (click)="previousPage()">Back to cards</button>
 <div class="row">
   <div class="col col-6 col-sm-12">
     <div class="card">
       <div class="id">{{ card.id }}</div>
-      <div class="topic">{{ cardEditor.controls.topic.value || card.topic }}</div>
+      <div class="topic">{{ !!cardEditor.controls.topic.value || card.topic }}</div>
+      <!-- I added !! to prevent eslint error message " Identifier
+      is not defined. '__type' does not contain such a member" -->
       <div class="info">
-        <div class="word">{{ cardEditor.controls.wordEn.value || card.wordEn }}</div>
-        <div class="example">{{ cardEditor.controls.exampleEn.value || card.exampleEn }}</div>
-        <div class="context">{{ cardEditor.controls.contextEn.value || card.contextEn }}</div>
+        <div class="word">{{ !!cardEditor.controls.wordEn.value || card.wordEn }}</div>
+        <div class="example">{{ !!cardEditor.controls.exampleEn.value || card.exampleEn }}</div>
+        <div class="context">{{ !!cardEditor.controls.contextEn.value || card.contextEn }}</div>
       </div>
       <div class="picture">
         <img src="{{ newImageUrl || card.img }}" alt="{{ card.wordRu }}">

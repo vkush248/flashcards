@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Card } from '../models/card.model';
 
@@ -13,11 +14,15 @@ export class CardEditComponent implements OnInit {
   newImageUrl: string;
   @Input() id: number;
   @Input() card: Card;
+  @Output() back: EventEmitter<void> = new EventEmitter();
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private _location: Location) { }
 
   updateCard(cardEditor: FormGroup) {
     console.log(cardEditor.getRawValue());
+  }
+  previousPage() {
+    this.back.emit();
   }
   previewImage(event: any) {
     if (event.target.files[0].type.startsWith('image/')) {
@@ -29,6 +34,7 @@ export class CardEditComponent implements OnInit {
     }
     console.log('Inappropriate file');
   }
+
   ngOnInit(): void {
     this.cardKeys = Object.keys(this.card).filter(key => key !== 'id');
 
