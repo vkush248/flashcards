@@ -12,7 +12,7 @@ export class CardsEffects {
   @Effect()
   loadCards$ = this.actions$.pipe(ofType(cardsActions.LOAD_CARDS)).pipe(
     switchMap((action: cardsActions.LoadCards) => {
-      return of(this.cardService.getMockedCards()).pipe(
+      return of(this.cardService.getCards()).pipe(
         map((cards: Card[]) => new cardsActions.LoadCardsSuccess(cards)),
         catchError((error: Error) => of(new cardsActions.LoadCardsError(error)))
       );

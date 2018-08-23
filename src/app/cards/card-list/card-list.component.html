@@ -1,2 +1,5 @@
-<app-card-item *ngFor="let card of cards | async" [card]="card">
-</app-card-item>
+<ul>
+  <li *ngFor="let card of cards | async">
+    <a [routerLink]="['./', card.id]">{{card.wordEn}}</a>
+  </li>
+</ul>

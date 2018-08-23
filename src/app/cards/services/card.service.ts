@@ -6,7 +6,7 @@ import { Card } from '../models/card.model';
 export class CardService {
   constructor() {}
 
-  getMockedCards(): Observable<Card[]> {
+  getCards(): Observable<Card[]> {
     return of([
       {
         id: 1,

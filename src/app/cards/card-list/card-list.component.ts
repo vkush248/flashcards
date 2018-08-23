@@ -7,8 +7,7 @@ import { Card } from '../models/card.model';
   styleUrls: ['./card-list.component.scss'],
 })
 export class CardListComponent {
-  @Input()
-  cards: Card[];
+  @Input() cards: Card[];
 
   constructor() {}
 }
