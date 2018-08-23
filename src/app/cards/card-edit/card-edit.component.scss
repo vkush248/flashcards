@@ -13,6 +13,7 @@ $font1: "Do Hyeon",
 $font2: "Open Sans",
 14px;
 .card {
+  margin: 0 auto;
   width: 450px;
   height: 150px;
   margin-top: 10px;
@@ -55,6 +56,23 @@ $font2: "Open Sans",
     img {
       width: 100%;
       height: 100%;
+    }
+  }
+}
+
+.card-editor {
+  label {
+    margin-bottom: 10px;
+    width: 450px;
+    display: inline-block;
+    position: relative;
+    input {
+      position: absolute;
+      right: 0px;
+      width: 75%;
+      border: none;
+      border: 1px solid black;
+      box-sizing: border-box;
     }
   }
 }
