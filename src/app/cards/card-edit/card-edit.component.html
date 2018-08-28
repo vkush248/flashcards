@@ -6,13 +6,11 @@
   <div class="col col-6 col-sm-12">
     <div class="card">
       <div class="id">{{ card.id }}</div>
-      <div class="topic">{{ !!cardEditor.controls.topic.value || card.topic }}</div>
-      <!-- I added !! to prevent eslint error message " Identifier
-      is not defined. '__type' does not contain such a member" -->
+      <div class="topic">{{ cardEditor['controls'].topic.value || card.topic }}</div>
       <div class="info">
-        <div class="word">{{ !!cardEditor.controls.wordEn.value || card.wordEn }}</div>
-        <div class="example">{{ !!cardEditor.controls.exampleEn.value || card.exampleEn }}</div>
-        <div class="context">{{ !!cardEditor.controls.contextEn.value || card.contextEn }}</div>
+        <div class="word">{{ cardEditor['controls'].wordEn.value || card.wordEn }}</div>
+        <div class="example">{{ cardEditor['controls'].exampleEn.value || card.exampleEn }}</div>
+        <div class="context">{{ cardEditor['controls'].contextEn.value || card.contextEn }}</div>
       </div>
       <div class="picture">
         <img src="{{ newImageUrl || card.img }}" alt="{{ card.wordRu }}">
@@ -21,16 +19,16 @@
   </div>
 
   <div class="col col-6 col-sm-12">
-    <form [formGroup]="cardEditor" (ngSubmit)="updateCard(cardEditor)">
+    <form [formGroup]="cardEditor" (ngSubmit)="updateCard(cardEditor.value)">
       <div *ngFor="let key of cardKeys" class="card-editor">
         <label>{{key}}
-          <input type="text" formControlName="{{key}}" *ngIf="key!=='img'; else imageBlock">
+          <input type="text" formControlName="{{key}}" placeholder="{{card[key]}}" *ngIf="key!=='img'; else imageBlock">
           <ng-template #imageBlock>
             <input type="file" formControlName="{{key}}" (change)="previewImage($event)">
           </ng-template>
         </label>
       </div>
-      <button type="submit ">Submit</button>
+      <button type="submit">Save</button>
     </form>
   </div>
 </div>

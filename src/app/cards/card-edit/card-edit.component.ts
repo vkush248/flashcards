@@ -15,12 +15,15 @@ export class CardEditComponent implements OnInit {
   @Input() id: number;
   @Input() card: Card;
   @Output() back: EventEmitter<void> = new EventEmitter();
+  @Output() subm: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private fb: FormBuilder, private _location: Location) { }
 
-  updateCard(cardEditor: FormGroup) {
-    console.log(cardEditor.getRawValue());
+  updateCard(newCard) {
+    newCard.id = this.id;
+    this.subm.emit(newCard);
   }
+
   previousPage() {
     this.back.emit();
   }
@@ -31,8 +34,7 @@ export class CardEditComponent implements OnInit {
         this.newImageUrl = eventReader.target.result;
       };
       reader.readAsDataURL(event.target.files[0]);
-    }
-    console.log('Inappropriate file');
+    } else { console.log('Inappropriate file'); }
   }
 
   ngOnInit(): void {

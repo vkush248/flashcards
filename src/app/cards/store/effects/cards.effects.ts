@@ -7,14 +7,26 @@ import { CardService } from '../../services/card.service';
 import * as cardsActions from '../actions';
 @Injectable()
 export class CardsEffects {
-  constructor(private actions$: Actions, private cardService: CardService) {}
+  constructor(private actions$: Actions, private cardService: CardService) { }
 
   @Effect()
   loadCards$ = this.actions$.pipe(ofType(cardsActions.LOAD_CARDS)).pipe(
     switchMap((action: cardsActions.LoadCards) => {
-      return of(this.cardService.getCards()).pipe(
+      return this.cardService.getCards().pipe(
         map((cards: Card[]) => new cardsActions.LoadCardsSuccess(cards)),
         catchError((error: Error) => of(new cardsActions.LoadCardsError(error)))
+      );
+    })
+  );
+
+  @Effect()
+  updateCard$ = this.actions$.pipe(ofType(cardsActions.UPDATE_CARD)).pipe(
+    map((action: cardsActions.UpdateCard) => action.payload),
+    switchMap(card$ => {
+      return this.cardService.updateCard(card$)
+        .pipe(
+          map(card => new cardsActions.UpdateCardSuccess(card)),
+          catchError(error => of(new cardsActions.UpdateCardError(error))),
       );
     })
   );

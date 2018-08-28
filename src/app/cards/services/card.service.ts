@@ -4,7 +4,7 @@ import { Card } from '../models/card.model';
 
 @Injectable()
 export class CardService {
-  constructor() {}
+  constructor() { }
 
   getCards(): Observable<Card[]> {
     return of([
@@ -70,5 +70,8 @@ export class CardService {
           'Нелепый свадебный контракт, согласно которому женщина должна любить, чтить и повиноваться мужу, является анахронизмом.',
       },
     ]);
+  }
+  updateCard(card: Card): Observable<Card> {
+    return of(card);
   }
 }

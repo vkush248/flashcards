@@ -1,7 +1,6 @@
 import { ActionReducerMap } from '@ngrx/store';
 import { Card } from '../../models/card.model';
 import * as actions from '../actions';
-
 export const reducers: ActionReducerMap<AppState> = {
   cards: cardsReducer,
 };
@@ -42,6 +41,24 @@ export function cardsReducer(
 
     case actions.LOAD_CARDS_ERROR: {
       return { ...state, loading: false, loaded: false };
+    }
+
+    case actions.UPDATE_CARD: {
+      return { ...state, loading: true, loaded: false };
+    }
+
+    case actions.UPDATE_CARD_ERROR: {
+      return { ...state, loading: false, loaded: false };
+    }
+    case actions.UPDATE_CARD_SUCCESS: {
+      const card = action.payload;
+      const cards = [
+        ...state.cards.map(x => {
+          return (x.id === card.id) ? card : x;
+        })
+      ];
+
+      return { ...state, loading: false, loaded: true, cards };
     }
   }
   return state;
