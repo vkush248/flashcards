@@ -6,6 +6,7 @@ import { CardListContainerComponent } from './card-list/card-list-container.comp
 const cardsRoutes: Routes = [
   { path: '', component: CardListContainerComponent },
   { path: ':id', component: CardEditContainerComponent },
+  { path: '/new', component: CardEditContainerComponent },
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forChild(cardsRoutes);

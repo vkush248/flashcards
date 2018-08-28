@@ -17,7 +17,7 @@ export class CardEditContainerComponent implements OnInit, OnDestroy {
   card$: Observable<Card>;
   card: Card;
   id: number;
-  private sub: any;
+  private sub$: any;
   cardSubscription$: Subscription;
 
   previousPage() {
@@ -39,12 +39,16 @@ export class CardEditContainerComponent implements OnInit, OnDestroy {
     private _location: Location,
     private store: Store<fromStore.AppState>
   ) {
-    this.sub = this.route.params.subscribe(params => {
+    this.sub$ = this.route.params.subscribe(params => {
       this.id = parseInt(params['id'], 10);
     });
-    this.card$ = this.cardService
-      .getCards()
-      .pipe(pluck(String(this.id - 1)));
+    if (this.id) {
+      this.card$ = this.cardService
+        .getCards()
+        .pipe(pluck(String(this.id - 1)));
+    } else {
+      this.card$ = this.cardService.generateDefaultCard();
+    }
   }
 
   ngOnInit(): void {
@@ -55,6 +59,6 @@ export class CardEditContainerComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.cardSubscription$.unsubscribe();
-    this.sub.unsubscribe();
+    this.sub$.unsubscribe();
   }
 }

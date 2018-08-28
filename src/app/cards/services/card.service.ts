@@ -74,4 +74,22 @@ export class CardService {
   updateCard(card: Card): Observable<Card> {
     return of(card);
   }
+  generateDefaultCard(): Observable<Card> {
+    return of({
+      id: 564546,
+      topic: 'Default',
+
+      wordEn: 'Default',
+      exampleEn: 'Default',
+      contextEn:
+        'Default',
+      img:
+        'https://via.placeholder.com/100x100',
+
+      wordRu: 'Default',
+      exampleRu: 'Default',
+      contextRu:
+        'Default',
+    });
+  }
 }

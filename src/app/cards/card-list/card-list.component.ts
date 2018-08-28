@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Card } from '../models/card.model';
 @Component({
   selector: 'app-card-list',
@@ -8,6 +8,11 @@ import { Card } from '../models/card.model';
 })
 export class CardListComponent {
   @Input() cards: Card[];
+  @Output()
+  addCard = new EventEmitter();
 
-  constructor() {}
+  goToAddCard() {
+    this.addCard.emit();
+  }
+  constructor() { }
 }

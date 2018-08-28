@@ -50,13 +50,18 @@ export function cardsReducer(
     case actions.UPDATE_CARD_ERROR: {
       return { ...state, loading: false, loaded: false };
     }
+
     case actions.UPDATE_CARD_SUCCESS: {
       const card = action.payload;
-      const cards = [
-        ...state.cards.map(x => {
-          return (x.id === card.id) ? card : x;
-        })
-      ];
+      const cards = ([...state.cards].some(x => x.id === card.id))
+        ? [
+          ...state.cards.map(x => {
+            return (x.id === card.id) ? card : x;
+          })
+        ]
+        : [
+          ...state.cards, card
+        ];
 
       return { ...state, loading: false, loaded: true, cards };
     }
