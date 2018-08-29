@@ -1,16 +1,24 @@
 import { Location } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material';
 import { Card } from '../models/card.model';
+import { ConfirmDeletingComponent } from './confirm-deleting-component';
+
+export interface DialogData {
+  answer: string;
+}
 
 @Component({
   selector: 'app-card-edit',
   templateUrl: './card-edit.component.html',
   styleUrls: ['./card-edit.component.scss'],
+
 })
 export class CardEditComponent implements OnInit {
   cardKeys: Array<any>;
   cardEditor: FormGroup;
+  answer: string;
   @Input() id: number;
   @Input() newImageUrl: string;
   @Input() card: Card;
@@ -19,15 +27,27 @@ export class CardEditComponent implements OnInit {
   @Output() preview: EventEmitter<any> = new EventEmitter<any>();
   @Output() delete: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private fb: FormBuilder, private _location: Location) { }
+  constructor(
+    private fb: FormBuilder,
+    private _location: Location,
+    public dialog: MatDialog,
+  ) { }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(ConfirmDeletingComponent, {
+      width: '250px',
+      data: { answer: this.answer }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      result && this.delete.emit(this.card);
+    });
+  }
 
   updateCard(newCard: Card) {
     this.subm.emit(newCard);
   }
-  deleteCard(card: Card) {
-    const agreement = confirm('Are you sure?');
-    if (agreement) { this.delete.emit(card); }
-  }
+
   previousPage() {
     this.back.emit();
   }

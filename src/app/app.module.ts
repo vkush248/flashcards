@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { MatButtonModule, MatToolbarModule } from '@angular/material';
+import { MatButtonModule, MatButtonToggleModule, MatToolbarModule } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EffectsModule } from '@ngrx/effects';
@@ -17,11 +17,13 @@ import { HeaderComponent } from './header/header.component';
     routing,
     BrowserAnimationsModule,
     MatButtonModule,
+    MatButtonToggleModule,
     MatToolbarModule,
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({ logOnly: environment.production }),
   ],
+
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
