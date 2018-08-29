@@ -17,6 +17,7 @@ import * as fromStore from '../store';
     [card]="card"
     (preview)="previewImage($event)"
     (subm)="onUpdateCard($event)"
+    (delete)="deleteCard($event)"
     (back)="previousPage()" >
   </app-card-edit>`,
   styles: [],
@@ -32,6 +33,9 @@ export class CardEditContainerComponent implements OnInit, OnDestroy {
 
   previousPage() {
     this._location.back();
+  }
+  deleteCard(card: Card) {
+    this.store.dispatch(new fromStore.DeleteCard(card));
   }
 
   previewImage(event) {

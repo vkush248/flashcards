@@ -69,6 +69,18 @@ export function cardsReducer(
       const cards = [...state.cards, card];
       return { ...state, loading: false, loaded: true, cards };
     }
+
+    case actions.DELETE_CARD: {
+      return { ...state, loading: true, loaded: false };
+    }
+    case actions.DELETE_CARD_ERROR: {
+      return { ...state, loading: false, loaded: false };
+    }
+    case actions.DELETE_CARD_SUCCESS: {
+      const card = action.payload;
+      const cards = [...state.cards.filter(x => x.id !== card.id)];
+      return { ...state, loading: false, loaded: true, cards };
+    }
   }
   return state;
 }

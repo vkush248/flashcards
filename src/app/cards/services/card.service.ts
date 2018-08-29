@@ -77,6 +77,9 @@ export class CardService {
   addCard(card: Card): Observable<Card> {
     return of(card);
   }
+  deleteCard(card: Card): Observable<Card> {
+    return of(card);
+  }
   generateDefaultCard(): Observable<Card> {
     return of({
       id: 564546,

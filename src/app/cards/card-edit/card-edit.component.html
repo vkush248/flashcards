@@ -16,6 +16,9 @@
         <img src="{{ newImageUrl || card.img }}" alt="{{ card.wordRu }}">
       </div>
     </div>
+    <button *ngIf="id" (click)="deleteCard(card)">
+      Delete card "{{card.wordEn}}""
+    </button>
   </div>
 
   <div class="col col-6 col-sm-12">

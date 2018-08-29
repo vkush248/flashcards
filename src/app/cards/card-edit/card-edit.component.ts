@@ -17,13 +17,17 @@ export class CardEditComponent implements OnInit {
   @Output() back: EventEmitter<void> = new EventEmitter();
   @Output() subm: EventEmitter<any> = new EventEmitter<any>();
   @Output() preview: EventEmitter<any> = new EventEmitter<any>();
+  @Output() delete: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private fb: FormBuilder, private _location: Location) { }
 
   updateCard(newCard: Card) {
     this.subm.emit(newCard);
   }
-
+  deleteCard(card: Card) {
+    const agreement = confirm('Are you sure?');
+    if (agreement) { this.delete.emit(card); }
+  }
   previousPage() {
     this.back.emit();
   }
