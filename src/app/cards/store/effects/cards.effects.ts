@@ -30,4 +30,16 @@ export class CardsEffects {
       );
     })
   );
+
+  @Effect()
+  addCard$ = this.actions$.pipe(ofType(cardsActions.ADD_CARD)).pipe(
+    map((action: cardsActions.AddCard) => action.payload),
+    switchMap(card$ => {
+      return this.cardService.addCard(card$)
+        .pipe(
+          map(card => new cardsActions.AddCardSuccess(card)),
+          catchError(error => of(new cardsActions.AddCardError(error))),
+      );
+    })
+  );
 }

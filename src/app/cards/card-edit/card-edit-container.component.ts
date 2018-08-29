@@ -21,6 +21,7 @@ import * as fromStore from '../store';
   </app-card-edit>`,
   styles: [],
 })
+
 export class CardEditContainerComponent implements OnInit, OnDestroy {
   card$: Observable<Card>;
   card: Card;
@@ -32,6 +33,7 @@ export class CardEditContainerComponent implements OnInit, OnDestroy {
   previousPage() {
     this._location.back();
   }
+
   previewImage(event) {
     if (event.target.files[0].type.startsWith('image/')) {
       const reader = new FileReader();
@@ -41,6 +43,7 @@ export class CardEditContainerComponent implements OnInit, OnDestroy {
       reader.readAsDataURL(event.target.files[0]);
     } else { console.log('Inappropriate file'); }
   }
+
   onUpdateCard(card: Card) {
     card.id = this.id;
     for (const key in card) {
@@ -48,7 +51,21 @@ export class CardEditContainerComponent implements OnInit, OnDestroy {
         card[key] = this.card[key];
       }
     }
-    this.store.dispatch(new fromStore.UpdateCard(card));
+    if (this.id) {
+      this.store.dispatch(new fromStore.UpdateCard(card));
+    } else {
+      this.store.dispatch(new fromStore.AddCard(card));
+    }
+  }
+
+  downloadCardData() {
+    if (this.id) {
+      this.card$ = this.cardService
+        .getCards()
+        .pipe(pluck(String(this.id - 1)));
+    } else {
+      this.card$ = this.cardService.generateDefaultCard();
+    }
   }
 
   constructor(
@@ -60,13 +77,7 @@ export class CardEditContainerComponent implements OnInit, OnDestroy {
     this.sub$ = this.route.params.subscribe(params => {
       this.id = parseInt(params['id'], 10);
     });
-    if (this.id) {
-      this.card$ = this.cardService
-        .getCards()
-        .pipe(pluck(String(this.id - 1)));
-    } else {
-      this.card$ = this.cardService.generateDefaultCard();
-    }
+    this.downloadCardData();
   }
 
   ngOnInit(): void {
