@@ -10,7 +10,15 @@ import * as fromStore from '../store';
 
 @Component({
   selector: 'app-card-edit-container',
-  template: `<app-card-edit [id]="id" [card]="card" (subm)="onUpdateCard($event)" (back)="previousPage()" ></app-card-edit>`,
+  template: `
+  <app-card-edit
+    [id]="id"
+    [newImageUrl]="newImageUrl"
+    [card]="card"
+    (preview)="previewImage($event)"
+    (subm)="onUpdateCard($event)"
+    (back)="previousPage()" >
+  </app-card-edit>`,
   styles: [],
 })
 export class CardEditContainerComponent implements OnInit, OnDestroy {
@@ -18,13 +26,23 @@ export class CardEditContainerComponent implements OnInit, OnDestroy {
   card: Card;
   id: number;
   private sub$: any;
+  newImageUrl: string;
   cardSubscription$: Subscription;
 
   previousPage() {
     this._location.back();
   }
-
+  previewImage(event) {
+    if (event.target.files[0].type.startsWith('image/')) {
+      const reader = new FileReader();
+      reader.onload = (eventReader: any) => {
+        this.newImageUrl = eventReader.target.result;
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    } else { console.log('Inappropriate file'); }
+  }
   onUpdateCard(card: Card) {
+    card.id = this.id;
     for (const key in card) {
       if (card.hasOwnProperty(key) && !card[key]) {
         card[key] = this.card[key];

@@ -11,30 +11,24 @@ import { Card } from '../models/card.model';
 export class CardEditComponent implements OnInit {
   cardKeys: Array<any>;
   cardEditor: FormGroup;
-  newImageUrl: string;
   @Input() id: number;
+  @Input() newImageUrl: string;
   @Input() card: Card;
   @Output() back: EventEmitter<void> = new EventEmitter();
   @Output() subm: EventEmitter<any> = new EventEmitter<any>();
+  @Output() preview: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private fb: FormBuilder, private _location: Location) { }
 
-  updateCard(newCard) {
-    newCard.id = this.id;
+  updateCard(newCard: Card) {
     this.subm.emit(newCard);
   }
 
   previousPage() {
     this.back.emit();
   }
-  previewImage(event: any) {
-    if (event.target.files[0].type.startsWith('image/')) {
-      const reader = new FileReader();
-      reader.onload = (eventReader: any) => {
-        this.newImageUrl = eventReader.target.result;
-      };
-      reader.readAsDataURL(event.target.files[0]);
-    } else { console.log('Inappropriate file'); }
+  previewImage(event: Event) {
+    this.preview.emit(event);
   }
 
   ngOnInit(): void {
