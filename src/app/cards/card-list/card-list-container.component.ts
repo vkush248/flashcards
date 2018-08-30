@@ -7,7 +7,7 @@ import { CardsState } from '../store';
 
 @Component({
   selector: 'app-card-list-container',
-  template: `<app-card-list [cards]="cards$ | async" (addCard)="goToAddCard($event)"></app-card-list>`,
+  template: `<app-card-list [cards]="cards$ | async"></app-card-list>`,
 })
 
 export class CardListContainerComponent {
@@ -16,9 +16,5 @@ export class CardListContainerComponent {
   constructor(private store: Store<fromStore.AppState>, private router: Router) {
     this.store.dispatch(new fromStore.LoadCards());
     this.cards$ = this.store.select(fromStore.selectCards);
-  }
-
-  goToAddCard() {
-    this.router.navigate(['/cards/new']);
   }
 }

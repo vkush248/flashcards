@@ -3,4 +3,4 @@
     <a [routerLink]="['./', card.id]">{{card.wordEn}}</a>
   </li>
 </ul>
-<button (click)="goToAddCard()">Add Card</button>
+<button [routerLink]="['./new']">Add Card</button>
