@@ -20,11 +20,9 @@ export class CardEditComponent implements OnInit {
   cardEditor: FormGroup;
   answer: string;
   @Input() id: number;
-  @Input() newImageUrl: string;
   @Input() card: Card;
   @Output() back: EventEmitter<void> = new EventEmitter();
   @Output() subm: EventEmitter<any> = new EventEmitter<any>();
-  @Output() preview: EventEmitter<any> = new EventEmitter<any>();
   @Output() delete: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
@@ -40,34 +38,31 @@ export class CardEditComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      result && this.delete.emit(this.card);
+      if (result) { this.delete.emit(this.card); }
     });
   }
 
   updateCard(newCard: Card) {
+    newCard.img = this.card.img;
     this.subm.emit(newCard);
   }
 
   previousPage() {
     this.back.emit();
   }
-  previewImage(event: Event) {
-    this.preview.emit(event);
-  }
 
   ngOnInit(): void {
     this.cardKeys = Object.keys(this.card).filter(key => key !== 'id');
 
     this.cardEditor = this.fb.group({
-      id: new FormControl(''),
-      topic: new FormControl(''),
-      wordEn: new FormControl(''),
-      exampleEn: new FormControl(''),
-      contextEn: new FormControl(''),
-      img: new FormControl(''),
-      wordRu: new FormControl(''),
-      exampleRu: new FormControl(''),
-      contextRu: new FormControl(''),
+      id: new FormControl(this.card.id),
+      topic: new FormControl(this.card.topic),
+      wordEn: new FormControl(this.card.wordEn),
+      exampleEn: new FormControl(this.card.exampleEn),
+      contextEn: new FormControl(this.card.contextEn),
+      wordRu: new FormControl(this.card.wordRu),
+      exampleRu: new FormControl(this.card.exampleRu),
+      contextRu: new FormControl(this.card.contextRu),
     });
   }
 }

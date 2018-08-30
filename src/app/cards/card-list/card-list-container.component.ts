@@ -11,11 +11,13 @@ import { CardsState } from '../store';
 })
 export class CardListContainerComponent {
   cards$: Observable<CardsState>;
-  goToAddCard() {
-    this.router.navigate(['/cards/new']);
-  }
+
   constructor(private store: Store<fromStore.AppState>, private router: Router) {
     this.store.dispatch(new fromStore.LoadCards());
     this.cards$ = this.store.select(fromStore.selectCards);
+  }
+
+  goToAddCard() {
+    this.router.navigate(['/cards/new']);
   }
 }

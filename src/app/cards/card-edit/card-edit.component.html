@@ -13,7 +13,7 @@
         <div class="context">{{ cardEditor['controls'].contextEn.value || card.contextEn }}</div>
       </div>
       <div class="picture">
-        <img src="{{ newImageUrl || card.img }}" alt="{{ card.wordRu }}">
+        <img src="{{ card.img }}" alt="{{ card.wordRu }}">
       </div>
     </div>
     <button mat-raised-button (click)="openDialog()"> Delete card "{{card.wordEn}}""</button>
@@ -22,11 +22,8 @@
   <div class="col col-6 col-sm-12">
     <form [formGroup]="cardEditor" (ngSubmit)="updateCard(cardEditor.value)">
       <div *ngFor="let key of cardKeys" class="card-editor">
-        <label>{{key}}
-          <input type="text" formControlName="{{key}}" placeholder="{{card[key]}}" *ngIf="key!=='img'; else imageBlock">
-          <ng-template #imageBlock>
-            <input type="file" formControlName="{{key}}" (change)="previewImage($event)">
-          </ng-template>
+        <label *ngIf="key!=='img'">{{key}}
+          <input type="text" formControlName="{{key}}" placeholder="{{card[key]}}">
         </label>
       </div>
       <button type="submit">Save</button>
