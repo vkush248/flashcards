@@ -8,11 +8,11 @@ import { Card } from '../models/card.model';
 })
 export class CardListComponent {
   @Input() cards: Card[];
-  @Output()
-  addCard = new EventEmitter();
+  @Output() addCard = new EventEmitter();
+
+  constructor() { }
 
   goToAddCard() {
     this.addCard.emit();
   }
-  constructor() { }
 }

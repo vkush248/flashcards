@@ -15,7 +15,7 @@ import * as fromStore from '../store';
     [card]="card$ | async"
     (subm)="onUpdateCard($event)"
     (delete)="deleteCard($event)"
-    (back)="previousPage()" >
+    (back)="goBack()" >
   </app-card-edit>`,
   styles: [],
 })
@@ -38,7 +38,7 @@ export class CardEditContainerComponent {
     this.downloadCardData();
   }
 
-  previousPage() {
+  goBack() {
     this._location.back();
   }
 

@@ -12,6 +12,7 @@ import { CardListComponent } from './card-list/card-list.component';
 import { routing } from './cards.routes';
 import { CardService } from './services/card.service';
 import { effects, reducers } from './store';
+
 @NgModule({
   imports: [
     routing,
@@ -33,4 +34,5 @@ import { effects, reducers } from './store';
     ConfirmDeletingComponent
   ],
 })
+
 export class CardsModule { }

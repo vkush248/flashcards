@@ -23,7 +23,7 @@ import { HeaderComponent } from './header/header.component';
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({ logOnly: environment.production }),
   ],
-
   bootstrap: [AppComponent],
 })
+
 export class AppModule { }

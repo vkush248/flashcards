@@ -9,6 +9,7 @@ import { CardsState } from '../store';
   selector: 'app-card-list-container',
   template: `<app-card-list [cards]="cards$ | async" (addCard)="goToAddCard($event)"></app-card-list>`,
 })
+
 export class CardListContainerComponent {
   cards$: Observable<CardsState>;
 

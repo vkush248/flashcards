@@ -13,8 +13,8 @@ export interface DialogData {
   selector: 'app-card-edit',
   templateUrl: './card-edit.component.html',
   styleUrls: ['./card-edit.component.scss'],
-
 })
+
 export class CardEditComponent implements OnInit {
   cardKeys: Array<any>;
   cardEditor: FormGroup;
@@ -26,17 +26,30 @@ export class CardEditComponent implements OnInit {
   @Output() delete: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
+    public dialog: MatDialog,
     private fb: FormBuilder,
     private _location: Location,
-    public dialog: MatDialog,
   ) { }
+
+  ngOnInit(): void {
+    this.cardKeys = Object.keys(this.card).filter(key => key !== 'id');
+    this.cardEditor = this.fb.group({
+      id: new FormControl(this.card.id),
+      topic: new FormControl(this.card.topic),
+      wordEn: new FormControl(this.card.wordEn),
+      exampleEn: new FormControl(this.card.exampleEn),
+      contextEn: new FormControl(this.card.contextEn),
+      wordRu: new FormControl(this.card.wordRu),
+      exampleRu: new FormControl(this.card.exampleRu),
+      contextRu: new FormControl(this.card.contextRu),
+    });
+  }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(ConfirmDeletingComponent, {
       width: '250px',
       data: { answer: this.answer }
     });
-
     dialogRef.afterClosed().subscribe(result => {
       if (result) { this.delete.emit(this.card); }
     });
@@ -49,20 +62,5 @@ export class CardEditComponent implements OnInit {
 
   previousPage() {
     this.back.emit();
-  }
-
-  ngOnInit(): void {
-    this.cardKeys = Object.keys(this.card).filter(key => key !== 'id');
-
-    this.cardEditor = this.fb.group({
-      id: new FormControl(this.card.id),
-      topic: new FormControl(this.card.topic),
-      wordEn: new FormControl(this.card.wordEn),
-      exampleEn: new FormControl(this.card.exampleEn),
-      contextEn: new FormControl(this.card.contextEn),
-      wordRu: new FormControl(this.card.wordRu),
-      exampleRu: new FormControl(this.card.exampleRu),
-      contextRu: new FormControl(this.card.contextRu),
-    });
   }
 }

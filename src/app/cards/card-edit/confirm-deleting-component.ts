@@ -6,6 +6,7 @@ import { DialogData } from './card-edit.component';
   selector: 'app-confirm-deleting',
   templateUrl: 'confirm-deleting-component.html',
 })
+
 export class ConfirmDeletingComponent {
   constructor(
     public dialogRef: MatDialogRef<ConfirmDeletingComponent>,

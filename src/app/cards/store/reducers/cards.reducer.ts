@@ -46,24 +46,27 @@ export function cardsReducer(
     case actions.UPDATE_CARD: {
       return { ...state, loading: true, loaded: false };
     }
+
     case actions.UPDATE_CARD_ERROR: {
       return { ...state, loading: false, loaded: false };
     }
+
     case actions.UPDATE_CARD_SUCCESS: {
       const card = action.payload;
       const cards = [
         ...state.cards.map(x => (x.id === card.id) ? card : x),
       ];
-
       return { ...state, loading: false, loaded: true, cards };
     }
 
     case actions.ADD_CARD: {
       return { ...state, loading: true, loaded: false };
     }
+
     case actions.ADD_CARD_ERROR: {
       return { ...state, loading: false, loaded: false };
     }
+
     case actions.ADD_CARD_SUCCESS: {
       const card = action.payload;
       const cards = [...state.cards, card];
@@ -73,9 +76,11 @@ export function cardsReducer(
     case actions.DELETE_CARD: {
       return { ...state, loading: true, loaded: false };
     }
+
     case actions.DELETE_CARD_ERROR: {
       return { ...state, loading: false, loaded: false };
     }
+
     case actions.DELETE_CARD_SUCCESS: {
       const card = action.payload;
       const cards = [...state.cards.filter(x => x.id !== card.id)];
