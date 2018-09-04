@@ -19,7 +19,7 @@ export class CardEditComponent implements OnChanges {
   cardKeys: Array<any>;
   form: FormGroup;
   answer: string;
-  @Input() id: number;
+  @Input() id: string;
   @Input() card: Card;
   @Output() back: EventEmitter<void> = new EventEmitter();
   @Output() save: EventEmitter<any> = new EventEmitter<any>();

@@ -6,7 +6,7 @@ import { Card } from '../models/card.model';
 export class CardService {
   cards: Card[] = [
     {
-      id: 123,
+      id: '123',
       topic: 'Management',
       wordEn: 'a resource',
       exampleEn: 'untapped resources',
@@ -17,7 +17,7 @@ export class CardService {
       contextRu: 'Нам не хватало ресурсов, чтобы правильно выполнять работу.',
     },
     {
-      id: 232,
+      id: '232',
       topic: 'Feelings',
       wordEn: 'to сrave',
       exampleEn: 'crave attention',
@@ -28,7 +28,7 @@ export class CardService {
       contextRu: 'Человечество жаждет международного мира, и мы жаждем его со всем человечеством.',
     },
     {
-      id: 323,
+      id: '323',
       topic: 'Adjectives',
       wordEn: 'inadmissible',
       exampleEn: 'inadmissible evidence',
@@ -39,7 +39,7 @@ export class CardService {
       contextRu: 'Такие предположения допустимы в космологии, но недопустимы в медицине.',
     },
     {
-      id: 487,
+      id: '487',
       topic: 'Adjectives',
       wordEn: 'preposterous',
       exampleEn: 'preposterous suggestion',
@@ -68,12 +68,17 @@ export class CardService {
   }
 
   addCard(card: Card): Observable<Card> {
+    card = { ...card, id: this.generateId() };
     this.cards = [...this.cards, card];
     return of(card);
   }
 
-  deleteCard(id: Number): Observable<boolean> {
+  deleteCard(id: String): Observable<boolean> {
     this.cards = this.cards.filter(x => x.id !== id);
     return of(true);
+  }
+
+  generateId(): string {
+    return Math.random().toString(36).slice(2);
   }
 }
