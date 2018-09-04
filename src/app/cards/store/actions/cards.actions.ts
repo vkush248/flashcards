@@ -25,7 +25,7 @@ export class LoadCardsSuccess implements Action {
 
 export class LoadCardsError implements Action {
   readonly type = LOAD_CARDS_ERROR;
-  constructor(public payload: any) { }
+  constructor(public payload: Error) { }
 }
 
 export class UpdateCard implements Action {
@@ -40,7 +40,7 @@ export class UpdateCardSuccess implements Action {
 
 export class UpdateCardError implements Action {
   readonly type = UPDATE_CARD_ERROR;
-  constructor(public payload: any) { }
+  constructor(public payload: Error) { }
 }
 
 export class AddCard implements Action {
@@ -55,7 +55,7 @@ export class AddCardSuccess implements Action {
 
 export class AddCardError implements Action {
   readonly type = ADD_CARD_ERROR;
-  constructor(public payload: any) { }
+  constructor(public payload: Error) { }
 }
 
 export class DeleteCard implements Action {
@@ -70,7 +70,7 @@ export class DeleteCardSuccess implements Action {
 
 export class DeleteCardError implements Action {
   readonly type = DELETE_CARD_ERROR;
-  constructor(public payload: any) { }
+  constructor(public payload: Error) { }
 }
 
 export type CardsAction =

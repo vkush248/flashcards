@@ -23,8 +23,8 @@ export class CardsEffects {
   @Effect()
   updateCard$ = this.actions$.pipe(ofType(cardsActions.UPDATE_CARD)).pipe(
     map((action: cardsActions.UpdateCard) => action.payload),
-    switchMap(card$ => {
-      return this.cardService.updateCard(card$)
+    switchMap(card => {
+      return this.cardService.updateCard(card)
         .pipe(
           map(card => new cardsActions.UpdateCardSuccess(card)),
           catchError(error => of(new cardsActions.UpdateCardError(error))),
@@ -35,8 +35,8 @@ export class CardsEffects {
   @Effect()
   addCard$ = this.actions$.pipe(ofType(cardsActions.ADD_CARD)).pipe(
     map((action: cardsActions.AddCard) => action.payload),
-    switchMap(card$ => {
-      return this.cardService.addCard(card$)
+    switchMap(card => {
+      return this.cardService.addCard(card)
         .pipe(
           map(card => new cardsActions.AddCardSuccess(card)),
           catchError(error => of(new cardsActions.AddCardError(error))),
@@ -47,10 +47,10 @@ export class CardsEffects {
   @Effect()
   deleteCard$ = this.actions$.pipe(ofType(cardsActions.DELETE_CARD)).pipe(
     map((action: cardsActions.DeleteCard) => action.payload),
-    switchMap(id$ => {
-      return this.cardService.deleteCard(id$)
+    switchMap(id => {
+      return this.cardService.deleteCard(id)
         .pipe(
-          map(() => new cardsActions.DeleteCardSuccess(id$)),
+          map(() => new cardsActions.DeleteCardSuccess(id)),
           catchError(error => of(new cardsActions.DeleteCardError(error))),
       );
     })

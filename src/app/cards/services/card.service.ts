@@ -58,12 +58,12 @@ export class CardService {
   }
 
   getCard(id): Observable<Card> {
-    const card: Card = this.cards.find(x => x.id === id);
+    const card: Card = this.cards.find(elem => elem.id === id);
     return of(card);
   }
 
   updateCard(card: Card): Observable<Card> {
-    this.cards = this.cards.map(x => (x.id === card.id) ? card : x);
+    this.cards = this.cards.map(elem => (elem.id === card.id) ? card : elem);
     return of(card);
   }
 
@@ -74,7 +74,7 @@ export class CardService {
   }
 
   deleteCard(id: String): Observable<boolean> {
-    this.cards = this.cards.filter(x => x.id !== id);
+    this.cards = this.cards.filter(elem => elem.id !== id);
     return of(true);
   }
 
