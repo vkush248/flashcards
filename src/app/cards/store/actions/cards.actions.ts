@@ -65,7 +65,7 @@ export class DeleteCard implements Action {
 
 export class DeleteCardSuccess implements Action {
   readonly type = DELETE_CARD_SUCCESS;
-  constructor(public payload: Card) { }
+  constructor(public payload: boolean) { }
 }
 
 export class DeleteCardError implements Action {

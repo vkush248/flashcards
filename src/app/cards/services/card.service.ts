@@ -68,26 +68,12 @@ export class CardService {
   }
 
   addCard(card: Card): Observable<Card> {
-    this.cards.push(card);
+    this.cards = [...this.cards, card];
     return of(card);
   }
 
-  deleteCard(card: Card): Observable<Card> {
-    this.cards = this.cards.filter(x => x.id !== card.id);
-    return of(card);
-  }
-
-  generateDefaultCard(): Observable<Card> {
-    return of({
-      id: 999,
-      topic: 'Your topic',
-      wordEn: 'Default',
-      exampleEn: 'Default',
-      contextEn: 'Default',
-      img: 'https://via.placeholder.com/100x100',
-      wordRu: 'Default',
-      exampleRu: 'Default',
-      contextRu: 'Default',
-    });
+  deleteCard(id: Number): Observable<boolean> {
+    this.cards = this.cards.filter(x => x.id !== id);
+    return of(true);
   }
 }

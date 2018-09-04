@@ -1,32 +1,67 @@
-<div *ngIf="id">
-  Details for card #{{id}}
-</div>
-<button (click)="previousPage()">Back to cards</button>
 <div class="row">
   <div class="col col-6 col-sm-12">
     <div class="card">
-      <div class="id">{{ card.id }}</div>
-      <div class="topic">{{ cardEditor['controls'].topic.value || card.topic }}</div>
+      <div class="topic">{{ form['controls'].topic.value }}</div>
       <div class="info">
-        <div class="word">{{ cardEditor['controls'].wordEn.value || card.wordEn }}</div>
-        <div class="example">{{ cardEditor['controls'].exampleEn.value || card.exampleEn }}</div>
-        <div class="context">{{ cardEditor['controls'].contextEn.value || card.contextEn }}</div>
+        <div class="word">{{ form['controls'].wordEn.value }}</div>
+        <div class="example">{{ form['controls'].exampleEn.value }}</div>
+        <div class="context">{{ form['controls'].contextEn.value }}</div>
       </div>
       <div class="picture">
-        <img src="{{ card.img }}" alt="{{ card.wordRu }}">
+        <img src="http://via.placeholder.com/100x100" alt="{{form['controls'].wordEn.value}}">
       </div>
     </div>
-    <button mat-raised-button (click)="openDialog()"> Delete card "{{card.wordEn}}""</button>
   </div>
-
   <div class="col col-6 col-sm-12">
-    <form [formGroup]="cardEditor" (ngSubmit)="updateCard(cardEditor.value)">
-      <div *ngFor="let key of cardKeys" class="card-editor">
-        <label *ngIf="key!=='img'">{{key}}
-          <input type="text" formControlName="{{key}}" placeholder="{{card[key]}}">
+
+    <form [formGroup]="form" (ngSubmit)="updateCard(form.value)">
+      <div class="card-editor">
+        <label>Topic
+          <input type="text" formControlName="topic">
         </label>
       </div>
-      <button type="submit">Save</button>
+      <div class="card-editor">
+        <label>Word
+          <input type="text" formControlName="wordEn">
+        </label>
+      </div>
+      <div class="card-editor">
+        <label>Example
+          <input type="text" formControlName="exampleEn">
+        </label>
+      </div>
+      <div class="card-editor">
+        <label>Context
+          <input type="text" formControlName="contextEn">
+        </label>
+      </div>
+      <div class="card-editor">
+        <label>Translation
+          <input type="text" formControlName="wordRu">
+        </label>
+      </div>
+      <div class="card-editor">
+        <label>Example translation
+          <input type="text" formControlName="exampleRu">
+        </label>
+      </div>
+      <div class="card-editor">
+        <label>Context translation
+          <input type="text" formControlName="contextRu">
+        </label>
+      </div>
+      <div class="row">
+        <div class="col col-sm-12 text-center" *ngIf="card">
+          <button class="center" type="button" mat-raised-button (click)="openDialog()"> Delete card
+          </button>
+        </div>
+        <div class="col col-sm-12 text-center">
+          <button type="button" mat-raised-button routerLink="/cards">Back to cards</button>
+        </div>
+        <div class="col col-sm-12 text-center">
+          <button class="center" type="submit" mat-raised-button>Save</button>
+        </div>
+      </div>
     </form>
   </div>
 </div>

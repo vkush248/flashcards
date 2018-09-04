@@ -1,8 +1,8 @@
-import { Location } from '@angular/common';
-import { Component /* , OnDestroy, OnInit */ } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { Observable, Subscription } from 'rxjs';
+import { Component } from '@angular/core';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { Card } from '../models/card.model';
 import { CardService } from '../services/card.service';
 import * as fromStore from '../store';
@@ -11,11 +11,9 @@ import * as fromStore from '../store';
   selector: 'app-card-edit-container',
   template: `
   <app-card-edit
-    [id]="id"
     [card]="card$ | async"
-    (subm)="onUpdateCard($event)"
-    (delete)="deleteCard($event)"
-    (back)="goBack()" >
+    (save)="onUpdateCard($event)"
+    (delete)="deleteCard($event)">
   </app-card-edit>`,
   styles: [],
 })
@@ -23,43 +21,29 @@ import * as fromStore from '../store';
 export class CardEditContainerComponent {
   card$: Observable<Card>;
   id: number;
-  cardSubscription$: Subscription;
-  private sub$: any;
+  private routeSubscription$: any;
+  cards: any;
 
   constructor(
     private cardService: CardService,
     private route: ActivatedRoute,
-    private _location: Location,
     private store: Store<fromStore.AppState>
   ) {
-    this.sub$ = this.route.params.subscribe(params => {
-      this.id = parseInt(params['id'], 10);
-    });
-    this.downloadCardData();
+    this.card$ = this.route.paramMap.pipe(switchMap((params: ParamMap) => {
+      this.id = parseInt(params.get('id'), 10);
+      return this.store.pipe(select(fromStore.selectCard, { id: this.id }));
+    }));
   }
 
-  goBack() {
-    this._location.back();
-  }
-
-  deleteCard(card: Card) {
-    this.store.dispatch(new fromStore.DeleteCard(card));
+  deleteCard(id: Number) {
+    this.store.dispatch(new fromStore.DeleteCard(id));
   }
 
   onUpdateCard(card: Card) {
-    card.id = this.id;
     if (this.id) {
       this.store.dispatch(new fromStore.UpdateCard(card));
     } else {
       this.store.dispatch(new fromStore.AddCard(card));
-    }
-  }
-
-  downloadCardData() {
-    if (this.id) {
-      this.card$ = this.cardService.getCard(this.id);
-    } else {
-      this.card$ = this.cardService.generateDefaultCard();
     }
   }
 }

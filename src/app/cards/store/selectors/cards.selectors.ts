@@ -7,6 +7,11 @@ export const getCardsFeature = createFeatureSelector<fromCards.AppState>(
 
 export const selectCards = createSelector(getCardsFeature, fromCards.getCards);
 
+export const selectCard = createSelector(
+  selectCards,
+  (cards, props) => cards.find(element => element.id === props.id)
+);
+
 export const selectCardsLoaded = createSelector(
   selectCards,
   fromCards.getCardsLoaded

@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { Card } from '../models/card.model';
 import { ConfirmDeletingComponent } from './confirm-deleting-component';
@@ -15,34 +15,36 @@ export interface DialogData {
   styleUrls: ['./card-edit.component.scss'],
 })
 
-export class CardEditComponent implements OnInit {
+export class CardEditComponent implements OnChanges {
   cardKeys: Array<any>;
-  cardEditor: FormGroup;
+  form: FormGroup;
   answer: string;
   @Input() id: number;
   @Input() card: Card;
   @Output() back: EventEmitter<void> = new EventEmitter();
-  @Output() subm: EventEmitter<any> = new EventEmitter<any>();
+  @Output() save: EventEmitter<any> = new EventEmitter<any>();
   @Output() delete: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
     public dialog: MatDialog,
     private fb: FormBuilder,
     private _location: Location,
-  ) { }
-
-  ngOnInit(): void {
-    this.cardKeys = Object.keys(this.card).filter(key => key !== 'id');
-    this.cardEditor = this.fb.group({
-      id: new FormControl(this.card.id),
-      topic: new FormControl(this.card.topic),
-      wordEn: new FormControl(this.card.wordEn),
-      exampleEn: new FormControl(this.card.exampleEn),
-      contextEn: new FormControl(this.card.contextEn),
-      wordRu: new FormControl(this.card.wordRu),
-      exampleRu: new FormControl(this.card.exampleRu),
-      contextRu: new FormControl(this.card.contextRu),
+  ) {
+    this.form = this.fb.group({
+      topic: 'Your topic',
+      wordEn: 'Word',
+      exampleEn: 'collocation',
+      contextEn: 'Context',
+      wordRu: 'Translation',
+      exampleRu: 'Example translation',
+      contextRu: 'Context translation',
     });
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.card && changes.card.currentValue) {
+      this.form.patchValue(this.card);
+    }
   }
 
   openDialog(): void {
@@ -51,16 +53,15 @@ export class CardEditComponent implements OnInit {
       data: { answer: this.answer }
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (result) { this.delete.emit(this.card); }
+      if (result) { this.delete.emit(this.card.id); }
     });
   }
 
   updateCard(newCard: Card) {
-    newCard.img = this.card.img;
-    this.subm.emit(newCard);
+    this.save.emit({ ...this.card, ...newCard });
   }
 
-  previousPage() {
+  goBack() {
     this.back.emit();
   }
 }

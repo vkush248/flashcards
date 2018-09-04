@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
 a {
   text-decoration: none;
 }
@@ -107,6 +107,7 @@ ul {
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
+  margin: 10px 0;
 }
 
 .no-gutters>.col,
@@ -219,4 +220,8 @@ ul {
   -ms-flex: 0 0 100%;
   flex: 0 0 100%;
   max-width: 100%;
+}
+
+.text-center {
+  text-align: center;
 }

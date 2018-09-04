@@ -82,8 +82,8 @@ export function cardsReducer(
     }
 
     case actions.DELETE_CARD_SUCCESS: {
-      const card = action.payload;
-      const cards = [...state.cards.filter(x => x.id !== card.id)];
+      const id = action.payload;
+      const cards = [...state.cards.filter(x => x.id !== id)];
       return { ...state, loading: false, loaded: true, cards };
     }
   }

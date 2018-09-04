@@ -1,6 +1,7 @@
-@import url(https://fonts.googleapis.com/css?family=Do+Hyeon:regular);
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,regular,italic,600,600italic,700,700italic,800,800italic);
+@import url("https://fonts.googleapis.com/css?family=Do+Hyeon:regular");
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,regular,italic,600,600italic,700,700italic,800,800italic");
 $headerColor: rgb(182, 216, 255);
+
 @mixin fonts($family, $size) {
   font: {
     family: $family;
@@ -12,6 +13,7 @@ $font1: "Do Hyeon",
 16px;
 $font2: "Open Sans",
 14px;
+
 .card {
   margin: 0 auto;
   width: 450px;
@@ -24,35 +26,40 @@ $font2: "Open Sans",
   grid-template-rows: min-content;
   box-shadow: 3px 2px 3px 1px #666;
   @include fonts($font2...);
-  .id {
+
+  .topic {
+    grid-column-start: 1;
+    grid-column-end: 3;
     padding: 0 10px;
     background-color: $headerColor;
     height: 25px;
+    @include fonts($font1...);
     line-height: 25px;
     font-size: 15px;
-    @include fonts($font1...);
-  }
-  .topic {
-    @extend .id;
     text-align: right;
   }
+
   .info {
     position: relative;
     padding: 5px;
+
     .word {
       @include fonts($font1...);
       font-size: 20px;
     }
   }
+
   .context {
     position: absolute;
     bottom: 10px;
   }
+
   .picture {
     width: 100px;
     height: 100px;
     align-self: center;
     margin-right: 5px;
+
     img {
       width: 100%;
       height: 100%;
@@ -63,13 +70,14 @@ $font2: "Open Sans",
 .card-editor {
   label {
     margin-bottom: 10px;
-    width: 450px;
+    width: 100%;
     display: inline-block;
     position: relative;
+
     input {
       position: absolute;
       right: 0px;
-      width: 75%;
+      width: 70%;
       border: none;
       border: 1px solid black;
       box-sizing: border-box;
