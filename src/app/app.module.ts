@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { MatButtonModule, MatButtonToggleModule, MatToolbarModule } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EffectsModule } from '@ngrx/effects';
@@ -8,6 +7,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { routing } from './app.routes';
+import { AppCommonModule } from './common/app-common.module';
+import { ModalComponent } from './common/modal/modal.component';
 import { HeaderComponent } from './header/header.component';
 
 @NgModule({
@@ -15,14 +16,14 @@ import { HeaderComponent } from './header/header.component';
   imports: [
     BrowserModule,
     routing,
+    AppCommonModule,
     BrowserAnimationsModule,
-    MatButtonModule,
-    MatButtonToggleModule,
-    MatToolbarModule,
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({ logOnly: environment.production }),
   ],
+  exports: [],
+  entryComponents: [ModalComponent],
   bootstrap: [AppComponent],
 })
 

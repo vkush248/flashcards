@@ -3,6 +3,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import { ModalService } from '../../services/modal.service';
 import { Card } from '../models/card.model';
 import { CardService } from '../services/card.service';
 import * as fromStore from '../store';
@@ -21,11 +22,12 @@ import * as fromStore from '../store';
 export class CardEditContainerComponent {
   card$: Observable<Card>;
   id: string;
-  private routeSubscription$: any;
   cards: any;
+  private routeSubscription$: any;
 
   constructor(
     private cardService: CardService,
+    public modalService: ModalService,
     private route: ActivatedRoute,
     private store: Store<fromStore.AppState>
   ) {
@@ -36,7 +38,20 @@ export class CardEditContainerComponent {
   }
 
   deleteCard(id: string) {
-    this.store.dispatch(new fromStore.DeleteCard(id));
+    const dialogResponse = this.modalService.openDialog({
+      width: '350px',
+      data: {
+        title: 'Deleting',
+        message: 'Are you sure you want to delete this card?',
+        ok: 'Ok',
+        cancel: 'Cancel',
+      }
+    });
+    dialogResponse.subscribe(result => {
+      if (result) {
+        this.store.dispatch(new fromStore.DeleteCard(this.id));
+      }
+    });
   }
 
   onUpdateCard(card: Card) {
@@ -46,4 +61,6 @@ export class CardEditContainerComponent {
       this.store.dispatch(new fromStore.AddCard(card));
     }
   }
+
+
 }
