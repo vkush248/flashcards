@@ -1,4 +1,3 @@
-import { Location } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Card } from '../models/card.model';
@@ -11,23 +10,18 @@ import { Card } from '../models/card.model';
 })
 
 export class CardEditComponent implements OnChanges {
-  cardKeys: Array<any>;
   form: FormGroup;
-  answer: string;
-  @Input() id: string;
   @Input() card: Card;
-  @Output() back: EventEmitter<void> = new EventEmitter();
-  @Output() save: EventEmitter<any> = new EventEmitter<any>();
-  @Output() delete: EventEmitter<any> = new EventEmitter<any>();
+  @Output() save: EventEmitter<Card> = new EventEmitter();
+  @Output() delete: EventEmitter<void> = new EventEmitter();
 
   constructor(
     private fb: FormBuilder,
-    private _location: Location,
   ) {
     this.form = this.fb.group({
       topic: 'Your topic',
       wordEn: 'Word',
-      exampleEn: 'collocation',
+      exampleEn: 'Some collocation',
       contextEn: 'Context',
       wordRu: 'Translation',
       exampleRu: 'Example translation',
@@ -43,9 +37,5 @@ export class CardEditComponent implements OnChanges {
 
   updateCard(newCard: Card) {
     this.save.emit({ ...this.card, ...newCard });
-  }
-
-  goBack() {
-    this.back.emit();
   }
 }

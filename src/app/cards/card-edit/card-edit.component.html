@@ -13,53 +13,38 @@
     </div>
   </div>
   <div class="col col-6 col-sm-12">
-
     <form [formGroup]="form" (ngSubmit)="updateCard(form.value)">
-      <div class="card-editor">
-        <label>Topic
-          <input type="text" formControlName="topic">
-        </label>
-      </div>
-      <div class="card-editor">
-        <label>Word
-          <input type="text" formControlName="wordEn">
-        </label>
-      </div>
-      <div class="card-editor">
-        <label>Example
-          <input type="text" formControlName="exampleEn">
-        </label>
-      </div>
-      <div class="card-editor">
-        <label>Context
-          <input type="text" formControlName="contextEn">
-        </label>
-      </div>
-      <div class="card-editor">
-        <label>Translation
-          <input type="text" formControlName="wordRu">
-        </label>
-      </div>
-      <div class="card-editor">
-        <label>Example translation
-          <input type="text" formControlName="exampleRu">
-        </label>
-      </div>
-      <div class="card-editor">
-        <label>Context translation
-          <input type="text" formControlName="contextRu">
-        </label>
-      </div>
+      <mat-form-field>
+        <input matInput formControlName="topic" placeholder="Topic">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput formControlName="wordEn" placeholder="Word">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput formControlName="exampleEn" placeholder="Example">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput formControlName="contextEn" placeholder="Context">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput formControlName="wordRu" placeholder="Translation">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput formControlName="exampleRu" placeholder="Example translation">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput formControlName="contextRu" placeholder="Context translation">
+      </mat-form-field>
       <div class="row">
         <div class="col col-sm-12 text-center" *ngIf="card">
-          <button class="center" type="button" mat-raised-button (click)="delete.emit()"> Delete card
+          <button class="center" type="button" mat-raised-button color="warn" (click)="delete.emit()"> Delete card
           </button>
         </div>
         <div class="col col-sm-12 text-center">
           <button type="button" mat-raised-button routerLink="/cards">Back to cards</button>
         </div>
         <div class="col col-sm-12 text-center">
-          <button class="center" type="submit" mat-raised-button>Save</button>
+          <button class="center" type="submit" mat-raised-button color="primary">Save</button>
         </div>
       </div>
     </form>

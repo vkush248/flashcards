@@ -14,73 +14,65 @@ $font1: "Do Hyeon",
 $font2: "Open Sans",
 14px;
 
-.card {
-  margin: 0 auto;
-  width: 450px;
-  height: 150px;
-  margin-top: 10px;
-  border: 1px solid black;
-  border-radius: 1%;
-  display: grid;
-  grid-template-columns: 1fr 100px;
-  grid-template-rows: min-content;
-  box-shadow: 3px 2px 3px 1px #666;
-  @include fonts($font2...);
+.row {
+  align-items: center;
 
-  .topic {
-    grid-column-start: 1;
-    grid-column-end: 3;
-    padding: 0 10px;
-    background-color: $headerColor;
-    height: 25px;
-    @include fonts($font1...);
-    line-height: 25px;
-    font-size: 15px;
-    text-align: right;
-  }
+  .card {
+    margin: 0 auto;
+    width: 450px;
+    height: 150px;
+    margin-top: 10px;
+    border: 1px solid black;
+    border-radius: 1%;
+    display: grid;
+    grid-template-columns: 1fr 100px;
+    grid-template-rows: min-content;
+    box-shadow: 3px 2px 3px 1px #666;
+    @include fonts($font2...);
 
-  .info {
-    position: relative;
-    padding: 5px;
-
-    .word {
+    .topic {
+      grid-column-start: 1;
+      grid-column-end: 3;
+      padding: 0 10px;
+      background-color: $headerColor;
+      height: 25px;
       @include fonts($font1...);
-      font-size: 20px;
+      line-height: 25px;
+      font-size: 15px;
+      text-align: right;
     }
-  }
 
-  .context {
-    position: absolute;
-    bottom: 10px;
-  }
+    .info {
+      position: relative;
+      padding: 5px;
 
-  .picture {
-    width: 100px;
-    height: 100px;
-    align-self: center;
-    margin-right: 5px;
-
-    img {
-      width: 100%;
-      height: 100%;
+      .word {
+        @include fonts($font1...);
+        font-size: 20px;
+      }
     }
-  }
-}
 
-.card-editor {
-  label {
-    margin-bottom: 10px;
-    width: 100%;
-    display: inline-block;
-    position: relative;
-
-    input {
+    .context {
       position: absolute;
-      right: 0px;
-      width: 70%;
-      border: none;
-      border: 1px solid black;
-      box-sizing: border-box;
+      bottom: 10px;
+    }
+
+    .picture {
+      width: 100px;
+      height: 100px;
+      align-self: center;
+      margin-right: 5px;
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
+  form {
+    mat-form-field {
+      width: 100%;
     }
   }
 }

@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { ModalService } from '../../services/modal.service';
 import { Card } from '../models/card.model';
-import { CardService } from '../services/card.service';
 import * as fromStore from '../store';
 
 @Component({
@@ -14,7 +13,7 @@ import * as fromStore from '../store';
   <app-card-edit
     [card]="card$ | async"
     (save)="onUpdateCard($event)"
-    (delete)="deleteCard($event)">
+    (delete)="deleteCard()">
   </app-card-edit>`,
   styles: [],
 })
@@ -22,11 +21,8 @@ import * as fromStore from '../store';
 export class CardEditContainerComponent {
   card$: Observable<Card>;
   id: string;
-  cards: any;
-  private routeSubscription$: any;
 
   constructor(
-    private cardService: CardService,
     public modalService: ModalService,
     private route: ActivatedRoute,
     private store: Store<fromStore.AppState>
@@ -38,7 +34,7 @@ export class CardEditContainerComponent {
   }
 
   deleteCard(id: string) {
-    const dialogResponse = this.modalService.openDialog({
+    this.modalService.openDialog({
       width: '350px',
       data: {
         title: 'Deleting',
@@ -46,21 +42,18 @@ export class CardEditContainerComponent {
         ok: 'Ok',
         cancel: 'Cancel',
       }
-    });
-    dialogResponse.subscribe(result => {
-      if (result) {
+    }).subscribe((agree: boolean) => {
+      if (agree) {
         this.store.dispatch(new fromStore.DeleteCard(this.id));
       }
     });
   }
 
   onUpdateCard(card: Card) {
-    if (this.id !== 'new') {
-      this.store.dispatch(new fromStore.UpdateCard(card));
-    } else {
+    if (this.id === 'new') {
       this.store.dispatch(new fromStore.AddCard(card));
+    } else {
+      this.store.dispatch(new fromStore.UpdateCard(card));
     }
   }
-
-
 }

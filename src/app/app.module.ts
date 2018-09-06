@@ -9,10 +9,9 @@ import { AppComponent } from './app.component';
 import { routing } from './app.routes';
 import { AppCommonModule } from './common/app-common.module';
 import { ModalComponent } from './common/modal/modal.component';
-import { HeaderComponent } from './header/header.component';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     routing,

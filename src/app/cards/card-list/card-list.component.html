@@ -1,6 +1,4 @@
-<ul>
-  <li *ngFor="let card of cards">
-    <a [routerLink]="['./', card.id]">{{card.wordEn}}</a>
-  </li>
-</ul>
-<button [routerLink]="['./new']">Add Card</button>
+<mat-list>
+  <a mat-list-item *ngFor="let card of cards" [routerLink]="['./', card.id]">{{card.wordEn}}</a>
+</mat-list>
+<button mat-stroked-button color="primary" [routerLink]="['./new']">Add Card</button>
