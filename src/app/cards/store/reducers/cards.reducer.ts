@@ -1,6 +1,7 @@
 import { ActionReducerMap } from '@ngrx/store';
 import { Card } from '../../models/card.model';
 import * as actions from '../actions';
+
 export const reducers: ActionReducerMap<AppState> = {
   cards: cardsReducer,
 };
@@ -8,6 +9,7 @@ export const reducers: ActionReducerMap<AppState> = {
 export interface AppState {
   cards: CardsState;
 }
+
 export interface CardsState {
   cards: Card[];
   loaded: boolean;
@@ -66,6 +68,10 @@ export function cardsReducer(
   return state;
 }
 
-export const getCards = (state: AppState) => state.cards;
-export const getCardsLoaded = (state: CardsState) => state.loaded;
+export const getCards = (state: AppState) => {
+  return state.cards;
+};
+export const getCardsLoaded = (state: CardsState) => {
+  return state.loaded;
+};
 export const getCardsLoading = (state: CardsState) => state.loading;
