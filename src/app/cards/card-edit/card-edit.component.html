@@ -12,7 +12,8 @@
       </div>
     </div>
   </div>
-  <div class="col col-6 col-sm-12">
+  <div class="col col-6 col-sm-12 form-column">
+    <a class="delete" mat-fab color="warn" (click)="delete.emit()" *ngIf="card">X</a>
     <form [formGroup]="form" (ngSubmit)="updateCard(form.value)">
       <mat-form-field>
         <input matInput formControlName="topic" placeholder="Topic">
@@ -36,10 +37,6 @@
         <input matInput formControlName="contextRu" placeholder="Context translation">
       </mat-form-field>
       <div class="row">
-        <div class="col col-sm-12 text-center" *ngIf="card">
-          <button class="center" type="button" mat-raised-button color="warn" (click)="delete.emit()"> Delete card
-          </button>
-        </div>
         <div class="col col-sm-12 text-center">
           <button type="button" mat-raised-button routerLink="/cards">Back to cards</button>
         </div>

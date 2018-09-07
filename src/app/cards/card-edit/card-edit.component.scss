@@ -70,6 +70,17 @@ $font2: "Open Sans",
     }
   }
 
+  .form-column {
+    position: relative;
+  }
+
+  .delete {
+    position: absolute;
+    z-index: 2;
+    right: -28px;
+    top: -28px;
+  }
+
   form {
     mat-form-field {
       width: 100%;

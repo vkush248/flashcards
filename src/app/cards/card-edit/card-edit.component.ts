@@ -19,13 +19,13 @@ export class CardEditComponent implements OnChanges {
     private fb: FormBuilder,
   ) {
     this.form = this.fb.group({
-      topic: 'Your topic',
-      wordEn: 'Word',
-      exampleEn: 'Some collocation',
-      contextEn: 'Context',
-      wordRu: 'Translation',
-      exampleRu: 'Example translation',
-      contextRu: 'Context translation',
+      topic: '',
+      wordEn: '',
+      exampleEn: '',
+      contextEn: '',
+      wordRu: '',
+      exampleRu: '',
+      contextRu: '',
     });
   }
 

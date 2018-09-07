@@ -15,7 +15,6 @@ import * as fromStore from '../store';
     (save)="onUpdateCard($event)"
     (delete)="deleteCard()">
   </app-card-edit>`,
-  styles: [],
 })
 
 export class CardEditContainerComponent {
@@ -30,7 +29,6 @@ export class CardEditContainerComponent {
     this.card$ = this.route.paramMap.pipe(switchMap((params: ParamMap) => {
       this.id = params.get('id');
       return this.store.select(fromStore.selectCard(this.id));
-      /* state => state.cardsStore.cards.find(card => card.id === this.id)) */
     }));
     this.card$.subscribe(x => console.log(x, this.id));
 
