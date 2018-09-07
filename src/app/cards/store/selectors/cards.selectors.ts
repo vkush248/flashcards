@@ -1,15 +1,14 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { Card } from '../../models/card.model';
 import * as fromCards from '../reducers/cards.reducer';
 
-export const getCardsFeature = createFeatureSelector<fromCards.AppState>(
-  'cardsStore'
-);
+export const getCardsFeature = createFeatureSelector('cardsStore');
 
 export const selectCards = createSelector(getCardsFeature, fromCards.getCards);
 
-export const selectCard = createSelector(
+export const selectCard = (id: string) => createSelector<Object, Object, Card>(
   selectCards,
-  (cards, props) => cards.find(element => element.id === props.id)
+  ((cards: Card[]) => cards.find(card => card.id === id))
 );
 
 export const selectCardsLoaded = createSelector(

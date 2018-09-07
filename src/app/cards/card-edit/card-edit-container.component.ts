@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { ModalService } from '../../services/modal.service';
@@ -29,8 +29,11 @@ export class CardEditContainerComponent {
   ) {
     this.card$ = this.route.paramMap.pipe(switchMap((params: ParamMap) => {
       this.id = params.get('id');
-      return this.store.pipe(select(fromStore.selectCard, { id: this.id }));
+      return this.store.select(fromStore.selectCard(this.id));
+      /* state => state.cardsStore.cards.find(card => card.id === this.id)) */
     }));
+    this.card$.subscribe(x => console.log(x, this.id));
+
   }
 
   deleteCard(id: string) {
