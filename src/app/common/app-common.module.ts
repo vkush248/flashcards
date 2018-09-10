@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MatButtonModule, MatButtonToggleModule, MatDialogModule, MatIconModule, MatInputModule, MatListModule } from '@angular/material';
+import { MatButtonModule, MatButtonToggleModule, MatDialogModule, MatIconModule, MatInputModule, MatListModule, MatSnackBarModule } from '@angular/material';
 import { ModalComponent } from './modal/modal.component';
+import { SnackbarComponent } from './snackbar/snackbar.component';
 
 @NgModule({
   imports: [
@@ -16,8 +17,9 @@ import { ModalComponent } from './modal/modal.component';
     MatIconModule,
     MatButtonToggleModule,
     MatDialogModule,
-    MatListModule
+    MatListModule,
+    MatSnackBarModule,
   ],
-  declarations: [ModalComponent]
+  declarations: [ModalComponent, SnackbarComponent]
 })
 export class AppCommonModule { }

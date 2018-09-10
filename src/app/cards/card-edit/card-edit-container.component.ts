@@ -30,8 +30,6 @@ export class CardEditContainerComponent {
       this.id = params.get('id');
       return this.store.select(fromStore.selectCard(this.id));
     }));
-    this.card$.subscribe(x => console.log(x, this.id));
-
   }
 
   deleteCard(id: string) {
@@ -53,8 +51,10 @@ export class CardEditContainerComponent {
   onUpdateCard(card: Card) {
     if (this.id === 'new') {
       this.store.dispatch(new fromStore.AddCard(card));
+      this.modalService.openSnackbar('Congrats! You\'ve created a new card!');
     } else {
       this.store.dispatch(new fromStore.UpdateCard(card));
+      this.modalService.openSnackbar('You\'ve successfully changed the card!');
     }
   }
 }

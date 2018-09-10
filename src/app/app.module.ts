@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { routing } from './app.routes';
 import { AppCommonModule } from './common/app-common.module';
 import { ModalComponent } from './common/modal/modal.component';
+import { SnackbarComponent } from './common/snackbar/snackbar.component';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,7 +23,7 @@ import { ModalComponent } from './common/modal/modal.component';
     StoreDevtoolsModule.instrument({ logOnly: environment.production }),
   ],
   exports: [],
-  entryComponents: [ModalComponent],
+  entryComponents: [ModalComponent, SnackbarComponent],
   bootstrap: [AppComponent],
 })
 
