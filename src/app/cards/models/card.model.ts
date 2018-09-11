@@ -1,11 +1,11 @@
 export interface Card {
   id: string;
   topic: string;
-  wordEn: string;
-  exampleEn: string;
-  contextEn: string;
+  word: string;
+  example: string;
+  context: string;
   img: string;
-  wordRu: string;
-  exampleRu: string;
-  contextRu: string;
+  translation: string;
+  exampleTranslation: string;
+  contextTranslation: string;
 }

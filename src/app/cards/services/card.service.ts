@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { v4 as uuid } from 'uuid';
 import { Card } from '../models/card.model';
 
 @Injectable()
@@ -8,46 +9,46 @@ export class CardService {
     {
       id: '123',
       topic: 'Management',
-      wordEn: 'a resource',
-      exampleEn: 'untapped resources',
-      contextEn: 'We lacked the resources to do the job properly.',
+      word: 'a resource',
+      example: 'untapped resources',
+      context: 'We lacked the resources to do the job properly.',
       img: 'https://image.flaticon.com/icons/png/512/113/113398.png',
-      wordRu: 'Ресурс',
-      exampleRu: 'Неиспользованные ресурсы',
-      contextRu: 'Нам не хватало ресурсов, чтобы правильно выполнять работу.',
+      translation: 'Ресурс',
+      exampleTranslation: 'Неиспользованные ресурсы',
+      contextTranslation: 'Нам не хватало ресурсов, чтобы правильно выполнять работу.',
     },
     {
       id: '232',
       topic: 'Feelings',
-      wordEn: 'to сrave',
-      exampleEn: 'crave attention',
-      contextEn: 'Humanity hungers for international peace, and we crave it with all mankind.',
+      word: 'to сrave',
+      example: 'crave attention',
+      context: 'Humanity hungers for international peace, and we crave it with all mankind.',
       img: 'https://pbs.twimg.com/profile_images/823404913371684864/1wOnvWmw_400x400.jpg',
-      wordRu: 'жаждать',
-      exampleRu: 'жаждать внимания',
-      contextRu: 'Человечество жаждет международного мира, и мы жаждем его со всем человечеством.',
+      translation: 'жаждать',
+      exampleTranslation: 'жаждать внимания',
+      contextTranslation: 'Человечество жаждет международного мира, и мы жаждем его со всем человечеством.',
     },
     {
       id: '323',
       topic: 'Adjectives',
-      wordEn: 'inadmissible',
-      exampleEn: 'inadmissible evidence',
-      contextEn: 'This kind of speculation is permissible in cosmology but inadmissible in medicine.',
+      word: 'inadmissible',
+      example: 'inadmissible evidence',
+      context: 'This kind of speculation is permissible in cosmology but inadmissible in medicine.',
       img: 'http://chaudharylaw.com/wp-content/uploads/2016/08/do-not-sign-icon-png-0-300x300.png',
-      wordRu: 'недопустимый',
-      exampleRu: 'недопустимые доказательства',
-      contextRu: 'Такие предположения допустимы в космологии, но недопустимы в медицине.',
+      translation: 'недопустимый',
+      exampleTranslation: 'недопустимые доказательства',
+      contextTranslation: 'Такие предположения допустимы в космологии, но недопустимы в медицине.',
     },
     {
       id: '487',
       topic: 'Adjectives',
-      wordEn: 'preposterous',
-      exampleEn: 'preposterous suggestion',
-      contextEn: 'The preposterous wedding contract that the woman must love, honour and obey her husband is anachronistic.',
+      word: 'preposterous',
+      example: 'preposterous suggestion',
+      context: 'The preposterous wedding contract that the woman must love, honour and obey her husband is anachronistic.',
       img: 'https://cdn2.iconfinder.com/data/icons/truth-about-politics/64/donald_trump_mr_president_leader_boss_ceo_head-512.png',
-      wordRu: 'абсурдный',
-      exampleRu: 'нелепое предложение',
-      contextRu: 'Нелепый свадебный контракт, согласно которому женщина должна любить, чтить и повиноваться мужу, является анахронизмом.',
+      translation: 'абсурдный',
+      exampleTranslation: 'нелепое предложение',
+      contextTranslation: 'Нелепый свадебный контракт, согласно которому женщина должна любить, чтить и повиноваться мужу, является анахронизмом.',
     },
   ];
 
@@ -79,6 +80,6 @@ export class CardService {
   }
 
   generateId(): string {
-    return Math.random().toString(36).slice(2);
+    return uuid();
   }
 }

@@ -3,12 +3,12 @@
     <div class="card">
       <div class="topic">{{ form['controls'].topic.value }}</div>
       <div class="info">
-        <div class="word">{{ form['controls'].wordEn.value }}</div>
-        <div class="example">{{ form['controls'].exampleEn.value }}</div>
-        <div class="context">{{ form['controls'].contextEn.value }}</div>
+        <div class="word">{{ form['controls'].word.value }}</div>
+        <div class="example">{{ form['controls'].example.value }}</div>
+        <div class="context">{{ form['controls'].context.value }}</div>
       </div>
       <div class="picture">
-        <img src="http://via.placeholder.com/100x100" alt="{{form['controls'].wordEn.value}}">
+        <img src="http://via.placeholder.com/100x100" alt="{{form['controls'].word.value}}">
       </div>
     </div>
   </div>
@@ -16,25 +16,27 @@
     <a class="delete" mat-fab color="warn" (click)="delete.emit()" *ngIf="card">X</a>
     <form [formGroup]="form" (ngSubmit)="updateCard(form.value)">
       <mat-form-field>
-        <input matInput formControlName="topic" placeholder="Topic">
+        <input matInput formControlName="topic" placeholder="Topic" #topic required>
+        <mat-error *ngIf="form['controls'].topic.invalid">Type in at least two letters</mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input matInput formControlName="wordEn" placeholder="Word">
+        <input matInput formControlName="word" placeholder="Word" #word required>
+        <mat-error *ngIf="form['controls'].word.invalid">Type in at least two letters</mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input matInput formControlName="exampleEn" placeholder="Example">
+        <input matInput formControlName="example" placeholder="Example">
       </mat-form-field>
       <mat-form-field>
-        <input matInput formControlName="contextEn" placeholder="Context">
+        <input matInput formControlName="context" placeholder="Context">
       </mat-form-field>
       <mat-form-field>
-        <input matInput formControlName="wordRu" placeholder="Translation">
+        <input matInput formControlName="translation" placeholder="Translation">
       </mat-form-field>
       <mat-form-field>
-        <input matInput formControlName="exampleRu" placeholder="Example translation">
+        <input matInput formControlName="exampleTranslation" placeholder="Example translation">
       </mat-form-field>
       <mat-form-field>
-        <input matInput formControlName="contextRu" placeholder="Context translation">
+        <input matInput formControlName="contextTranslation" placeholder="Context translation">
       </mat-form-field>
       <div class="row">
         <div class="col col-sm-12 text-center">

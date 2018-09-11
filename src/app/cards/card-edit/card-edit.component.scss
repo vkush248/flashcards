@@ -72,6 +72,10 @@ $font2: "Open Sans",
 
   .form-column {
     position: relative;
+    border: 1px solid black;
+    box-sizing: border-box;
+    border-radius: 3%;
+    padding: 30px 50px;
   }
 
   .delete {

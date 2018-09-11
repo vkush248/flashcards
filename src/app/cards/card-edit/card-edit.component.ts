@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Card } from '../models/card.model';
 
 
@@ -19,13 +19,13 @@ export class CardEditComponent implements OnChanges {
     private fb: FormBuilder,
   ) {
     this.form = this.fb.group({
-      topic: '',
-      wordEn: '',
-      exampleEn: '',
-      contextEn: '',
-      wordRu: '',
-      exampleRu: '',
-      contextRu: '',
+      topic: ['', [Validators.required, Validators.minLength(2)]],
+      word: ['', [Validators.required, Validators.minLength(2)]],
+      example: '',
+      context: '',
+      translation: '',
+      exampleTranslation: '',
+      contextTranslation: '',
     });
   }
 
@@ -36,6 +36,7 @@ export class CardEditComponent implements OnChanges {
   }
 
   updateCard(newCard: Card) {
-    this.save.emit({ ...this.card, ...newCard });
+    if (this.form.valid) { this.save.emit({ ...this.card, ...newCard }); }
   }
+
 }

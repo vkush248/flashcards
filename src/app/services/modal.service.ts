@@ -16,12 +16,11 @@ export class ModalService {
     this.dialogRef = this.dialog.open(ModalComponent, config);
     return this.dialogRef.afterClosed();
   }
-  openSnackbar(message) {
+
+  openSnackbar(data) {
     this.snackBar.openFromComponent(SnackbarComponent, {
-      duration: 1000,
-      data: {
-        message,
-      },
+      duration: 1500,
+      data
     });
   }
 }
