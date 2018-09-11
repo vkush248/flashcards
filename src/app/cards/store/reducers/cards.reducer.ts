@@ -11,13 +11,13 @@ export interface AppState {
 }
 
 export interface CardsState {
-  cards: Card[];
+  entities: { [id: number]: Card };
   loaded: boolean;
   loading: boolean;
 }
 
 export const initialState: CardsState = {
-  cards: [],
+  entities: {},
   loaded: false,
   loading: false,
 };
@@ -33,11 +33,18 @@ export function cardsReducer(
 
     case actions.LOAD_CARDS_SUCCESS: {
       const cards = action.payload;
+
+      const entities = cards.reduce(
+        (entities: { [id: number]: Card }, card: Card) => {
+          return { ...entities, [card.id]: card };
+        },
+        { ...state.entities }
+      );
       return {
         ...state,
         loading: false,
         loaded: true,
-        cards,
+        entities,
       };
     }
 
@@ -45,33 +52,25 @@ export function cardsReducer(
       return { ...state, loading: false, loaded: false };
     }
 
-    case actions.UPDATE_CARD_SUCCESS: {
-      const updatedCard = action.payload;
-      const cards = [
-        ...state.cards.map(card => (card.id === updatedCard.id) ? updatedCard : card),
-      ];
-      return { ...state, loading: false, loaded: true, cards };
-    }
-
+    case actions.UPDATE_CARD_SUCCESS:
     case actions.ADD_CARD_SUCCESS: {
       const card = action.payload;
-      const cards = [...state.cards, card];
-      return { ...state, loading: false, loaded: true, cards };
+      const entities = {
+        ...state.entities,
+        [card.id]: card,
+      };
+      return { ...state, entities };
     }
 
     case actions.DELETE_CARD_SUCCESS: {
       const id = action.payload;
-      const cards = [...state.cards.filter(card => card.id !== id)];
-      return { ...state, loading: false, loaded: true, cards };
+      const { [id]: removed, ...entities } = state.entities;
+      return { ...state, entities };
     }
   }
   return state;
 }
 
-export const getCards = (state: AppState) => {
-  return state.cards;
-};
-export const getCardsLoaded = (state: CardsState) => {
-  return state.loaded;
-};
+export const getCardsEntities = (state: CardsState) => state.entities;
+export const getCardsLoaded = (state: CardsState) => state.loaded;
 export const getCardsLoading = (state: CardsState) => state.loading;

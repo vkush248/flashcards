@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { Card } from '../models/card.model';
 import * as fromStore from '../store';
-import { CardsState } from '../store';
 
 @Component({
   selector: 'app-card-list-container',
@@ -11,10 +11,10 @@ import { CardsState } from '../store';
 })
 
 export class CardListContainerComponent {
-  cards$: Observable<CardsState>;
+  cards$: Observable<Card[]>;
 
   constructor(private store: Store<fromStore.AppState>, private router: Router) {
     this.store.dispatch(new fromStore.LoadCards());
-    this.cards$ = this.store.select(fromStore.selectCards);
+    this.cards$ = this.store.select(fromStore.getAllCards);
   }
 }

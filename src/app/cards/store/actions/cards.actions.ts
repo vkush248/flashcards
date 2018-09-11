@@ -60,12 +60,12 @@ export class AddCardError implements Action {
 
 export class DeleteCard implements Action {
   readonly type = DELETE_CARD;
-  constructor(public payload: any) { }
+  constructor(public payload: string) { }
 }
 
 export class DeleteCardSuccess implements Action {
   readonly type = DELETE_CARD_SUCCESS;
-  constructor(public payload: boolean) { }
+  constructor(public payload: string) { }
 }
 
 export class DeleteCardError implements Action {

@@ -17,7 +17,7 @@ import { effects, reducers } from './store';
     CommonModule,
     ReactiveFormsModule,
     AppCommonModule,
-    StoreModule.forFeature('cardsStore', reducers.cards),
+    StoreModule.forFeature('cardsStore', reducers),
     EffectsModule.forFeature(effects),
   ],
   providers: [CardService],

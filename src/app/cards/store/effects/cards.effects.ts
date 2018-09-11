@@ -47,7 +47,7 @@ export class CardsEffects {
   @Effect()
   deleteCard$ = this.actions$.pipe(ofType(cardsActions.DELETE_CARD)).pipe(
     map((action: cardsActions.DeleteCard) => action.payload),
-    switchMap(id => {
+    switchMap((id: string) => {
       return this.cardService.deleteCard(id)
         .pipe(
           map(() => new cardsActions.DeleteCardSuccess(id)),
