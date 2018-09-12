@@ -23,7 +23,7 @@ export class CardEditComponent implements OnChanges {
       word: ['', [Validators.required, Validators.minLength(2)]],
       example: '',
       context: '',
-      translation: '',
+      translation: ['', [Validators.required, Validators.minLength(2)]],
       exampleTranslation: '',
       contextTranslation: '',
     });

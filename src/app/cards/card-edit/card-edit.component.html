@@ -30,7 +30,8 @@
         <input matInput formControlName="context" placeholder="Context">
       </mat-form-field>
       <mat-form-field>
-        <input matInput formControlName="translation" placeholder="Translation">
+        <input matInput formControlName="translation" placeholder="Translation" #translation required>
+        <mat-error *ngIf="form['controls'].translation.invalid">Type in at least two letters</mat-error>
       </mat-form-field>
       <mat-form-field>
         <input matInput formControlName="exampleTranslation" placeholder="Example translation">
@@ -43,7 +44,7 @@
           <button type="button" mat-raised-button routerLink="/cards">Back to cards</button>
         </div>
         <div class="col col-sm-12 text-center">
-          <button class="center" type="submit" mat-raised-button color="primary">Save</button>
+          <button class="center" type="submit" mat-raised-button color="primary" [disabled]="!form.valid">Save</button>
         </div>
       </div>
     </form>
