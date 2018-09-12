@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
@@ -23,6 +23,7 @@ export class CardEditContainerComponent {
 
   constructor(
     public modalService: ModalService,
+    private router: Router,
     private route: ActivatedRoute,
     private store: Store<fromStore.AppState>
   ) {
@@ -48,6 +49,7 @@ export class CardEditContainerComponent {
           message: 'The card has been deleted successfully!',
           class: 'warn'
         });
+        this.router.navigate(['/cards']);
       }
     });
   }
