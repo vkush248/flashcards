@@ -55,17 +55,17 @@ export class CardEditContainerComponent {
   }
 
   onUpdateCard(card: Card) {
-    if (this.id === 'new') {
-      this.store.dispatch(new fromStore.AddCard(card));
-      this.modalService.openSnackbar({
-        message: 'Congrats! You\'ve created a new card!',
-        class: 'success'
-      });
-    } else {
+    if (card.id) {
       this.store.dispatch(new fromStore.UpdateCard(card));
       this.modalService.openSnackbar({
         message: 'You\'ve successfully changed the card!',
         class: 'primary'
+      });
+    } else {
+      this.store.dispatch(new fromStore.AddCard(card));
+      this.modalService.openSnackbar({
+        message: 'Congrats! You\'ve created a new card!',
+        class: 'success'
       });
     }
   }
