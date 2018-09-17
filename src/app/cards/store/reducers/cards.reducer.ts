@@ -35,6 +35,7 @@ export function cardsReducer(
       const cards = action.payload;
 
       const entities = cards.reduce(
+        // tslint:disable-next-line:no-shadowed-variable
         (entities: { [id: number]: Card }, card: Card) => {
           return { ...entities, [card.id]: card };
         },
@@ -62,10 +63,20 @@ export function cardsReducer(
       return { ...state, entities };
     }
 
+    case actions.DELETE_CARD: {
+      const info = action.payload;
+      return { ...state };
+    }
+
     case actions.DELETE_CARD_SUCCESS: {
       const id = action.payload;
       const { [id]: removed, ...entities } = state.entities;
       return { ...state, entities };
+    }
+
+    case actions.DELETE_CARD_ERROR: {
+      const info = action.payload;
+      return { ...state };
     }
   }
   return state;

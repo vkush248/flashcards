@@ -45,10 +45,6 @@ export class CardEditContainerComponent {
     }).subscribe((agree: boolean) => {
       if (agree) {
         this.store.dispatch(new fromStore.DeleteCard(this.id));
-        this.modalService.openSnackbar({
-          message: 'The card has been deleted successfully!',
-          class: 'warn'
-        });
         this.router.navigate(['/cards']);
       }
     });
@@ -57,16 +53,8 @@ export class CardEditContainerComponent {
   onUpdateCard(card: Card) {
     if (card.id) {
       this.store.dispatch(new fromStore.UpdateCard(card));
-      this.modalService.openSnackbar({
-        message: 'You\'ve successfully changed the card!',
-        class: 'primary'
-      });
     } else {
       this.store.dispatch(new fromStore.AddCard(card));
-      this.modalService.openSnackbar({
-        message: 'Congrats! You\'ve created a new card!',
-        class: 'success'
-      });
     }
   }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { v4 as uuid } from 'uuid';
 import { Card } from '../models/card.model';
 
@@ -48,7 +48,8 @@ export class CardService {
       img: 'https://cdn2.iconfinder.com/data/icons/truth-about-politics/64/donald_trump_mr_president_leader_boss_ceo_head-512.png',
       translation: 'абсурдный',
       exampleTranslation: 'нелепое предложение',
-      contextTranslation: 'Нелепый свадебный контракт, согласно которому женщина должна любить, чтить и повиноваться мужу, является анахронизмом.',
+      contextTranslation:
+        'Нелепый свадебный контракт, согласно которому женщина должна любить, чтить и повиноваться мужу, является анахронизмом.',
     },
   ];
 
@@ -64,19 +65,31 @@ export class CardService {
   }
 
   updateCard(card: Card): Observable<Card> {
-    this.cards = this.cards.map(elem => (elem.id === card.id) ? card : elem);
-    return of(card);
+    if (Math.random() > 0.5) {
+      return throwError('Something went wrong. Try again!');
+    } else {
+      this.cards = this.cards.map(elem => (elem.id === card.id) ? card : elem);
+      return of(card);
+    }
   }
 
   addCard(card: Card): Observable<Card> {
-    card = { ...card, id: this.generateId() };
-    this.cards = [...this.cards, card];
-    return of(card);
+    if (Math.random() > 0.5) {
+      return throwError('Something went wrong. Try again!');
+    } else {
+      card = { ...card, id: this.generateId() };
+      this.cards = [...this.cards, card];
+      return of(card);
+    }
   }
 
-  deleteCard(id: String): Observable<boolean> {
-    this.cards = this.cards.filter(elem => elem.id !== id);
-    return of(true);
+  deleteCard(id: String) {
+    if (Math.random() > 0.5) {
+      return throwError('Something went wrong. Try again!');
+    } else {
+      this.cards = this.cards.filter(elem => elem.id !== id);
+      return of(true);
+    }
   }
 
   generateId(): string {

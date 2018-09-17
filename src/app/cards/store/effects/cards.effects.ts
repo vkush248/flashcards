@@ -2,13 +2,19 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
+import { ModalService } from '../../../services/modal.service';
+import * as snackbarActions from '../../../store/actions';
 import { Card } from '../../models/card.model';
 import { CardService } from '../../services/card.service';
 import * as cardsActions from '../actions';
 
 @Injectable()
 export class CardsEffects {
-  constructor(private actions$: Actions, private cardService: CardService) { }
+  constructor(
+    private actions$: Actions,
+    private cardService: CardService,
+    private modalService: ModalService
+  ) { }
 
   @Effect()
   loadCards$ = this.actions$.pipe(ofType(cardsActions.LOAD_CARDS)).pipe(
@@ -26,9 +32,10 @@ export class CardsEffects {
     switchMap(card => {
       return this.cardService.updateCard(card)
         .pipe(
+          // tslint:disable-next-line:no-shadowed-variable
           map(card => new cardsActions.UpdateCardSuccess(card)),
           catchError(error => of(new cardsActions.UpdateCardError(error))),
-      );
+        );
     })
   );
 
@@ -38,9 +45,10 @@ export class CardsEffects {
     switchMap(card => {
       return this.cardService.addCard(card)
         .pipe(
+          // tslint:disable-next-line:no-shadowed-variable
           map(card => new cardsActions.AddCardSuccess(card)),
           catchError(error => of(new cardsActions.AddCardError(error))),
-      );
+        );
     })
   );
 
@@ -52,7 +60,15 @@ export class CardsEffects {
         .pipe(
           map(() => new cardsActions.DeleteCardSuccess(id)),
           catchError(error => of(new cardsActions.DeleteCardError(error))),
-      );
+        );
     })
+  );
+
+  @Effect()
+  showErrorMessage$ = this.actions$.pipe(ofType(
+    cardsActions.DELETE_CARD_ERROR, cardsActions.UPDATE_CARD_ERROR, cardsActions.ADD_CARD_ERROR,
+    cardsActions.DELETE_CARD_SUCCESS, cardsActions.UPDATE_CARD_SUCCESS, cardsActions.ADD_CARD_SUCCESS
+  )).pipe(
+    map((action) => new snackbarActions.SelectSnackbar(action)),
   );
 }

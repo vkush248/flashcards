@@ -1,26 +1,28 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_SNACK_BAR_DATA } from '@angular/material';
+import { SnackbarState } from '../../store';
 
 @Component({
   selector: 'app-snackbar',
-  template: `<div class="{{configuration.class}}">{{configuration.message}}</div>`,
+  template: `<div class="{{configuration.type}}">{{configuration.message}}</div>`,
   styles: [`
-    .primary {
-        color: lightskyblue;
+    .info {
+      color: lightskyblue;
     }
     .warn {
-        color: lightcoral;
+      color: lightcoral;
     }
     .success {
-        color: chartreuse;
+      color: chartreuse;
+    }
+    .danger {
+      color: red;
     }
   `]
 })
+
 export class SnackbarComponent {
-  configuration: {
-    message: String,
-    class: String,
-  };
+  configuration: SnackbarState;
 
   constructor(@Inject(MAT_SNACK_BAR_DATA) data, ) {
     this.configuration = data;

@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+// tslint:disable-next-line:max-line-length
 import { MatButtonModule, MatButtonToggleModule, MatDialogModule, MatIconModule, MatInputModule, MatListModule, MatSnackBarModule } from '@angular/material';
 import { ModalComponent } from './modal/modal.component';
 import { SnackbarComponent } from './snackbar/snackbar.component';
