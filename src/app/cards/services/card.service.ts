@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, throwError } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { v4 as uuid } from 'uuid';
 import { Card } from '../models/card.model';
 
@@ -65,31 +65,19 @@ export class CardService {
   }
 
   updateCard(card: Card): Observable<Card> {
-    if (Math.random() > 0.5) {
-      return throwError('Something went wrong. Try again!');
-    } else {
-      this.cards = this.cards.map(elem => (elem.id === card.id) ? card : elem);
-      return of(card);
-    }
+    this.cards = this.cards.map(elem => (elem.id === card.id) ? card : elem);
+    return of(card);
   }
 
   addCard(card: Card): Observable<Card> {
-    if (Math.random() > 0.5) {
-      return throwError('Something went wrong. Try again!');
-    } else {
-      card = { ...card, id: this.generateId() };
-      this.cards = [...this.cards, card];
-      return of(card);
-    }
+    card = { ...card, id: this.generateId() };
+    this.cards = [...this.cards, card];
+    return of(card);
   }
 
   deleteCard(id: String) {
-    if (Math.random() > 0.5) {
-      return throwError('Something went wrong. Try again!');
-    } else {
-      this.cards = this.cards.filter(elem => elem.id !== id);
-      return of(true);
-    }
+    this.cards = this.cards.filter(elem => elem.id !== id);
+    return of(true);
   }
 
   generateId(): string {

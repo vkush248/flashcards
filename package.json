@@ -24,6 +24,7 @@
     "@angular/router": "^6.0.3",
     "@ngrx/core": "^1.2.0",
     "@ngrx/effects": "^6.1.0",
+    "@ngrx/entity": "^6.1.0",
     "@ngrx/store": "^6.1.0",
     "@ngrx/store-devtools": "^6.1.0",
     "@types/uuid": "^3.4.4",

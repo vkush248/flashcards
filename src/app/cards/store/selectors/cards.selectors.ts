@@ -6,27 +6,20 @@ export const getCardsFeature = createFeatureSelector<fromCards.AppState>('cardsS
 
 export const getCardsState = createSelector(
   getCardsFeature,
-  (state: fromCards.AppState): fromCards.CardsState => state.cards
+  cardsStore => cardsStore.cards
 );
 
-export const getAllCardsEntities = createSelector(getCardsState, fromCards.getCardsEntities);
+export const getAllCardsEntities = createSelector(
+  getCardsState,
+  fromCards.selectEntities
+);
 
 export const getAllCards = createSelector(
-  getAllCardsEntities,
-  entities => Object.keys(entities).map(id => entities[id])
+  getCardsState,
+  fromCards.selectAll
 );
 
 export const selectCard = (id: string) => createSelector(
   getAllCards,
   ((cards: Card[]) => cards.find(card => card.id === id))
-);
-
-export const selectCardsLoaded = createSelector(
-  getCardsState,
-  fromCards.getCardsLoaded
-);
-
-export const selectCardsLoading = createSelector(
-  getCardsState,
-  fromCards.getCardsLoading
 );
