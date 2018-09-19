@@ -2,7 +2,7 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { Card } from '../../models/card.model';
 import * as fromCards from '../reducers/cards.reducer';
 
-export const getCardsFeature = createFeatureSelector<fromCards.AppState>('cardsStore');
+export const getCardsFeature = createFeatureSelector<fromCards.CardsFeatureState>('cardsStore');
 
 export const getCardsState = createSelector(
   getCardsFeature,

@@ -25,7 +25,7 @@ export class CardEditContainerComponent {
     public modalService: ModalService,
     private router: Router,
     private route: ActivatedRoute,
-    private store: Store<fromStore.AppState>
+    private store: Store<fromStore.CardsFeatureState>
   ) {
     this.card$ = this.route.paramMap.pipe(switchMap((params: ParamMap) => {
       this.id = params.get('id');

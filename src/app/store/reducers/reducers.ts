@@ -2,22 +2,22 @@ import { ActionReducerMap } from '@ngrx/store';
 import * as cardsActions from '../../cards/store/actions';
 import * as actions from '../actions';
 
-export const reducers: ActionReducerMap<State> = {
+export const reducers: ActionReducerMap<AppState> = {
   snackbar: snackbarReducer,
 };
 
-export interface State {
-  snackbar: SnackbarState;
+export interface AppState {
+  snackbar: Snackbar;
 }
 
-export interface SnackbarState {
+export interface Snackbar {
   message: string;
   type: SnackbarType;
 }
 
 export type SnackbarType = 'warn' | 'success' | 'info' | 'danger';
 
-export const initialState: SnackbarState = {
+export const initialState: Snackbar = {
   message: null,
   type: null
 };

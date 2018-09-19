@@ -13,7 +13,7 @@ import * as fromStore from '../store';
 export class CardListContainerComponent {
   cards$: Observable<Card[]>;
 
-  constructor(private store: Store<fromStore.AppState>, private router: Router) {
+  constructor(private store: Store<fromStore.CardsFeatureState>, private router: Router) {
     this.store.dispatch(new fromStore.LoadCards());
     this.cards$ = this.store.pipe(select(fromStore.getAllCards));
   }

@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_SNACK_BAR_DATA } from '@angular/material';
-import { SnackbarState } from '../../store';
+import { Snackbar } from '../../store';
 
 @Component({
   selector: 'app-snackbar',
@@ -22,7 +22,7 @@ import { SnackbarState } from '../../store';
 })
 
 export class SnackbarComponent {
-  configuration: SnackbarState;
+  configuration: Snackbar;
 
   constructor(@Inject(MAT_SNACK_BAR_DATA) data, ) {
     this.configuration = data;

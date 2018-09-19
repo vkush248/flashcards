@@ -10,14 +10,13 @@ export interface CardsState extends EntityState<Card> {
 
 export const adapter: EntityAdapter<Card> = createEntityAdapter<Card>();
 
-export const reducers: ActionReducerMap<AppState> = {
+export const reducers: ActionReducerMap<CardsFeatureState> = {
   cards: cardsReducer,
 };
 
-export interface AppState {
+export interface CardsFeatureState {
   cards: CardsState;
 }
-
 
 export const initialState: CardsState = adapter.getInitialState({
   loaded: false,
