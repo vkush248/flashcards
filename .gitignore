@@ -39,3 +39,6 @@ testem.log
 Thumbs.db
 tasks.txt
 .gitignore
+
+# auxiliary
+/cheetsheets

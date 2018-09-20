@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { AppCommonModule } from '../common/app-common.module';
@@ -11,10 +12,12 @@ import { CardListComponent } from './card-list/card-list.component';
 import { routing } from './cards.routes';
 import { CardService } from './services/card.service';
 import { effects, reducers } from './store';
+
 @NgModule({
   imports: [
     routing,
     CommonModule,
+    HttpModule,
     ReactiveFormsModule,
     AppCommonModule,
     StoreModule.forFeature('cardsStore', reducers),
