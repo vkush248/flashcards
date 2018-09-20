@@ -63,6 +63,5 @@ export function cardsReducer(
 export const {
   selectAll,
   selectEntities,
-  selectIds,
   selectTotal,
 } = adapter.getSelectors();

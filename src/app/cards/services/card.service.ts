@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Headers, Http, RequestOptions } from '@angular/http';
 import { Observable, of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { v4 as uuid } from 'uuid';
@@ -37,9 +37,11 @@ export class CardService {
   }
 
   addCard(card: Card): Observable<Card> {
-    card = { ...card, id: this.generateId() };
-    this.cards = [...this.cards, card];
-    return of(card);
+    const headers = new Headers({ 'Content-type': 'application/json' });
+    const options = new RequestOptions({ headers });
+    return this._http.post('api/new', JSON.stringify(card), options).pipe(
+      map(result => result.json())
+    );
   }
 
   deleteCard(id: String) {

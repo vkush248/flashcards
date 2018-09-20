@@ -20,7 +20,6 @@ router.get('/cards', function (req, res) {
         res.json(cards)
       }
     })
-
 })
 
 router.get('/cards/:id', function (req, res) {
@@ -33,7 +32,21 @@ router.get('/cards/:id', function (req, res) {
         res.json(card)
       }
     })
+})
 
+router.post('/new', function (req, res) {
+  console.log("Adding a card");
+  const newCard = new card();
+  for (const key of Object.keys(req.body)) {
+    newCard[key] = req.body[key];
+  }
+  newCard.save(function (err, addedCard) {
+    if (err) {
+      console.log('Error adding a card');
+    } else {
+      res.json(addedCard)
+    }
+  })
 })
 
 module.exports = router;

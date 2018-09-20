@@ -23,7 +23,6 @@ const cardSchema = new mongoose.Schema({
   word: String,
   example: String,
   context: String,
-  img: String,
   translation: String,
   exampleTranslation: String,
   contextTranslation: String
