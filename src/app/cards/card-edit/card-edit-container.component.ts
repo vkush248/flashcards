@@ -51,7 +51,7 @@ export class CardEditContainerComponent {
   }
 
   onUpdateCard(card: Card) {
-    if (card.id) {
+    if (card._id) {
       this.store.dispatch(new fromStore.UpdateCard(card));
     } else {
       this.store.dispatch(new fromStore.AddCard(card));

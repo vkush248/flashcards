@@ -6,4 +6,4 @@ const appRoutes: Routes = [
   { path: 'cards', loadChildren: './cards/cards.module#CardsModule' },
 ];
 
-export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);
+export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes, { useHash: true });

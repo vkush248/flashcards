@@ -8,7 +8,9 @@ export interface CardsState extends EntityState<Card> {
   loading: boolean;
 }
 
-export const adapter: EntityAdapter<Card> = createEntityAdapter<Card>();
+export const adapter: EntityAdapter<Card> = createEntityAdapter<Card>({
+  selectId: (card: Card) => card._id
+});
 
 export const reducers: ActionReducerMap<CardsFeatureState> = {
   cards: cardsReducer,
@@ -63,5 +65,6 @@ export function cardsReducer(
 export const {
   selectAll,
   selectEntities,
+  selectIds,
   selectTotal,
 } = adapter.getSelectors();

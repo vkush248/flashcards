@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
-import { ModalService } from '../../../services/modal.service';
 import * as snackbarActions from '../../../store/actions';
 import { Card } from '../../models/card.model';
 import { CardService } from '../../services/card.service';
@@ -13,7 +12,6 @@ export class CardsEffects {
   constructor(
     private actions$: Actions,
     private cardService: CardService,
-    private modalService: ModalService
   ) { }
 
   @Effect()
@@ -32,8 +30,7 @@ export class CardsEffects {
     switchMap(card => {
       return this.cardService.updateCard(card)
         .pipe(
-          // tslint:disable-next-line:no-shadowed-variable
-          map(card => new cardsActions.UpdateCardSuccess(card)),
+          map(response => new cardsActions.UpdateCardSuccess(card)),
           catchError(error => of(new cardsActions.UpdateCardError(error))),
         );
     })
@@ -71,4 +68,5 @@ export class CardsEffects {
   )).pipe(
     map((action) => new snackbarActions.SelectSnackbar(action)),
   );
+
 }

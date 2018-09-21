@@ -9,10 +9,10 @@
       "projectType": "application",
       "prefix": "app",
       "schematics": {
-      "@schematics/angular:component": {
-        "styleext": "scss"
-      }
-    },
+        "@schematics/angular:component": {
+          "styleext": "scss"
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -33,12 +33,10 @@
           },
           "configurations": {
             "production": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
+              "fileReplacements": [{
+                "replace": "src/environments/environment.ts",
+                "with": "src/environments/environment.prod.ts"
+              }],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -54,7 +52,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "english-flashcards:build"
+            "browserTarget": "english-flashcards:build",
+            "proxyConfig": "proxy.conf.json"
           },
           "configurations": {
             "production": {

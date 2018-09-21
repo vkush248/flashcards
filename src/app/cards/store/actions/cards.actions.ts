@@ -35,7 +35,7 @@ export class UpdateCard implements Action {
 
 export class UpdateCardSuccess implements Action {
   readonly type = UPDATE_CARD_SUCCESS;
-  constructor(public payload: Card) { }
+  constructor(public payload: any) { }
 }
 
 export class UpdateCardError implements Action {

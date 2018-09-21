@@ -21,5 +21,5 @@ export const getAllCards = createSelector(
 
 export const selectCard = (id: string) => createSelector(
   getAllCards,
-  ((cards: Card[]) => cards.find(card => card.id === id))
+  ((cards: Card[]) => cards.find(card => card._id === id))
 );

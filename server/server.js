@@ -12,11 +12,11 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 
-app.use('/api', api)
+app.use('/api', api);
 
 mongoose.connect('mongodb://localhost/flashcards')
   .then(() => console.log("Connected to MongoDB"))
-  .catch((error) => console.error(`Couldn't connect to MongoDB ${error}`))
+  .catch((error) => console.error(`Couldn't connect to MongoDB ${error}`));
 
 const cardSchema = new mongoose.Schema({
   topic: String,
@@ -31,13 +31,15 @@ const cardSchema = new mongoose.Schema({
 
 async function createCard(card) {
   const Card = mongoose.model('Card', cardSchema);
-  Card.insert(card)
+  Card.insert(card);
 };
 
 app.use(bodyParser.json());
+
 app.use(bodyParser.urlencoded({
   extended: false
 }));
+
 app.use(express.static(path.join(__dirname, '../dist/english-flashcards')));
 
 app.get('/', (req, res) => {

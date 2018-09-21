@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http, RequestOptions } from '@angular/http';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { v4 as uuid } from 'uuid';
 import { Card } from '../models/card.model';
-
 
 @Injectable()
 export class CardService {
@@ -12,44 +10,35 @@ export class CardService {
 
   constructor(private _http: Http) { }
 
-  renameProp_id(card) {
-    const { _id, ...rest } = card;
-    return { id: _id, ...rest };
-  }
-
   getCards(): Observable<Card[]> {
     return this._http.get('/api/cards').pipe(
       map(cards => cards.json()),
-      map(cards => [...cards].map(card => this.renameProp_id(card))),
     );
   }
 
   getCard(id): Observable<Card> {
     return this._http.get('/api/card/' + id).pipe(
       map(card => card.json()),
-      tap(card => this.renameProp_id(card))
     );
   }
 
-  updateCard(card: Card): Observable<Card> {
-    this.cards = this.cards.map(elem => (elem.id === card.id) ? card : elem);
-    return of(card);
+  updateCard(card: Card): any {
+    return this._http.put('/api/update', card).pipe(
+      tap(card => console.log(card)),
+      map(result => result.json()),
+    );
   }
 
   addCard(card: Card): Observable<Card> {
     const headers = new Headers({ 'Content-type': 'application/json' });
     const options = new RequestOptions({ headers });
     return this._http.post('api/new', JSON.stringify(card), options).pipe(
-      map(result => result.json())
+      map(result => result.json()),
     );
   }
 
   deleteCard(id: String) {
-    this.cards = this.cards.filter(elem => elem.id !== id);
-    return of(true);
+    return this._http.delete('/api/delete/' + id);
   }
 
-  generateId(): string {
-    return uuid();
-  }
 }

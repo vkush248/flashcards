@@ -1,5 +1,5 @@
 export interface Card {
-  id: string;
+  _id: string;
   topic: string;
   word: string;
   example: string;
