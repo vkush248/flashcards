@@ -4,7 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Development server
 
-Run `node server` and navigate to `http://localhost:3000/`.
+Run `ng serve` and navigate to `http://localhost:4200/`.
 
 ## Code scaffolding
 
