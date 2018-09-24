@@ -25,6 +25,17 @@ export class CardsEffects {
   );
 
   @Effect()
+  loadCard$ = this.actions$.pipe(ofType(cardsActions.LOAD_CARD)).pipe(
+    map((action: cardsActions.LoadCard) => action.payload),
+    switchMap((id) => {
+      return this.cardService.getCard(id).pipe(
+        map((card: Card) => new cardsActions.LoadCardSuccess(card)),
+        catchError((error: Error) => of(new cardsActions.LoadCardError(error)))
+      );
+    })
+  );
+
+  @Effect()
   updateCard$ = this.actions$.pipe(ofType(cardsActions.UPDATE_CARD)).pipe(
     map((action: cardsActions.UpdateCard) => action.payload),
     switchMap(card => {

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Card } from '../models/card.model';
 
 @Injectable()
@@ -17,14 +17,13 @@ export class CardService {
   }
 
   getCard(id): Observable<Card> {
-    return this._http.get('/api/card/' + id).pipe(
-      map(card => card.json()),
+    return this._http.get('/api/cards/' + id).pipe(
+      map(card => card.json())
     );
   }
 
   updateCard(card: Card): any {
     return this._http.put('/api/update', card).pipe(
-      tap(card => console.log(card)),
       map(result => result.json()),
     );
   }

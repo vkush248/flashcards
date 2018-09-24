@@ -28,7 +28,6 @@ const cardSchema = new mongoose.Schema({
   contextTranslation: String
 });
 
-
 async function createCard(card) {
   const Card = mongoose.model('Card', cardSchema);
   Card.insert(card);

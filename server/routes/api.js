@@ -53,7 +53,7 @@ router.post('/new', function (req, res) {
     if (err) {
       console.log('Error adding the card');
     } else {
-      res.json(addedCard);
+      res.json(addedCard)
     }
   })
 })

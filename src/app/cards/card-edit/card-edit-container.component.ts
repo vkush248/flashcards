@@ -27,8 +27,9 @@ export class CardEditContainerComponent {
     private route: ActivatedRoute,
     private store: Store<fromStore.CardsFeatureState>
   ) {
-    this.card$ = this.route.paramMap.pipe(switchMap((params: ParamMap) => {
+    this.card$ = this.route.paramMap.pipe(switchMap((params: ParamMap): any => {
       this.id = params.get('id');
+      this.store.dispatch(new fromStore.LoadCard(this.id));
       return this.store.pipe(select(fromStore.selectCard(this.id)));
     }));
   }

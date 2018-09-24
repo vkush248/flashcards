@@ -30,15 +30,21 @@ export function cardsReducer(
   action: actions.CardsAction
 ): CardsState {
   switch (action.type) {
-    case actions.LOAD_CARDS: {
+    case actions.LOAD_CARDS:
+    case actions.LOAD_CARD: {
       return { ...state, loading: true, loaded: false };
+    }
+
+    case actions.LOAD_CARD_SUCCESS: {
+      return adapter.addOne(action.payload, state);
     }
 
     case actions.LOAD_CARDS_SUCCESS: {
       return adapter.addMany(action.payload, state);
     }
 
-    case actions.LOAD_CARDS_ERROR: {
+    case actions.LOAD_CARDS_ERROR:
+    case actions.LOAD_CARD_ERROR: {
       return { ...state, loading: false, loaded: false };
     }
 
