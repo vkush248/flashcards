@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import * as snackbarActions from '../../../store/actions';
 import { Card } from '../../models/card.model';
 import { CardService } from '../../services/card.service';
@@ -67,17 +67,23 @@ export class CardsEffects {
       return this.cardService.deleteCard(id)
         .pipe(
           map(() => new cardsActions.DeleteCardSuccess(id)),
-          catchError(error => of(new cardsActions.DeleteCardError(error))),
+          catchError(error => {
+            return of(new cardsActions.DeleteCardError(JSON.parse(error._body).snackbarMessage));
+          })
         );
     })
   );
 
   @Effect()
   showErrorMessage$ = this.actions$.pipe(ofType(
-    cardsActions.DELETE_CARD_ERROR, cardsActions.UPDATE_CARD_ERROR, cardsActions.ADD_CARD_ERROR,
-    cardsActions.DELETE_CARD_SUCCESS, cardsActions.UPDATE_CARD_SUCCESS, cardsActions.ADD_CARD_SUCCESS
+    cardsActions.DELETE_CARD_ERROR,
+    cardsActions.UPDATE_CARD_ERROR,
+    cardsActions.ADD_CARD_ERROR,
+    cardsActions.DELETE_CARD_SUCCESS,
+    cardsActions.UPDATE_CARD_SUCCESS,
+    cardsActions.ADD_CARD_SUCCESS
   )).pipe(
-    map((action) => new snackbarActions.SelectSnackbar(action)),
-  );
+    tap(x => console.log(x)),
+    map((action: any) => new snackbarActions.SelectSnackbar(action.payload)));
 
 }

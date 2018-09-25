@@ -25,7 +25,7 @@ router.get('/cards/:id', function (req, res) {
   card.findById(req.params.id)
     .exec(function (err, card) {
       if (err) {
-        console.log("Error getting the card");
+        console.log(err);
       } else {
         res.json(card);
       }
@@ -53,7 +53,7 @@ router.post('/new', function (req, res) {
     if (err) {
       console.log('Error adding the card');
     } else {
-      res.json(addedCard)
+      res.json(addedCard);
     }
   })
 })
@@ -63,9 +63,20 @@ router.delete('/delete/:id', function (req, res) {
     _id: req.params.id
   }, function (err, card) {
     if (err) {
-      console.log('Error deleting a card');
+      res.json({
+        snackbarMessage: {
+          message: 'Something went wrong. The card hasn\'t been deleted.',
+          type: "warn"
+        }
+      })
     } else {
-      res.json(card)
+      res.json({
+        card,
+        snackbarMessage: {
+          message: "The card has been deleted.",
+          type: "success"
+        }
+      });
     }
   })
 })
