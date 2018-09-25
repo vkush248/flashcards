@@ -6,6 +6,9 @@ import { Snackbar } from '../../store';
   selector: 'app-snackbar',
   template: `<div class="{{configuration.type}}">{{configuration.message}}</div>`,
   styles: [`
+    div {
+      text-align: center;
+    }
     .info {
       color: lightskyblue;
     }

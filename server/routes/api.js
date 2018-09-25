@@ -36,7 +36,9 @@ router.put('/update', function (req, res) {
   card.findByIdAndUpdate(req.body._id, req.body,
     function (err, card) {
       if (err) {
-        console.log("Error updating the card");
+        res.json({
+          message: "Something went wrong. The card hasn\'t been updated.",
+        })
       } else {
         res.json(card);
       }
@@ -51,7 +53,9 @@ router.post('/new', function (req, res) {
   }
   newCard.save(function (err, addedCard) {
     if (err) {
-      console.log('Error adding the card');
+      res.json({
+        message: "Something went wrong. The card hasn\'t been added.",
+      })
     } else {
       res.json(addedCard);
     }
@@ -64,19 +68,10 @@ router.delete('/delete/:id', function (req, res) {
   }, function (err, card) {
     if (err) {
       res.json({
-        snackbarMessage: {
-          message: 'Something went wrong. The card hasn\'t been deleted.',
-          type: "warn"
-        }
+        message: "Something went wrong. The card hasn\'t been deleted.",
       })
     } else {
-      res.json({
-        card,
-        snackbarMessage: {
-          message: "The card has been deleted.",
-          type: "success"
-        }
-      });
+      res.json(card);
     }
   })
 })

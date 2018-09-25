@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import * as snackbarActions from '../../../store/actions';
 import { Card } from '../../models/card.model';
 import { CardService } from '../../services/card.service';
@@ -42,7 +42,7 @@ export class CardsEffects {
       return this.cardService.updateCard(card)
         .pipe(
           map(response => new cardsActions.UpdateCardSuccess(card)),
-          catchError(error => of(new cardsActions.UpdateCardError(error))),
+          catchError(error => of(new cardsActions.DeleteCardError(JSON.parse(error._body))))
         );
     })
   );
@@ -55,7 +55,7 @@ export class CardsEffects {
         .pipe(
           // tslint:disable-next-line:no-shadowed-variable
           map(card => new cardsActions.AddCardSuccess(card)),
-          catchError(error => of(new cardsActions.AddCardError(error))),
+          catchError(error => of(new cardsActions.DeleteCardError(JSON.parse(error._body))))
         );
     })
   );
@@ -67,9 +67,7 @@ export class CardsEffects {
       return this.cardService.deleteCard(id)
         .pipe(
           map(() => new cardsActions.DeleteCardSuccess(id)),
-          catchError(error => {
-            return of(new cardsActions.DeleteCardError(JSON.parse(error._body).snackbarMessage));
-          })
+          catchError(error => of(new cardsActions.DeleteCardError(JSON.parse(error._body))))
         );
     })
   );
@@ -79,11 +77,19 @@ export class CardsEffects {
     cardsActions.DELETE_CARD_ERROR,
     cardsActions.UPDATE_CARD_ERROR,
     cardsActions.ADD_CARD_ERROR,
+  )).pipe(
+    map((action: any) => action.payload),
+    map((message) => new snackbarActions.SelectSnackbar({ ...message, type: 'warn' }))
+  );
+
+
+  @Effect()
+  showSuccessMessage$ = this.actions$.pipe(ofType(
     cardsActions.DELETE_CARD_SUCCESS,
     cardsActions.UPDATE_CARD_SUCCESS,
     cardsActions.ADD_CARD_SUCCESS
   )).pipe(
-    tap(x => console.log(x)),
-    map((action: any) => new snackbarActions.SelectSnackbar(action.payload)));
+    map(() => new snackbarActions.SelectSnackbar({ message: 'Done!', type: 'success' }))
+  );
 
 }
