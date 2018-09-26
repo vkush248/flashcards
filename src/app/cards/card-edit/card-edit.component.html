@@ -17,11 +17,15 @@
     <form [formGroup]="form" (ngSubmit)="updateCard(form.value)">
       <mat-form-field>
         <input matInput formControlName="topic" placeholder="Topic" #topic required>
-        <mat-error *ngIf="form['controls'].topic.invalid">Type in at least two letters</mat-error>
+        <mat-error *ngFor="let validation of validations">
+          <mat-error *ngIf="form['controls'].topic.hasError(validation.type)">{{validation.message}}</mat-error>
+        </mat-error>
       </mat-form-field>
       <mat-form-field>
         <input matInput formControlName="word" placeholder="Word" #word required>
-        <mat-error *ngIf="form['controls'].word.invalid">Type in at least two letters</mat-error>
+        <mat-error *ngFor="let validation of validations">
+          <mat-error *ngIf="form['controls'].word.hasError(validation.type)">{{validation.message}}</mat-error>
+        </mat-error>
       </mat-form-field>
       <mat-form-field>
         <input matInput formControlName="example" placeholder="Example">
@@ -31,7 +35,9 @@
       </mat-form-field>
       <mat-form-field>
         <input matInput formControlName="translation" placeholder="Translation" #translation required>
-        <mat-error *ngIf="form['controls'].translation.invalid">Type in at least two letters</mat-error>
+        <mat-error *ngFor="let validation of validations">
+          <mat-error *ngIf="form['controls'].translation.hasError(validation.type)">{{validation.message}}</mat-error>
+        </mat-error>
       </mat-form-field>
       <mat-form-field>
         <input matInput formControlName="exampleTranslation" placeholder="Example translation">

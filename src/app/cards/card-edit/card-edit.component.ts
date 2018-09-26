@@ -11,6 +11,7 @@ import { Card } from '../models/card.model';
 
 export class CardEditComponent implements OnChanges {
   form: FormGroup;
+  validations: any;
   @Input() card: Card;
   @Output() save: EventEmitter<Card> = new EventEmitter();
   @Output() delete: EventEmitter<void> = new EventEmitter();
@@ -19,14 +20,32 @@ export class CardEditComponent implements OnChanges {
     private fb: FormBuilder,
   ) {
     this.form = this.fb.group({
-      topic: ['', [Validators.required, Validators.minLength(2)]],
-      word: ['', [Validators.required, Validators.minLength(2)]],
+      topic: ['', Validators.compose([
+        Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(25),
+      ])],
+      word: ['', Validators.compose([
+        Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(25),
+      ])],
       example: '',
       context: '',
-      translation: ['', [Validators.required, Validators.minLength(2)]],
+      translation: ['', Validators.compose([
+        Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(125),
+      ])],
       exampleTranslation: '',
       contextTranslation: '',
     });
+
+    this.validations = [
+      { type: 'required', message: 'This field is required' },
+      { type: 'minlength', message: 'This field must be at least 2 characters long' },
+      { type: 'maxlength', message: 'This field cannot be more than 25 characters long' },
+    ];
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -38,5 +57,4 @@ export class CardEditComponent implements OnChanges {
   updateCard(newCard: Card) {
     if (this.form.valid) { this.save.emit({ ...this.card, ...newCard }); }
   }
-
 }
