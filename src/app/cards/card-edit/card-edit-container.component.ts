@@ -13,7 +13,7 @@ import * as fromStore from '../store';
   <app-card-edit
     [card]="card$ | async"
     (save)="onUpdateCard($event)"
-    (delete)="deleteCard()">
+    (delete)="deleteCard($event)">
   </app-card-edit>`,
 })
 
