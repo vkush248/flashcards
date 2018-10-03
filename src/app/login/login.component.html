@@ -1,0 +1,32 @@
+<mat-card class="example-card">
+  <form [formGroup]="form" (ngSubmit)="logIn(form.value)">
+    <mat-card-header>
+      <mat-card-title>Login</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <table cellspacing="0">
+        <tr>
+          <td>
+            <mat-form-field>
+              <input matInput formControlName="username" placeholder="username" #username required>
+              <!-- <mat-error *ngIf="username.hasError('required')">This field is required</mat-error> -->
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <mat-form-field>
+              <input matInput type="password" formControlName="password" placeholder="password" #password required>
+              <!-- <mat-error *ngIf="password.hasError('required')">This field is required</mat-error> -->
+            </mat-form-field>
+          </td>
+        </tr>
+      </table>
+      <!-- put it here -->
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" type="submit">Login</button>
+    </mat-card-actions>
+  </form>
+</mat-card>
+<!-- <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner> -->

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 // tslint:disable-next-line:max-line-length
-import { MatButtonModule, MatButtonToggleModule, MatDialogModule, MatIconModule, MatInputModule, MatListModule, MatSnackBarModule } from '@angular/material';
+import { MatButtonModule, MatButtonToggleModule, MatCardModule, MatDialogModule, MatIconModule, MatInputModule, MatListModule, MatMenuModule, MatProgressSpinnerModule, MatSnackBarModule, MatTableModule, MatToolbarModule } from '@angular/material';
 import { ModalComponent } from './modal/modal.component';
 import { SnackbarComponent } from './snackbar/snackbar.component';
 
@@ -20,6 +20,13 @@ import { SnackbarComponent } from './snackbar/snackbar.component';
     MatDialogModule,
     MatListModule,
     MatSnackBarModule,
+
+    MatToolbarModule,
+    MatInputModule,
+    MatCardModule,
+    MatTableModule,
+    MatMenuModule,
+    MatProgressSpinnerModule
   ],
   declarations: [ModalComponent, SnackbarComponent]
 })

@@ -11,7 +11,7 @@ export class CardService {
   constructor(private _http: Http) { }
 
   getCards(): Observable<Card[]> {
-    return this._http.get('/api/cards').pipe(
+    return this._http.get('/api/cards/').pipe(
       map(cards => cards.json()),
     );
   }
@@ -23,7 +23,7 @@ export class CardService {
   }
 
   updateCard(card: Card): any {
-    return this._http.put('/api/update', card).pipe(
+    return this._http.put('/api/cards/update/' + card._id, card).pipe(
       map(result => result.json()),
     );
   }
@@ -31,13 +31,13 @@ export class CardService {
   addCard(card: Card): Observable<Card> {
     const headers = new Headers({ 'Content-type': 'application/json' });
     const options = new RequestOptions({ headers });
-    return this._http.post('api/new', JSON.stringify(card), options).pipe(
+    return this._http.post('api/cards/new', JSON.stringify(card), options).pipe(
       map(result => result.json()),
     );
   }
 
   deleteCard(id: String) {
-    return this._http.delete('/api/delete/' + id);
+    return this._http.delete('/api/cards/delete/' + id);
   }
 
 }
