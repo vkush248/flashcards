@@ -9,13 +9,14 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { routing } from './app.routes';
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
 import { AppCommonModule } from './common/app-common.module';
 import { ModalComponent } from './common/modal/modal.component';
 import { SnackbarComponent } from './common/snackbar/snackbar.component';
-import { LoginComponent } from './login/login.component';
 import { reducers } from './store/reducers';
 @NgModule({
-  declarations: [AppComponent, LoginComponent],
+  declarations: [AppComponent, LoginComponent, RegisterComponent],
   imports: [
     BrowserModule,
     HttpModule,

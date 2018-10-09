@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -9,10 +10,9 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
   form: FormGroup;
-  username = new FormControl('', Validators.required);
-  password = new FormControl('', Validators.required);
+  pageTitle: string;
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) {
     this.form = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
@@ -23,7 +23,8 @@ export class LoginComponent {
     if (userData.username === 'test' && userData.password === 'test') {
       this.router.navigate(['cards']);
     } else {
-      alert('Invalid credentials');
+      this.authService.signIn(userData).subscribe();
+      // alert('Invalid credentials');
     }
   }
 }
