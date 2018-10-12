@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { filter } from 'rxjs/operators';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -21,10 +22,22 @@ export class LoginComponent {
 
   logIn(userData) {
     if (userData.username === 'test' && userData.password === 'test') {
-      this.router.navigate(['cards']);
+
     } else {
-      this.authService.signIn(userData).subscribe();
-      // alert('Invalid credentials');
+      const isSignedIn$ = this.authService.signIn(userData).pipe(filter(result => result.isValid));
+      const isNotSignedIn$ = this.authService.signIn(userData).pipe(filter(result => !result.isValid));
+
+      isSignedIn$.subscribe(
+        () => {
+          // dispatch an action to get users cards(use username property or userData)
+          this.router.navigate(['cards']);
+        }
+      );
+
+      isNotSignedIn$.subscribe(() => {
+        // dispatch an action to show a message
+        console.error('Wrong password or username');
+      });
     }
   }
 }

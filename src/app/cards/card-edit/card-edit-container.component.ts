@@ -29,7 +29,8 @@ export class CardEditContainerComponent {
   ) {
     this.card$ = this.route.paramMap.pipe(switchMap((params: ParamMap): any => {
       this.id = params.get('id');
-      this.store.dispatch(new fromStore.LoadCard(this.id));
+      // tslint:disable-next-line:no-unused-expression
+      (this.id !== 'new') && this.store.dispatch(new fromStore.LoadCard(this.id));
       return this.store.pipe(select(fromStore.selectCard(this.id)));
     }));
   }
