@@ -11,3 +11,4 @@ export class CloseSnackbar implements Action {
 }
 
 export type SnackbarAction = SelectSnackbar | CloseSnackbar;
+

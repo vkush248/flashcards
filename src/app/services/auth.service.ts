@@ -15,14 +15,20 @@ export class AuthService {
     const headers = new Headers({ 'Content-type': 'application/json' });
     const options = new RequestOptions({ headers });
     return this._http.post('/api/signIn/', JSON.stringify(userData), options)
-      .pipe(map(result => result.json()));
+      .pipe(
+        map(result => result.json()),
+        tap(res => console.dir(res))
+      );
   }
 
   signUp(userData): Observable<any> {
     const headers = new Headers({ 'Content-type': 'application/json' });
     const options = new RequestOptions({ headers });
     return this._http.post('/api/register/', JSON.stringify(userData), options)
-      .pipe(tap(res => console.dir(res)));
+      .pipe(
+        map(result => result.json()),
+        tap(res => console.dir(res))
+      );
   }
 
   getUser() {
@@ -30,6 +36,6 @@ export class AuthService {
   }
 
   isLoggedIn() {
-    return false;
+    return true;
   }
 }
