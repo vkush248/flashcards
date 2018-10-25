@@ -14,9 +14,9 @@ export class AuthService {
   signIn(userData): Observable<any> {
     const headers = new Headers({ 'Content-type': 'application/json' });
     const options = new RequestOptions({ headers });
-    return this._http.post('/api/signIn/', JSON.stringify(userData), options)
+    return this._http.post('/api/login/', JSON.stringify(userData), options)
       .pipe(
-        map(result => result.json()),
+        // map(result => result.json()),
         tap(res => console.dir(res))
       );
   }

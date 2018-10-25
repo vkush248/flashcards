@@ -15,7 +15,6 @@ import { AppCommonModule } from './common/app-common.module';
 import { ModalComponent } from './common/modal/modal.component';
 import { SnackbarComponent } from './common/snackbar/snackbar.component';
 import { reducers } from './store';
-
 @NgModule({
   declarations: [AppComponent, LoginComponent, RegisterComponent],
   imports: [
