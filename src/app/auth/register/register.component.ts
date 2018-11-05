@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { AuthService } from 'src/app/services/auth.service';
+import * as fromStore from '../../store';
 
 @Component({
   selector: 'app-register',
@@ -17,7 +19,8 @@ export class RegisterComponent {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private readonly store: Store<fromStore.AppState>
   ) {
     this.form = this.fb.group({
       username: ['', Validators.compose([
@@ -49,8 +52,14 @@ export class RegisterComponent {
 
   signUp(userData) {
     this.authService.signUp(userData).subscribe(
-      (data) => this.router.navigate(['cards']),
-      (error) => console.log(error),
+      (data) => {
+        this.store.dispatch(new fromStore.SelectSnackbar({ message: `Welcome, ${data.username}!`, type: 'success' }));
+        this.router.navigate(['cards']);
+      },
+      (error) => {
+        const message = error.json().message;
+        this.store.dispatch(new fromStore.SelectSnackbar({ message, type: 'warn' }));
+      },
       () => { console.log('Complete'); }
     );
   }

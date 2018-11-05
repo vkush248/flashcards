@@ -16,7 +16,7 @@ export class AuthService {
     const options = new RequestOptions({ headers });
     return this._http.post('/api/login/', JSON.stringify(userData), options)
       .pipe(
-        // map(result => result.json()),
+        map(result => result.json()),
         tap(res => console.dir(res))
       );
   }
@@ -27,12 +27,11 @@ export class AuthService {
     return this._http.post('/api/register/', JSON.stringify(userData), options)
       .pipe(
         map(result => result.json()),
-        tap(res => console.dir(res))
       );
   }
 
-  getUser() {
-    return this._http.get('/api/profile/123').pipe(tap(x => console.log(x)));
+  getUser(username) {
+    return this._http.get('/api/profile/:username', username).pipe(tap(x => console.log(x)));
   }
 
   isLoggedIn() {
