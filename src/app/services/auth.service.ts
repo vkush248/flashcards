@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http, RequestOptions } from '@angular/http';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
@@ -9,15 +10,19 @@ import { map, tap } from 'rxjs/operators';
 export class AuthService {
   redirectUrl: string;
 
-  constructor(private _http: Http) { }
+  constructor(private _http: Http, private router: Router) { }
 
   signIn(userData): Observable<any> {
     const headers = new Headers({ 'Content-type': 'application/json' });
     const options = new RequestOptions({ headers });
     return this._http.post('/api/login/', JSON.stringify(userData), options)
       .pipe(
-        map(result => result.json()),
-        tap(res => console.dir(res))
+        map(response => response.json()),
+        tap(() => {
+          if (this.redirectUrl) {
+            this.router.navigate([`${this.redirectUrl}`]);
+          } else { this.router.navigate(['cards']); }
+        })
       );
   }
 
@@ -34,7 +39,7 @@ export class AuthService {
     return this._http.get('/api/profile/:username', username).pipe(tap(x => console.log(x)));
   }
 
-  isLoggedIn() {
-    return true;
+  isLoggedIn(): Observable<boolean> {
+    return this._http.get('/api/is-logged-in').pipe(map(x => x.json()));
   }
 }

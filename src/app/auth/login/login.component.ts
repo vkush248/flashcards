@@ -29,7 +29,6 @@ export class LoginComponent {
     this.authService.signIn(userData).subscribe(
       (res) => {
         this.store.dispatch(new fromStore.SelectSnackbar({ message: `Hello ${res.username}!`, type: 'success' }));
-        this.router.navigate(['cards']);
       },
       e => {
         console.log(e._body);
