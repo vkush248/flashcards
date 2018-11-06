@@ -1,0 +1,27 @@
+<mat-toolbar>
+  <header>
+
+    <span class="caption">
+      <a href="/">English Flashcards</a>
+    </span>
+
+    <ng-container class="user" *ngIf="this.isLoggedIn | async; else elseTemplate">
+      <button mat-button [matMenuTriggerFor]="menu">
+        <i class="material-icons">account_circle</i>
+        <span class="username">{{username}}</span>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>My cards</button>
+        <button mat-menu-item>All cards</button>
+        <button mat-menu-item>Log out</button>
+      </mat-menu>
+
+    </ng-container>
+
+    <ng-template class="auth" #elseTemplate>
+      <div>Register</div>
+      <div>Log In</div>
+    </ng-template>
+
+  </header>
+</mat-toolbar>
