@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Headers, Http, RequestOptions } from '@angular/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map, pluck, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +40,9 @@ export class AuthService {
   }
 
   isLoggedIn(): Observable<boolean> {
-    return this._http.get('/api/is-logged-in').pipe(map(x => x.json()));
+    return this._http.get('/api/is-logged-in').pipe(
+      map(x => x.json()),
+      pluck('isLoggedIn'),
+    );
   }
 }
