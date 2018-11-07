@@ -23,16 +23,17 @@ header {
       font-size: 18px;
     }
   }
+
   .auth {
-    height:100%; 
-  
-    .mat-raised-button {
-      height:100%; 
-      background-color: rgb(245, 245, 245); 
-      border-bottom: none; 
-      border-top: none; 
-      box-shadow:none;
-    }
-  
+    height: 100%;
+  }
+
+  .mat-button {
+    height: 100%;
+    background-color: rgb(245, 245, 245);
+    border-bottom: none;
+    border-top: none;
+    box-shadow: none;
+
   }
 }

@@ -11,17 +11,17 @@
         <span class="username">{{username}}</span>
       </button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item>My cards</button>
-        <button mat-menu-item>All cards</button>
-        <button mat-menu-item>Log out</button>
+        <button mat-menu-item [routerLink]="['/cards', username]">My cards</button>
+        <button mat-menu-item routerLink="/cards">All cards</button>
+        <button mat-menu-item (click)="logOut()">Log out</button>
       </mat-menu>
     </ng-container>
 
     <ng-template #elseTemplate>
       <div class="auth">
-      <button mat-raised-button routerLink="/register">Register</button>
-      <button mat-raised-button routerLink="/login">Log In</button>
-    </div>
+        <button mat-button routerLink="/register">Register</button>
+        <button mat-button routerLink="/login">Log In</button>
+      </div>
     </ng-template>
 
   </header>

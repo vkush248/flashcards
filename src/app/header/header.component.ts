@@ -13,7 +13,7 @@ export class HeaderComponent {
   isLoggedIn: Observable<any>;
 
   constructor(private readonly authService: AuthService) {
-    this.username = 'username';
+    this.username = 'tonymacaroni';
     this.checkIfLoggedIn();
   }
 
@@ -21,5 +21,8 @@ export class HeaderComponent {
     this.isLoggedIn = this.authService.isLoggedIn();
   }
 
+  logOut() {
+    return true;
+  }
 
 }
