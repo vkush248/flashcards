@@ -15,12 +15,13 @@
         <button mat-menu-item>All cards</button>
         <button mat-menu-item>Log out</button>
       </mat-menu>
-
     </ng-container>
 
-    <ng-template class="auth" #elseTemplate>
-      <div><a href="/">Register</a></div>
-      <div><a href="/">Log In</a></div>
+    <ng-template #elseTemplate>
+      <div class="auth">
+      <button mat-raised-button routerLink="/register">Register</button>
+      <button mat-raised-button routerLink="/login">Log In</button>
+    </div>
     </ng-template>
 
   </header>
