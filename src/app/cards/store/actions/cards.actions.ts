@@ -3,6 +3,9 @@ import { Card } from '../../models/card.model';
 export const LOAD_CARDS = '[Card] LOAD_CARDS';
 export const LOAD_CARDS_SUCCESS = '[Card] LOAD_CARDS_SUCCESS';
 export const LOAD_CARDS_ERROR = '[Card] LOAD_CARDS_ERROR';
+export const LOAD_USERS_CARDS = '[Card] LOAD_USERS_CARDS';
+export const LOAD_USERS_CARDS_SUCCESS = '[Card] LOAD_USERS_CARDS_SUCCESS';
+export const LOAD_USERS_CARDS_ERROR = '[Card] LOAD_USERS_CARDS_ERROR';
 export const LOAD_CARD = '[Card] LOAD_CARD';
 export const LOAD_CARD_SUCCESS = '[Card] LOAD_CARD_SUCCESS';
 export const LOAD_CARD_ERROR = '[Card] LOAD_CARD_ERROR';
@@ -28,6 +31,21 @@ export class LoadCardsSuccess implements Action {
 
 export class LoadCardsError implements Action {
   readonly type = LOAD_CARDS_ERROR;
+  constructor(public payload: Error) { }
+}
+
+export class LoadUsersCards implements Action {
+  readonly type = LOAD_USERS_CARDS;
+  constructor(public payload: string) { }
+}
+
+export class LoadUsersCardsSuccess implements Action {
+  readonly type = LOAD_USERS_CARDS_SUCCESS;
+  constructor(public payload: Card[]) { }
+}
+
+export class LoadUsersCardsError implements Action {
+  readonly type = LOAD_USERS_CARDS_ERROR;
   constructor(public payload: Error) { }
 }
 export class LoadCard implements Action {
@@ -94,6 +112,9 @@ export type CardsAction =
   LoadCards
   | LoadCardsSuccess
   | LoadCardsError
+  | LoadUsersCards
+  | LoadUsersCardsSuccess
+  | LoadUsersCardsError
   | LoadCard
   | LoadCardSuccess
   | LoadCardError

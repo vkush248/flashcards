@@ -25,6 +25,16 @@ export class CardsEffects {
   );
 
   @Effect()
+  loadUsersCards$ = this.actions$.pipe(ofType(cardsActions.LOAD_USERS_CARDS)).pipe(
+    switchMap((action: cardsActions.LoadUsersCards) => {
+      return this.cardService.getUsersCards(action.payload).pipe(
+        map((cards: Card[]) => new cardsActions.LoadUsersCardsSuccess(cards)),
+        catchError((error: Error) => of(new cardsActions.LoadUsersCardsError(error)))
+      );
+    })
+  );
+
+  @Effect()
   loadCard$ = this.actions$.pipe(ofType(cardsActions.LOAD_CARD)).pipe(
     map((action: cardsActions.LoadCard) => action.payload),
     switchMap((id) => {

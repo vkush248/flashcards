@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 import { Card } from '../models/card.model';
 import * as fromStore from '../store';
 
@@ -13,8 +14,23 @@ import * as fromStore from '../store';
 export class CardListContainerComponent {
   cards$: Observable<Card[]>;
 
-  constructor(private store: Store<fromStore.CardsFeatureState>, private router: Router) {
-    this.store.dispatch(new fromStore.LoadCards());
-    this.cards$ = this.store.pipe(select(fromStore.getAllCards));
+  constructor(
+    private store: Store<fromStore.CardsFeatureState>,
+    private router: Router,
+    private route: ActivatedRoute,
+  ) {
+    if (this.router.url === '/cards') {
+      this.cards$ = of(this.store.dispatch(new fromStore.LoadCards())).pipe(
+        switchMap((): Observable<Card[]> => this.store.pipe(select(fromStore.getAllCards)))
+      );
+    } else {
+      this.cards$ = this.route.paramMap.pipe(
+        map((params: ParamMap) => params.get('username')),
+        switchMap((username: string): Observable<void> => {
+          return of(this.store.dispatch(new fromStore.LoadUsersCards('tonymacaroni')));
+        }),
+        switchMap((): Observable<Card[]> => this.store.pipe(select(fromStore.getAllCards)))
+      );
+    }
   }
 }

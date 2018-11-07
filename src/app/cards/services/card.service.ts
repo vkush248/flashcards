@@ -16,6 +16,12 @@ export class CardService {
     );
   }
 
+  getUsersCards(username): Observable<Card[]> {
+    return this._http.get('/api/cards/' + username).pipe(
+      map(cards => cards.json()),
+    );
+  }
+
   getCard(id): Observable<Card> {
     return this._http.get('/api/cards/' + id).pipe(
       map(card => card.json())
