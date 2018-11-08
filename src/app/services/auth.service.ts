@@ -45,4 +45,13 @@ export class AuthService {
       pluck('isLoggedIn'),
     );
   }
+
+  logOut(): Observable<boolean> {
+    const headers = new Headers({ 'Content-type': 'application/json' });
+    const options = new RequestOptions({ headers });
+    return this._http.post('/api/log-out/', JSON.stringify({ username: 'tonymacaroni' }), options).pipe(
+      map(res => res.json()),
+    );
+  }
+
 }
