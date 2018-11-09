@@ -11,7 +11,7 @@
         <span class="username">{{username}}</span>
       </button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item [routerLink]="['/cards', username]">My cards</button>
+        <button mat-menu-item [routerLink]="['/cards/user/', username]">My cards</button>
         <button mat-menu-item routerLink="/cards">All cards</button>
         <button mat-menu-item (click)="logOut()">Log out</button>
       </mat-menu>

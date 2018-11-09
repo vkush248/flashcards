@@ -5,7 +5,7 @@ import { CardListContainerComponent } from './card-list/card-list-container.comp
 
 const cardsRoutes: Routes = [
   { path: '', component: CardListContainerComponent },
-  { path: ':username', component: CardListContainerComponent },
+  { path: 'user/:username', component: CardListContainerComponent },
   { path: ':id', component: CardEditContainerComponent },
   { path: '/new', component: CardEditContainerComponent },
 ];

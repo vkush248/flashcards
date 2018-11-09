@@ -46,4 +46,10 @@ export class CardService {
     return this._http.delete('/api/cards/delete/' + id);
   }
 
+  deleteUsersCard(id: String) {
+    const headers = new Headers({ 'Content-type': 'application/json' });
+    const options = new RequestOptions({ headers });
+    return this._http.put('/api/cards/remove/' + id, JSON.stringify({}), options);
+  }
+
 }

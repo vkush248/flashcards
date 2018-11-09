@@ -35,7 +35,7 @@ export class AuthService {
       );
   }
 
-  getUser(username) {
+  getUser(username): Observable<any> {
     return this._http.get('/api/profile/:username', username).pipe(tap(x => console.log(x)));
   }
 
@@ -46,10 +46,11 @@ export class AuthService {
     );
   }
 
-  logOut(): Observable<boolean> {
+  logOut(): Observable<any> {
     const headers = new Headers({ 'Content-type': 'application/json' });
     const options = new RequestOptions({ headers });
     return this._http.post('/api/log-out/', JSON.stringify({ username: 'tonymacaroni' }), options).pipe(
+      tap(x => console.log(x)),
       map(res => res.json()),
     );
   }
