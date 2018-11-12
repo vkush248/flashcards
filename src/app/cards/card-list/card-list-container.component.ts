@@ -20,12 +20,10 @@ export class CardListContainerComponent {
     private route: ActivatedRoute,
   ) {
     if (this.router.url === '/cards') {
-      console.log('/cards');
       this.cards$ = of(this.store.dispatch(new fromStore.LoadCards())).pipe(
         switchMap((): Observable<Card[]> => this.store.pipe(select(fromStore.getAllCards)))
       );
     } else {
-      console.log('/users/cards');
       this.cards$ = this.route.paramMap.pipe(
         map((params: ParamMap) => params.get('username')),
         switchMap((username: string): Observable<void> => {

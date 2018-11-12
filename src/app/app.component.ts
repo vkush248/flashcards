@@ -11,7 +11,7 @@ import * as fromStore from './store';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor(actions$: Actions, private modalService: ModalService, private store: Store<any>) {
+  constructor(actions$: Actions, private modalService: ModalService, private store: Store<fromStore.AppState>) {
     actions$.pipe(ofType(fromStore.SELECT_SNACKBAR)).pipe(
       switchMap(() =>
         this.store.select(fromStore.getSnackbarState)

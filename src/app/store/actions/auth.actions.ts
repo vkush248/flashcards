@@ -21,11 +21,11 @@ export class LoginUserError implements Action {
 
 export class LogoutUser implements Action {
   readonly type = LOGOUT_USER;
-  constructor(public payload: any) { }
+  constructor() { }
 }
 export class LogoutUserSuccess implements Action {
   readonly type = LOGOUT_USER_SUCCESS;
-  constructor(public payload: any) { }
+  constructor() { }
 }
 export class LogoutUserError implements Action {
   readonly type = LOGOUT_USER_ERROR;

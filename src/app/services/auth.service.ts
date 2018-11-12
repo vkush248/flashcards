@@ -34,11 +34,19 @@ export class AuthService {
     return this._http.post('/api/register/', JSON.stringify(userData), options)
       .pipe(
         map(result => result.json()),
+        catchError(error => {
+          throw error.json();
+        }),
+        tap(() => {
+          if (this.redirectUrl) {
+            this.router.navigate([`${this.redirectUrl}`]);
+          } else { this.router.navigate(['cards']); }
+        })
       );
   }
 
   getUser(username): Observable<any> {
-    return this._http.get('/api/profile/:username', username).pipe(tap(x => console.log(x)));
+    return this._http.get('/api/profile/:username', username);
   }
 
   isLoggedIn(): Observable<boolean> {
@@ -52,8 +60,11 @@ export class AuthService {
     const headers = new Headers({ 'Content-type': 'application/json' });
     const options = new RequestOptions({ headers });
     return this._http.post('/api/log-out/', JSON.stringify({ username: 'tonymacaroni' }), options).pipe(
-      tap(x => console.log(x)),
       map(res => res.json()),
+      catchError(error => {
+        throw error.json();
+      }),
+      tap(() => this.router.navigate(['login']))
     );
   }
 

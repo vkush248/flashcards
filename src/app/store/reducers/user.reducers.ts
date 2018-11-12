@@ -29,7 +29,7 @@ export function userReducer(state: any = userInitialState, action: any) {
       return { ...state, loading: false, loaded: false };
     }
     case actions.LOGOUT_USER_SUCCESS: {
-      return { ...state, ...payload, loading: false, loaded: true };
+      return { ...state, ...userInitialState, loading: false, loaded: true };
     }
 
   }

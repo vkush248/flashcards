@@ -5,13 +5,13 @@
       <a href="/">English Flashcards</a>
     </span>
 
-    <ng-container class="user" *ngIf="this.isLoggedIn | async; else elseTemplate">
+    <ng-container class="user" *ngIf="username$ | async; else elseTemplate">
       <button mat-button [matMenuTriggerFor]="menu">
         <i class="material-icons">account_circle</i>
-        <span class="username">{{username}}</span>
+        <span class="username">{{username$ | async}}</span>
       </button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item [routerLink]="['/cards/user/', username]">My cards</button>
+        <button mat-menu-item [routerLink]="['/cards/user/', username$ | async]">My cards</button>
         <button mat-menu-item routerLink="/cards">All cards</button>
         <button mat-menu-item (click)="logOut()">Log out</button>
       </mat-menu>

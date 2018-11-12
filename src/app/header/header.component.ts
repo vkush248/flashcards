@@ -1,40 +1,38 @@
-import { Component, OnChanges, SimpleChanges } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
-
+import * as fromStore from '../store';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnChanges {
-  username: string;
-  isLoggedIn: Observable<any>;
+export class HeaderComponent /* implements OnChanges */ {
+  username$: Observable<any>;
+
 
   constructor(
     private readonly authService: AuthService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly store: Store<any>
+    // private readonly store: Store<fromStore.User>
   ) {
-    console.log(this.isLoggedIn);
-    this.checkIfLoggedIn();
-    this.username = 'tonymacaroni';
+    this.username$ = this.store.select(fromStore.getUsername);
   }
 
-  checkIfLoggedIn() {
-    console.log('checkIfLoggedIn');
-    this.isLoggedIn = this.authService.isLoggedIn();
-  }
 
   logOut() {
-    this.authService.logOut().subscribe(x => {
-      this.router.navigate(['login']);
-    });
+    this.store.dispatch(new fromStore.LogoutUser());
+    // this.authService.logOut().subscribe(x => {
+    //   this.router.navigate(['login']);
+    // });
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    console.log('ngOnChanges');
-    this.checkIfLoggedIn();
-  }
+  /*   ngOnChanges(changes: SimpleChanges) {
+      console.log('ngOnChanges');
+      // this.isLoggedIn();
+    } */
 }

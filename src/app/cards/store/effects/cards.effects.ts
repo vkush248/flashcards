@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { Card } from '../../models/card.model';
 import { CardService } from '../../services/card.service';
 import * as cardsActions from '../actions';
@@ -27,7 +27,6 @@ export class CardsEffects {
   loadUsersCards$ = this.actions$.pipe(ofType(cardsActions.LOAD_USERS_CARDS)).pipe(
     switchMap((action: cardsActions.LoadUsersCards) => {
       return this.cardService.getUsersCards(action.payload).pipe(
-        tap(cards => console.log(cards)),
         map((cards: Card[]) => new cardsActions.LoadUsersCardsSuccess(cards)),
         catchError((error: Error) => of(new cardsActions.LoadUsersCardsError(error)))
       );

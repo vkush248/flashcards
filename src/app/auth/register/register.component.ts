@@ -60,7 +60,6 @@ export class RegisterComponent {
         const message = error.json().message;
         this.store.dispatch(new fromStore.SelectSnackbar({ message, type: 'warn' }));
       },
-      () => { console.log('Complete'); }
     );
   }
 
