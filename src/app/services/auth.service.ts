@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Headers, Http, RequestOptions } from '@angular/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map, pluck, tap } from 'rxjs/operators';
+import { catchError, map, pluck, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -15,15 +15,17 @@ export class AuthService {
   signIn(userData): Observable<any> {
     const headers = new Headers({ 'Content-type': 'application/json' });
     const options = new RequestOptions({ headers });
-    return this._http.post('/api/login/', JSON.stringify(userData), options)
-      .pipe(
-        map(response => response.json()),
-        tap(() => {
-          if (this.redirectUrl) {
-            this.router.navigate([`${this.redirectUrl}`]);
-          } else { this.router.navigate(['cards']); }
-        })
-      );
+    return this._http.post('/api/login/', JSON.stringify(userData), options).pipe(
+      map(response => response.json()),
+      catchError(error => {
+        throw error.json();
+      }),
+      tap(() => {
+        if (this.redirectUrl) {
+          this.router.navigate([`${this.redirectUrl}`]);
+        } else { this.router.navigate(['cards']); }
+      })
+    );
   }
 
   signUp(userData): Observable<any> {

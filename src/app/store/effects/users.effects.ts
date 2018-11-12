@@ -1,0 +1,38 @@
+import { Injectable } from '@angular/core';
+import { Actions, Effect, ofType } from '@ngrx/effects';
+import { of } from 'rxjs';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { AuthService } from 'src/app/services/auth.service';
+import * as usersActions from '../actions';
+
+@Injectable()
+export class UsersEffects {
+  constructor(
+    private actions$: Actions,
+    private authService: AuthService,
+  ) { }
+
+  @Effect()
+  loginUser$ = this.actions$.pipe(ofType(usersActions.LOGIN_USER)).pipe(
+    switchMap((action: usersActions.LoginUser) => {
+      return this.authService.signIn(action.payload).pipe(
+        tap(x => console.log(x)),
+        map(username => new usersActions.LoginUserSuccess(username)),
+        catchError((error: Error) => {
+          return of(new usersActions.LoginUserError({ message: error.message }));
+        })
+      );
+    })
+  );
+
+  @Effect()
+  logoutUser$ = this.actions$.pipe(ofType(usersActions.LOGOUT_USER)).pipe(
+    switchMap((action: usersActions.LogoutUser) => {
+      return this.authService.logOut().pipe(
+        map((result: boolean) => new usersActions.LogoutUserSuccess(result)),
+        catchError((error: Error) => of(new usersActions.LogoutUserError(error)))
+      );
+    })
+  );
+
+}

@@ -22,12 +22,6 @@ export function snackbarReducer(state: any = snackbarInitialState, action: any) 
     case actions.CLOSE_SNACKBAR: {
       return { ...state, ...snackbarInitialState };
     }
-    case actions.LOGIN_USER: {
-      return { ...state, ...payload };
-    }
-    case actions.LOGOUT_USER: {
-      return { ...state, ...snackbarInitialState };
-    }
   }
   return state;
 }

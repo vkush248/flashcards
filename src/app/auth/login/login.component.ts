@@ -26,14 +26,16 @@ export class LoginComponent {
   }
 
   logIn(userData) {
-    this.authService.signIn(userData).subscribe(
-      (res) => {
-        this.store.dispatch(new fromStore.SelectSnackbar({ message: `Hello ${res.username}!`, type: 'success' }));
-      },
-      e => {
-        console.log(e._body);
-        this.store.dispatch(new fromStore.SelectSnackbar({ message: e._body, type: 'warn' }));
-      }
-    );
+    this.store.dispatch(new fromStore.LoginUser({ username: userData.username, password: userData.password }));
+
+    // this.authService.signIn(userData).subscribe(
+    //   (res) => {
+    //     this.store.dispatch(new fromStore.SelectSnackbar({ message: `Hello ${res.username}!`, type: 'success' }));
+    //   },
+    //   e => {
+    //     console.log(e._body);
+    //     this.store.dispatch(new fromStore.SelectSnackbar({ message: e._body, type: 'warn' }));
+    //   }
+    // );
   }
 }

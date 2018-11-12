@@ -15,7 +15,7 @@ import { AppCommonModule } from './common/app-common.module';
 import { ModalComponent } from './common/modal/modal.component';
 import { SnackbarComponent } from './common/snackbar/snackbar.component';
 import { HeaderComponent } from './header/header.component';
-import { reducers } from './store';
+import { effects, reducers } from './store';
 @NgModule({
   declarations: [AppComponent, LoginComponent, RegisterComponent, HeaderComponent],
   imports: [
@@ -27,7 +27,7 @@ import { reducers } from './store';
     AppCommonModule,
     BrowserAnimationsModule,
     StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot(effects),
     StoreDevtoolsModule.instrument({ logOnly: environment.production }),
   ],
   exports: [],

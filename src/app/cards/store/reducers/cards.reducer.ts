@@ -42,7 +42,7 @@ export function cardsReducer(
 
     case actions.LOAD_USERS_CARDS_SUCCESS:
     case actions.LOAD_CARDS_SUCCESS: {
-      return adapter.addMany(action.payload, state);
+      return adapter.addAll(action.payload, state);
     }
 
     case actions.LOAD_USERS_CARDS_ERROR:
