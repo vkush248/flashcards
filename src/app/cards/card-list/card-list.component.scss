@@ -1,1 +1,41 @@
+.card {
+  max-width: 400px;
+  border-top: 1px solid rgb(37, 130, 216);
+  border-bottom: 1px solid rgb(37, 130, 216);
+  border-radius: 2%;
+  box-shadow: 0px 1px 2px 1px rgba(143, 143, 142, 0.81);
+  margin-bottom: 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 16px;
+  font-weight: 400;
+  height: 48px;
 
+  &:nth-child(2n) {
+    background-color: rgb(254, 254, 254);
+  }
+
+  &:nth-child(2n+1) {
+    background-color: rgb(249, 249, 249);
+  }
+
+  i {
+    &:hover {
+      cursor: pointer;
+    }
+
+    &.add-icon {
+      margin-left: auto;
+      color: rgb(58, 189, 80)
+    }
+
+    &.remove-icon {
+      color: rgb(37, 130, 216)
+    }
+
+    &.clear-icon {
+      color: rgb(238, 34, 34)
+    }
+  }
+}

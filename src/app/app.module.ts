@@ -16,6 +16,7 @@ import { ModalComponent } from './common/modal/modal.component';
 import { SnackbarComponent } from './common/snackbar/snackbar.component';
 import { HeaderComponent } from './header/header.component';
 import { effects, reducers } from './store';
+
 @NgModule({
   declarations: [AppComponent, LoginComponent, RegisterComponent, HeaderComponent],
   imports: [

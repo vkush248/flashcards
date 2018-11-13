@@ -13,7 +13,8 @@ import * as fromStore from '../store';
   <app-card-edit
     [card]="card$ | async"
     (save)="onUpdateCard($event)"
-    (delete)="deleteCard($event)">
+    (delete)="deleteCard($event)"
+    (remove)="removeCard($event)">
   </app-card-edit>`,
 })
 
@@ -47,6 +48,23 @@ export class CardEditContainerComponent {
     }).subscribe((agree: boolean) => {
       if (agree) {
         this.store.dispatch(new fromStore.DeleteCard(this.id));
+        this.router.navigate(['/cards']);
+      }
+    });
+  }
+
+  removeCard(id: string) {
+    this.modalService.openDialog({
+      width: '350px',
+      data: {
+        title: 'Removing',
+        message: 'Are you sure you want to remove this card from your cards?',
+        ok: 'Ok',
+        cancel: 'Cancel',
+      }
+    }).subscribe((agree: boolean) => {
+      if (agree) {
+        this.store.dispatch(new fromStore.RemoveCard(this.id));
         this.router.navigate(['/cards']);
       }
     });

@@ -1,4 +1,8 @@
 <mat-list>
-  <a mat-list-item *ngFor="let card of cards" [routerLink]="['/cards/', card._id]">{{card.word}}</a>
+  <div class="card" mat-list-item *ngFor="let card of cards" [routerLink]="['/cards/', card._id]">{{card.word}}
+    <i click-stop-propagation class="material-icons add-icon" title='Add to my cards' (click)="add.emit(card._id)">add</i>
+    <i click-stop-propagation class="material-icons remove-icon" title='Remove from my cards' (click)="remove.emit(card._id)">remove</i>
+    <i click-stop-propagation class="material-icons clear-icon" title='Delete' (click)="delete.emit(card._id)">clear</i>
+  </div>
 </mat-list>
 <button mat-stroked-button color="primary" [routerLink]="['/cards/new']">Add Card</button>

@@ -15,6 +15,7 @@ export class CardEditComponent implements OnChanges {
   @Input() card: Card;
   @Output() save: EventEmitter<Card> = new EventEmitter();
   @Output() delete: EventEmitter<void> = new EventEmitter();
+  @Output() remove: EventEmitter<void> = new EventEmitter();
 
   constructor(
     private fb: FormBuilder,

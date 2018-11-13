@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, pluck } from 'rxjs/operators';
 import { Card } from '../models/card.model';
 
 @Injectable()
@@ -46,10 +46,16 @@ export class CardService {
     return this._http.delete('/api/cards/delete/' + id);
   }
 
-  deleteUsersCard(id: String) {
-    const headers = new Headers({ 'Content-type': 'application/json' });
-    const options = new RequestOptions({ headers });
-    return this._http.put('/api/cards/remove/' + id, JSON.stringify({}), options);
+  deleteUsersCard(id: String): Observable<boolean> {
+    return this._http.put('/api/cards/remove/' + id, id).pipe(
+      pluck('ok')
+    );
+  }
+
+  addCardToUsers(id: String): Observable<boolean> {
+    return this._http.put('/api/cards/add/' + id, id).pipe(
+      pluck('ok')
+    );
   }
 
 }

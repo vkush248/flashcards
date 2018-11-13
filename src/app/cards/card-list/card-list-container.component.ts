@@ -2,13 +2,18 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
+import { ModalService } from 'src/app/services/modal.service';
 import { Card } from '../models/card.model';
 import * as fromStore from '../store';
 
 @Component({
   selector: 'app-card-list-container',
-  template: `<app-card-list [cards]="cards$ | async"></app-card-list>`,
+  template: `<app-card-list
+  [cards]="cards$ | async"
+  (add)="addCard($event)"
+  (delete)="deleteCard($event)"
+  (remove)="removeCard($event)"></app-card-list>`,
 })
 
 export class CardListContainerComponent {
@@ -18,6 +23,7 @@ export class CardListContainerComponent {
     private store: Store<fromStore.CardsFeatureState>,
     private router: Router,
     private route: ActivatedRoute,
+    private modalService: ModalService,
   ) {
     if (this.router.url === '/cards') {
       this.cards$ = of(this.store.dispatch(new fromStore.LoadCards())).pipe(
@@ -29,11 +35,31 @@ export class CardListContainerComponent {
         switchMap((username: string): Observable<void> => {
           return of(this.store.dispatch(new fromStore.LoadUsersCards('tonymacaroni')));
         }),
-        tap(() => {
-          this.store.pipe(select(fromStore.getAllCards)).subscribe(console.log);
-        }),
         switchMap((): Observable<Card[]> => this.store.pipe(select(fromStore.getAllCards)))
       );
     }
+  }
+
+  addCard(id: string) {
+    this.store.dispatch(new fromStore.AddCardToUsers(id));
+  }
+  removeCard(id: string) {
+    this.store.dispatch(new fromStore.RemoveCard(id));
+  }
+
+  deleteCard(id: string) {
+    this.modalService.openDialog({
+      width: '350px',
+      data: {
+        title: 'Deleting',
+        message: 'Are you sure you want to delete this card?',
+        ok: 'Ok',
+        cancel: 'Cancel',
+      }
+    }).subscribe((agree: boolean) => {
+      if (agree) {
+        this.store.dispatch(new fromStore.DeleteCard(id));
+      }
+    });
   }
 }

@@ -64,7 +64,7 @@ export class CardsEffects {
         .pipe(
           // tslint:disable-next-line:no-shadowed-variable
           map(card => new cardsActions.AddCardSuccess(card)),
-          catchError(error => of(new cardsActions.DeleteCardError(JSON.parse(error._body))))
+          catchError(error => of(new cardsActions.AddCardError(JSON.parse(error._body))))
         );
     })
   );
@@ -77,6 +77,31 @@ export class CardsEffects {
         .pipe(
           map(() => new cardsActions.DeleteCardSuccess(id)),
           catchError(error => of(new cardsActions.DeleteCardError(JSON.parse(error._body))))
+        );
+    })
+  );
+
+  @Effect()
+  AddCardToUsers$ = this.actions$.pipe(ofType(cardsActions.ADD_CARD_TO_USERS)).pipe(
+    map((action: cardsActions.AddCardToUsers) => action.payload),
+    switchMap(card => {
+      return this.cardService.addCardToUsers(card)
+        .pipe(
+          // tslint:disable-next-line:no-shadowed-variable
+          map(card => new cardsActions.AddCardToUsersSuccess(card)),
+          catchError(error => of(new cardsActions.AddCardToUsersError(JSON.parse(error._body))))
+        );
+    })
+  );
+
+  @Effect()
+  removeCard$ = this.actions$.pipe(ofType(cardsActions.REMOVE_CARD)).pipe(
+    map((action: cardsActions.RemoveCard) => action.payload),
+    switchMap((id: string) => {
+      return this.cardService.deleteUsersCard(id)
+        .pipe(
+          map(() => new cardsActions.RemoveCardSuccess(id)),
+          catchError(error => of(new cardsActions.RemoveCardError(JSON.parse(error._body))))
         );
     })
   );

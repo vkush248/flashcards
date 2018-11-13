@@ -56,14 +56,17 @@ export function cardsReducer(
       return adapter.upsertOne(action.payload, state);
     }
 
+    case actions.REMOVE_CARD:
     case actions.DELETE_CARD: {
       return { ...state };
     }
 
+    case actions.REMOVE_CARD_SUCCESS:
     case actions.DELETE_CARD_SUCCESS: {
       return adapter.removeOne(action.payload, state);
     }
 
+    case actions.REMOVE_CARD_ERROR:
     case actions.DELETE_CARD_ERROR: {
       return { ...state };
     }

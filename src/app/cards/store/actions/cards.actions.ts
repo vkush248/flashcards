@@ -15,9 +15,15 @@ export const UPDATE_CARD_ERROR = '[Card] UPDATE_CARD_ERROR';
 export const ADD_CARD = '[Card] ADD_CARD';
 export const ADD_CARD_SUCCESS = '[Card] ADD_CARD_SUCCESS';
 export const ADD_CARD_ERROR = '[Card] ADD_CARD_ERROR';
+export const ADD_CARD_TO_USERS = '[Card] ADD_CARD_TO_USERS';
+export const ADD_CARD_TO_USERS_SUCCESS = '[Card] ADD_CARD_TO_USERS_SUCCESS';
+export const ADD_CARD_TO_USERS_ERROR = '[Card] ADD_CARD_TO_USERS_ERROR';
 export const DELETE_CARD = '[Card] DELETE_CARD';
 export const DELETE_CARD_SUCCESS = '[Card] DELETE_CARD_SUCCESS';
 export const DELETE_CARD_ERROR = '[Card] DELETE_CARD_ERROR';
+export const REMOVE_CARD = '[Card] REMOVE_CARD';
+export const REMOVE_CARD_SUCCESS = '[Card] REMOVE_CARD_SUCCESS';
+export const REMOVE_CARD_ERROR = '[Card] REMOVE_CARD_ERROR';
 
 export class LoadCards implements Action {
   readonly type = LOAD_CARDS;
@@ -93,6 +99,21 @@ export class AddCardError implements Action {
   constructor(public payload: Error) { }
 }
 
+export class AddCardToUsers implements Action {
+  readonly type = ADD_CARD_TO_USERS;
+  constructor(public payload: any) { }
+}
+
+export class AddCardToUsersSuccess implements Action {
+  readonly type = ADD_CARD_TO_USERS_SUCCESS;
+  constructor(public payload: any) { }
+}
+
+export class AddCardToUsersError implements Action {
+  readonly type = ADD_CARD_TO_USERS_ERROR;
+  constructor(public payload: Error) { }
+}
+
 export class DeleteCard implements Action {
   readonly type = DELETE_CARD;
   constructor(public payload: string) { }
@@ -105,6 +126,21 @@ export class DeleteCardSuccess implements Action {
 
 export class DeleteCardError implements Action {
   readonly type = DELETE_CARD_ERROR;
+  constructor(public payload: any) { }
+}
+
+export class RemoveCard implements Action {
+  readonly type = REMOVE_CARD;
+  constructor(public payload: string) { }
+}
+
+export class RemoveCardSuccess implements Action {
+  readonly type = REMOVE_CARD_SUCCESS;
+  constructor(public payload: string) { }
+}
+
+export class RemoveCardError implements Action {
+  readonly type = REMOVE_CARD_ERROR;
   constructor(public payload: any) { }
 }
 
@@ -126,4 +162,10 @@ export type CardsAction =
   | AddCardError
   | DeleteCard
   | DeleteCardSuccess
-  | DeleteCardError;
+  | DeleteCardError
+  | AddCardToUsers
+  | AddCardToUsersSuccess
+  | AddCardToUsersError
+  | RemoveCard
+  | RemoveCardSuccess
+  | RemoveCardError;
