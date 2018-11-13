@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { Card } from '../../models/card.model';
 import { CardService } from '../../services/card.service';
 import * as cardsActions from '../actions';
@@ -10,6 +11,7 @@ import * as cardsActions from '../actions';
 export class CardsEffects {
   constructor(
     private actions$: Actions,
+    private router: Router,
     private cardService: CardService,
   ) { }
 
@@ -18,7 +20,7 @@ export class CardsEffects {
     switchMap((action: cardsActions.LoadCards) => {
       return this.cardService.getCards().pipe(
         map((cards: Card[]) => new cardsActions.LoadCardsSuccess(cards)),
-        catchError((error: Error) => of(new cardsActions.LoadCardsError(error)))
+        catchError((error: Error) => of(new cardsActions.LoadCardsError(error))),
       );
     })
   );
@@ -28,7 +30,7 @@ export class CardsEffects {
     switchMap((action: cardsActions.LoadUsersCards) => {
       return this.cardService.getUsersCards(action.payload).pipe(
         map((cards: Card[]) => new cardsActions.LoadUsersCardsSuccess(cards)),
-        catchError((error: Error) => of(new cardsActions.LoadUsersCardsError(error)))
+        catchError((error: Error) => of(new cardsActions.LoadUsersCardsError(error))),
       );
     })
   );
@@ -39,7 +41,7 @@ export class CardsEffects {
     switchMap((id) => {
       return this.cardService.getCard(id).pipe(
         map((card: Card) => new cardsActions.LoadCardSuccess(card)),
-        catchError((error: Error) => of(new cardsActions.LoadCardError(error)))
+        catchError((error: Error) => of(new cardsActions.LoadCardError(error))),
       );
     })
   );
@@ -51,7 +53,8 @@ export class CardsEffects {
       return this.cardService.updateCard(card)
         .pipe(
           map(response => new cardsActions.UpdateCardSuccess(card)),
-          catchError(error => of(new cardsActions.DeleteCardError(JSON.parse(error._body))))
+          catchError(error => of(new cardsActions.DeleteCardError(JSON.parse(error._body)))),
+          tap(() => this.router.navigate(['/cards'])),
         );
     })
   );
@@ -64,7 +67,8 @@ export class CardsEffects {
         .pipe(
           // tslint:disable-next-line:no-shadowed-variable
           map(card => new cardsActions.AddCardSuccess(card)),
-          catchError(error => of(new cardsActions.AddCardError(JSON.parse(error._body))))
+          catchError(error => of(new cardsActions.AddCardError(JSON.parse(error._body)))),
+          tap(() => this.router.navigate(['/cards'])),
         );
     })
   );
@@ -76,7 +80,7 @@ export class CardsEffects {
       return this.cardService.deleteCard(id)
         .pipe(
           map(() => new cardsActions.DeleteCardSuccess(id)),
-          catchError(error => of(new cardsActions.DeleteCardError(JSON.parse(error._body))))
+          catchError(error => of(new cardsActions.DeleteCardError(JSON.parse(error._body)))),
         );
     })
   );
@@ -89,7 +93,7 @@ export class CardsEffects {
         .pipe(
           // tslint:disable-next-line:no-shadowed-variable
           map(card => new cardsActions.AddCardToUsersSuccess(card)),
-          catchError(error => of(new cardsActions.AddCardToUsersError(JSON.parse(error._body))))
+          catchError(error => of(new cardsActions.AddCardToUsersError(JSON.parse(error._body)))),
         );
     })
   );
@@ -101,7 +105,7 @@ export class CardsEffects {
       return this.cardService.deleteUsersCard(id)
         .pipe(
           map(() => new cardsActions.RemoveCardSuccess(id)),
-          catchError(error => of(new cardsActions.RemoveCardError(JSON.parse(error._body))))
+          catchError(error => of(new cardsActions.RemoveCardError(JSON.parse(error._body)))),
         );
     })
   );

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { ModalService } from '../../services/modal.service';
 import { Card } from '../models/card.model';
@@ -72,9 +72,11 @@ export class CardEditContainerComponent {
 
   onUpdateCard(card: Card) {
     if (card._id) {
-      this.store.dispatch(new fromStore.UpdateCard(card));
+      of(this.store.dispatch(new fromStore.UpdateCard(card)))
+        .subscribe(() => this.router.navigate(['/cards']));
     } else {
-      this.store.dispatch(new fromStore.AddCard(card));
+      of(this.store.dispatch(new fromStore.AddCard(card)))
+        .subscribe(() => this.router.navigate(['/cards']));
     }
   }
 }
