@@ -8,9 +8,9 @@
         <tr>
           <td>
             <mat-form-field>
-              <input matInput formControlName="username" placeholder="username" #username required>
+              <input matInput formControlName="username" placeholder="username">
               <mat-error *ngFor="let validation of validations">
-                <mat-error *ngIf="form['controls'].username.hasError(validation.type)">{{validation.message}}</mat-error>
+                <ng-container *ngIf="form.get('username').hasError(validation.type)">{{validation.message}}</ng-container>
               </mat-error>
             </mat-form-field>
           </td>
@@ -18,9 +18,9 @@
         <tr>
           <td>
             <mat-form-field>
-              <input matInput formControlName="email" placeholder="email" #email required>
+              <input matInput formControlName="email" placeholder="email">
               <mat-error *ngFor="let validation of validations">
-                <mat-error *ngIf="form['controls'].email.hasError(validation.type)">{{validation.message}}</mat-error>
+                <ng-container *ngIf="form.get('email').hasError(validation.type)">{{validation.message}}</ng-container>
               </mat-error>
             </mat-form-field>
           </td>
@@ -28,9 +28,9 @@
         <tr>
           <td>
             <mat-form-field>
-              <input matInput type="password" formControlName="password" placeholder="password" #password required>
+              <input matInput type="password" formControlName="password" placeholder="password">
               <mat-error *ngFor="let validation of validations">
-                <mat-error *ngIf="form['controls'].password.hasError(validation.type)">{{validation.message}}</mat-error>
+                <ng-container *ngIf="form.get('password').hasError(validation.type)">{{validation.message}}</ng-container>
               </mat-error>
             </mat-form-field>
           </td>

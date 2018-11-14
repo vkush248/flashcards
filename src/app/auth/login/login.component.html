@@ -8,16 +8,16 @@
         <tr>
           <td>
             <mat-form-field>
-              <input matInput formControlName="username" placeholder="username" #username required>
-              <mat-error *ngIf="form['controls'].username.hasError('required')">This field is required</mat-error>
+              <input matInput formControlName="username" placeholder="username">
+              <mat-error *ngIf="form.get('username').hasError('required')">This field is required</mat-error>
             </mat-form-field>
           </td>
         </tr>
         <tr>
           <td>
             <mat-form-field>
-              <input matInput type="password" formControlName="password" placeholder="password" #password required>
-              <mat-error *ngIf="form['controls'].password.hasError('required')">This field is required</mat-error>
+              <input matInput type="password" formControlName="password" placeholder="password">
+              <mat-error *ngIf="form.get('password').hasError('required')">This field is required</mat-error>
             </mat-form-field>
           </td>
         </tr>

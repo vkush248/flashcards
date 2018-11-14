@@ -1,14 +1,14 @@
 <div class="row">
   <div class="col col-6 col-sm-12">
     <div class="card">
-      <div class="topic">{{ form['controls'].topic.value }}</div>
+      <div class="topic">{{ form.get('topic').value }}</div>
       <div class="info">
-        <div class="word">{{ form['controls'].word.value }}</div>
-        <div class="example">{{ form['controls'].example.value }}</div>
-        <div class="context">{{ form['controls'].context.value }}</div>
+        <div class="word">{{ form.get('word').value }}</div>
+        <div class="example">{{ form.get('example').value }}</div>
+        <div class="context">{{ form.get('context').value }}</div>
       </div>
       <div class="picture">
-        <img src="http://via.placeholder.com/100x100" alt="{{form['controls'].word.value}}">
+        <img src="http://via.placeholder.com/100x100" alt="{{form.get('word').value}}">
       </div>
     </div>
   </div>
@@ -16,15 +16,15 @@
     <a class="delete" mat-fab color="warn" (click)="delete.emit()" *ngIf="card">X</a>
     <form [formGroup]="form" (ngSubmit)="updateCard(form.value)">
       <mat-form-field>
-        <input matInput formControlName="topic" placeholder="Topic" #topic required>
+        <input matInput formControlName="topic" placeholder="Topic">
         <mat-error *ngFor="let validation of validations">
-          <mat-error *ngIf="form['controls'].topic.hasError(validation.type)">{{validation.message}}</mat-error>
+          <ng-container *ngIf="form.get('topic').hasError(validation.type)">{{validation.message}}</ng-container>
         </mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input matInput formControlName="word" placeholder="Word" #word required>
+        <input matInput formControlName="word" placeholder="Word">
         <mat-error *ngFor="let validation of validations">
-          <mat-error *ngIf="form['controls'].word.hasError(validation.type)">{{validation.message}}</mat-error>
+          <ng-container *ngIf="form.get('word').hasError(validation.type)">{{validation.message}}</ng-container>
         </mat-error>
       </mat-form-field>
       <mat-form-field>
@@ -34,9 +34,9 @@
         <input matInput formControlName="context" placeholder="Context">
       </mat-form-field>
       <mat-form-field>
-        <input matInput formControlName="translation" placeholder="Translation" #translation required>
+        <input matInput formControlName="translation" placeholder="Translation">
         <mat-error *ngFor="let validation of validations">
-          <mat-error *ngIf="form['controls'].translation.hasError(validation.type)">{{validation.message}}</mat-error>
+          <ng-container *ngIf="form.get('translation').hasError(validation.type)">{{validation.message}}</ng-container>
         </mat-error>
       </mat-form-field>
       <mat-form-field>

@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { AuthService } from '../../services/auth.service';
 import * as fromStore from '../../store';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -27,15 +27,5 @@ export class LoginComponent {
 
   logIn(userData) {
     this.store.dispatch(new fromStore.LoginUser({ username: userData.username, password: userData.password }));
-
-    // this.authService.signIn(userData).subscribe(
-    //   (res) => {
-    //     this.store.dispatch(new fromStore.SelectSnackbar({ message: `Hello ${res.username}!`, type: 'success' }));
-    //   },
-    //   e => {
-    //     console.log(e._body);
-    //     this.store.dispatch(new fromStore.SelectSnackbar({ message: e._body, type: 'warn' }));
-    //   }
-    // );
   }
 }

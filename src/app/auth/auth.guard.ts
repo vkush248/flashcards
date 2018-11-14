@@ -1,14 +1,20 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import { AuthService } from '../services/auth.service';
+import { catchError, tap } from 'rxjs/operators';
+import * as fromStore from '../store';
+import { AuthService } from './services/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate, CanActivateChild {
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private store: Store<any>,
+  ) { }
 
   canActivate(
     next: ActivatedRouteSnapshot,
@@ -29,8 +35,13 @@ export class AuthGuard implements CanActivate, CanActivateChild {
         if (!isLoggedIn) {
           this.authService.redirectUrl = url;
           this.router.navigate(['/login']);
+          this.store.dispatch(new fromStore.SelectSnackbar({ message: 'Please log in', type: 'warn' }));
         }
       }),
+      catchError(e => {
+        this.store.dispatch(new fromStore.SelectSnackbar({ message: 'Please log in', type: 'warn' }));
+        throw e;
+      })
     );
   }
 }

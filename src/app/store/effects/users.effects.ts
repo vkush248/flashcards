@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/auth/services/auth.service';
 import * as usersActions from '../actions';
 
 @Injectable()
@@ -17,9 +17,7 @@ export class UsersEffects {
     switchMap((action: usersActions.LoginUser) => {
       return this.authService.signIn(action.payload).pipe(
         map(username => new usersActions.LoginUserSuccess(username)),
-        catchError((error: Error) => {
-          return of(new usersActions.LoginUserError({ message: error.message }));
-        })
+        catchError((error: Error) => of(new usersActions.LoginUserError({ message: error.message })))
       );
     })
   );

@@ -86,7 +86,7 @@ export class CardsEffects {
   );
 
   @Effect()
-  AddCardToUsers$ = this.actions$.pipe(ofType(cardsActions.ADD_CARD_TO_USERS)).pipe(
+  addCardToUsers$ = this.actions$.pipe(ofType(cardsActions.ADD_CARD_TO_USERS)).pipe(
     map((action: cardsActions.AddCardToUsers) => action.payload),
     switchMap(card => {
       return this.cardService.addCardToUsers(card)

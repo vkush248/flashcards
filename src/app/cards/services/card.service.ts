@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http, RequestOptions } from '@angular/http';
+import { Http } from '@angular/http';
 import { Observable } from 'rxjs';
 import { map, pluck } from 'rxjs/operators';
 import { Card } from '../models/card.model';
@@ -35,9 +35,7 @@ export class CardService {
   }
 
   addCard(card: Card): Observable<Card> {
-    const headers = new Headers({ 'Content-type': 'application/json' });
-    const options = new RequestOptions({ headers });
-    return this._http.post('api/cards/new', JSON.stringify(card), options).pipe(
+    return this._http.post('api/cards/new', card).pipe(
       map(result => result.json()),
     );
   }

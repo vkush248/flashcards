@@ -11,4 +11,4 @@ const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
 ];
 
-export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes, { useHash: true });
+export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes, { useHash: false });

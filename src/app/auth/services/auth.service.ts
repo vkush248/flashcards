@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http, RequestOptions } from '@angular/http';
+import { Http } from '@angular/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { catchError, map, pluck, tap } from 'rxjs/operators';
@@ -13,12 +13,11 @@ export class AuthService {
   constructor(private _http: Http, private router: Router) { }
 
   signIn(userData): Observable<any> {
-    const headers = new Headers({ 'Content-type': 'application/json' });
-    const options = new RequestOptions({ headers });
-    return this._http.post('/api/login/', JSON.stringify(userData), options).pipe(
+    return this._http.post('/api/login/', userData).pipe(
       map(response => response.json()),
-      catchError(error => {
-        throw error.json();
+      catchError(response => {
+        const error = response.json();
+        throw new Error(error.message);
       }),
       tap(() => {
         if (this.redirectUrl) {
@@ -29,9 +28,7 @@ export class AuthService {
   }
 
   signUp(userData): Observable<any> {
-    const headers = new Headers({ 'Content-type': 'application/json' });
-    const options = new RequestOptions({ headers });
-    return this._http.post('/api/register/', JSON.stringify(userData), options)
+    return this._http.post('/api/register/', userData)
       .pipe(
         map(result => result.json()),
         catchError(error => {
@@ -52,14 +49,16 @@ export class AuthService {
   isLoggedIn(): Observable<boolean> {
     return this._http.get('/api/is-logged-in').pipe(
       map(x => x.json()),
+      catchError(response => {
+        this.router.navigate(['login']);
+        throw new Error(response._body);
+      }),
       pluck('isLoggedIn'),
     );
   }
 
   logOut(): Observable<any> {
-    const headers = new Headers({ 'Content-type': 'application/json' });
-    const options = new RequestOptions({ headers });
-    return this._http.post('/api/log-out/', JSON.stringify({ username: 'tonymacaroni' }), options).pipe(
+    return this._http.post('/api/log-out/', { username: 'tonymacaroni' }).pipe(
       map(res => res.json()),
       catchError(error => {
         throw error.json();
