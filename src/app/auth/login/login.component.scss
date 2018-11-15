@@ -1,0 +1,36 @@
+@import url(https://fonts.googleapis.com/css?family=Do+Hyeon:regular);
+$font1: "Do Hyeon";
+
+mat-card {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+
+  form {
+    min-width: 300px;
+
+    mat-card-header {
+      justify-content: center;
+      font-family: $font1;
+
+      mat-card-title {
+        font-size: 22px;
+      }
+    }
+
+    table {
+      width: 100%;
+
+      mat-form-field {
+        display: block;
+        padding-bottom: 5px
+      }
+    }
+
+    mat-card-actions {
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+}
