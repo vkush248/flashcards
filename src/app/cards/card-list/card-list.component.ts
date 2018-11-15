@@ -9,7 +9,6 @@ import { Card } from '../models/card.model';
 export class CardListComponent {
   @Input() cards: Card[];
   @Output() add: EventEmitter<void> = new EventEmitter();
-  @Output() delete: EventEmitter<void> = new EventEmitter();
   @Output() remove: EventEmitter<void> = new EventEmitter();
 
   constructor() { }

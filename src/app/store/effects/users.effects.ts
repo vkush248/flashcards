@@ -23,6 +23,16 @@ export class UsersEffects {
   );
 
   @Effect()
+  registerUser$ = this.actions$.pipe(ofType(usersActions.REGISTER_USER)).pipe(
+    switchMap((action: usersActions.RegisterUser) => {
+      return this.authService.signUp(action.payload).pipe(
+        map(username => new usersActions.RegisterUserSuccess(username)),
+        catchError((error: Error) => of(new usersActions.RegisterUserError({ message: error.message })))
+      );
+    })
+  );
+
+  @Effect()
   logoutUser$ = this.actions$.pipe(ofType(usersActions.LOGOUT_USER)).pipe(
     switchMap((action: usersActions.LogoutUser) => {
       return this.authService.logOut().pipe(

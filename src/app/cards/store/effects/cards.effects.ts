@@ -29,6 +29,7 @@ export class CardsEffects {
   loadUsersCards$ = this.actions$.pipe(ofType(cardsActions.LOAD_USERS_CARDS)).pipe(
     switchMap((action: cardsActions.LoadUsersCards) => {
       return this.cardService.getUsersCards(action.payload).pipe(
+        tap(x => console.log(x)),
         map((cards: Card[]) => new cardsActions.LoadUsersCardsSuccess(cards)),
         catchError((error: Error) => of(new cardsActions.LoadUsersCardsError(error))),
       );

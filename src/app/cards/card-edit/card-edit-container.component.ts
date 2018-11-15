@@ -13,7 +13,6 @@ import * as fromStore from '../store';
   <app-card-edit
     [card]="card$ | async"
     (save)="onUpdateCard($event)"
-    (delete)="deleteCard($event)"
     (remove)="removeCard($event)">
   </app-card-edit>`,
 })
@@ -30,27 +29,11 @@ export class CardEditContainerComponent {
   ) {
     this.card$ = this.route.paramMap.pipe(switchMap((params: ParamMap): any => {
       this.id = params.get('id');
-      // tslint:disable-next-line:no-unused-expression
-      (this.id !== 'new') && this.store.dispatch(new fromStore.LoadCard(this.id));
+      if (this.id !== 'new') {
+        this.store.dispatch(new fromStore.LoadCard(this.id));
+      }
       return this.store.pipe(select(fromStore.selectCard(this.id)));
     }));
-  }
-
-  deleteCard(id: string) {
-    this.modalService.openDialog({
-      width: '350px',
-      data: {
-        title: 'Deleting',
-        message: 'Are you sure you want to delete this card?',
-        ok: 'Ok',
-        cancel: 'Cancel',
-      }
-    }).subscribe((agree: boolean) => {
-      if (agree) {
-        this.store.dispatch(new fromStore.DeleteCard(this.id));
-        this.router.navigate(['/cards']);
-      }
-    });
   }
 
   removeCard(id: string) {
@@ -64,7 +47,7 @@ export class CardEditContainerComponent {
       }
     }).subscribe((agree: boolean) => {
       if (agree) {
-        this.store.dispatch(new fromStore.RemoveCard(this.id));
+        this.store.dispatch(new fromStore.RemoveCard(id));
         this.router.navigate(['/cards']);
       }
     });

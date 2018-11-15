@@ -1,3 +1,3 @@
 export * from './snackbar.reducers';
-export * from './user.reducers';
+export * from './users.reducers';
 

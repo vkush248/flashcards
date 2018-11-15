@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import * as cardsActions from '../../cards/store/actions';
-import * as authActions from '../actions/auth.actions';
 import * as snackbarActions from '../actions/snackbar.actions';
+import * as authActions from '../actions/users.actions';
 
 
 @Injectable()
@@ -18,6 +18,7 @@ export class SnackbarsEffects {
     cardsActions.ADD_CARD_ERROR,
     authActions.LOGIN_USER_ERROR,
     authActions.LOGOUT_USER_ERROR,
+    authActions.REGISTER_USER_ERROR,
   )).pipe(
     map((action: any) => action.payload),
     map((payload: { message: string } = { message: 'Something went wrong!' }) => {
@@ -25,15 +26,38 @@ export class SnackbarsEffects {
     })
   );
 
-
   @Effect()
   showSuccessMessage$ = this.actions$.pipe(ofType(
-    cardsActions.DELETE_CARD_SUCCESS,
-    cardsActions.UPDATE_CARD_SUCCESS,
+    cardsActions.ADD_CARD_TO_USERS_SUCCESS,
     cardsActions.ADD_CARD_SUCCESS,
+    cardsActions.UPDATE_CARD_SUCCESS,
+    cardsActions.DELETE_CARD_SUCCESS,
+    cardsActions.REMOVE_CARD_SUCCESS,
   )).pipe(
-    map((action: any) => action.payload),
     map(() => new snackbarActions.SelectSnackbar({ message: 'Done!', type: 'success' }))
   );
 
+
+  @Effect()
+  showWelcomeMessage$ = this.actions$.pipe(ofType(
+    authActions.REGISTER_USER_SUCCESS,
+  )).pipe(
+    map((action: any) => action.payload),
+    tap(x => console.log(x)),
+    map(() => new snackbarActions.SelectSnackbar({ message: 'Welcome', type: 'success' }))
+  );
+
+  /*
+
+    this.authService.signUp(userData).subscribe(
+    (data) => {
+      this.store.dispatch(new fromStore.SelectSnackbar({ message: `Welcome, ${data.username}!`, type: 'success' }));
+      this.router.navigate(['cards']);
+    },
+    (error) => {
+      const message = error.json().message;
+      this.store.dispatch(new fromStore.SelectSnackbar({ message, type: 'warn' }));
+    },
+  );
+   */
 }

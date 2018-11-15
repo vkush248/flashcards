@@ -51,16 +51,17 @@ export class RegisterComponent {
   }
 
   signUp(userData) {
-    this.authService.signUp(userData).subscribe(
-      (data) => {
-        this.store.dispatch(new fromStore.SelectSnackbar({ message: `Welcome, ${data.username}!`, type: 'success' }));
-        this.router.navigate(['cards']);
-      },
-      (error) => {
-        const message = error.json().message;
-        this.store.dispatch(new fromStore.SelectSnackbar({ message, type: 'warn' }));
-      },
-    );
+    this.store.dispatch(new fromStore.RegisterUser(userData));
+    /*     this.authService.signUp(userData).subscribe(
+          (data) => {
+            this.store.dispatch(new fromStore.SelectSnackbar({ message: `Welcome, ${data.username}!`, type: 'success' }));
+            this.router.navigate(['cards']);
+          },
+          (error) => {
+            const message = error.json().message;
+            this.store.dispatch(new fromStore.SelectSnackbar({ message, type: 'warn' }));
+          },
+        );
+        */
   }
-
 }

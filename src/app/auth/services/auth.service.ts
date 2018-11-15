@@ -31,8 +31,9 @@ export class AuthService {
     return this._http.post('/api/register/', userData)
       .pipe(
         map(result => result.json()),
-        catchError(error => {
-          throw error.json();
+        catchError(response => {
+          const error = response.json();
+          throw new Error(error.message);
         }),
         tap(() => {
           if (this.redirectUrl) {
@@ -51,7 +52,8 @@ export class AuthService {
       map(x => x.json()),
       catchError(response => {
         this.router.navigate(['login']);
-        throw new Error(response._body);
+        const error = response.json();
+        throw new Error(error.message);
       }),
       pluck('isLoggedIn'),
     );

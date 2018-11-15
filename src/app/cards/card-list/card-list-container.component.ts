@@ -12,7 +12,6 @@ import * as fromStore from '../store';
   template: `<app-card-list
   [cards]="cards$ | async"
   (add)="addCard($event)"
-  (delete)="deleteCard($event)"
   (remove)="removeCard($event)"></app-card-list>`,
 })
 
@@ -47,19 +46,4 @@ export class CardListContainerComponent {
     this.store.dispatch(new fromStore.RemoveCard(id));
   }
 
-  deleteCard(id: string) {
-    this.modalService.openDialog({
-      width: '350px',
-      data: {
-        title: 'Deleting',
-        message: 'Are you sure you want to delete this card?',
-        ok: 'Ok',
-        cancel: 'Cancel',
-      }
-    }).subscribe((agree: boolean) => {
-      if (agree) {
-        this.store.dispatch(new fromStore.DeleteCard(id));
-      }
-    });
-  }
 }

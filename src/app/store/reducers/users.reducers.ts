@@ -10,24 +10,27 @@ export const userInitialState: User = {
 };
 
 
-export function userReducer(state: any = userInitialState, action: any) {
+export function userReducer(state: User = userInitialState, action: any) {
   const payload = action.payload;
   switch (action.type) {
-    case actions.LOGIN_USER: {
-      return { ...state, loading: true, loaded: false };
-    }
-    case actions.LOGIN_USER_ERROR: {
-      return { ...state, loading: false, loaded: false };
-    }
-    case actions.LOGIN_USER_SUCCESS: {
-      return { ...state, ...payload, loading: false, loaded: true };
-    }
+
+    case actions.LOGIN_USER:
+    case actions.REGISTER_USER:
     case actions.LOGOUT_USER: {
       return { ...state, loading: true, loaded: false };
     }
+
+    case actions.LOGIN_USER_ERROR:
+    case actions.REGISTER_USER_ERROR:
     case actions.LOGOUT_USER_ERROR: {
       return { ...state, loading: false, loaded: false };
     }
+
+    case actions.LOGIN_USER_SUCCESS:
+    case actions.REGISTER_USER_SUCCESS: {
+      return { ...state, ...payload, loading: false, loaded: true };
+    }
+
     case actions.LOGOUT_USER_SUCCESS: {
       return { ...state, ...userInitialState, loading: false, loaded: true };
     }
