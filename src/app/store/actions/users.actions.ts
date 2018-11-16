@@ -41,12 +41,12 @@ export class RegisterUserError implements Action {
 
 export class LogoutUser implements Action {
   readonly type = LOGOUT_USER;
-  constructor() { }
+  constructor(public payload: string) { }
 }
 
 export class LogoutUserSuccess implements Action {
   readonly type = LOGOUT_USER_SUCCESS;
-  constructor() { }
+  constructor(public payload: string) { }
 }
 
 export class LogoutUserError implements Action {

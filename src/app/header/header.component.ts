@@ -9,7 +9,7 @@ import * as fromStore from '../store';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  username$: Observable<any>;
+  username$: Observable<string>;
 
 
   constructor(
@@ -19,7 +19,7 @@ export class HeaderComponent {
   }
 
 
-  logOut() {
-    this.store.dispatch(new fromStore.LogoutUser());
+  logOut(username) {
+    this.store.dispatch(new fromStore.LogoutUser(username));
   }
 }

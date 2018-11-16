@@ -36,7 +36,7 @@ export class UsersEffects {
   logoutUser$ = this.actions$.pipe(ofType(usersActions.LOGOUT_USER)).pipe(
     switchMap((action: usersActions.LogoutUser) => {
       return this.authService.logOut().pipe(
-        map(() => new usersActions.LogoutUserSuccess()),
+        map((username) => new usersActions.LogoutUserSuccess(username)),
         catchError((error: Error) => of(new usersActions.LogoutUserError(error)))
       );
     })
