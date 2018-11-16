@@ -46,18 +46,4 @@ export class SnackbarsEffects {
     tap(x => console.log(x)),
     map(() => new snackbarActions.SelectSnackbar({ message: 'Welcome', type: 'success' }))
   );
-
-  /*
-
-    this.authService.signUp(userData).subscribe(
-    (data) => {
-      this.store.dispatch(new fromStore.SelectSnackbar({ message: `Welcome, ${data.username}!`, type: 'success' }));
-      this.router.navigate(['cards']);
-    },
-    (error) => {
-      const message = error.json().message;
-      this.store.dispatch(new fromStore.SelectSnackbar({ message, type: 'warn' }));
-    },
-  );
-   */
 }
