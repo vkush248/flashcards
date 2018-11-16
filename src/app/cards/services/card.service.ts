@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs';
-import { map, pluck, tap } from 'rxjs/operators';
+import { map, pluck } from 'rxjs/operators';
 import { Card } from '../models/card.model';
 
 @Injectable()
@@ -18,7 +18,6 @@ export class CardService {
 
   getUsersCards(username): Observable<Card[]> {
     return this._http.get('/api/cards/' + username).pipe(
-      tap(x => console.log(`i'm in`, x)),
       map(cards => cards.json()),
     );
   }

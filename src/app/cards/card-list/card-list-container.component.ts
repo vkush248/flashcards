@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { select, Store } from '@ngrx/store';
-import { Observable, of } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { ModalService } from 'src/app/services/modal.service';
+import * as fromStore from '../../store';
 import { Card } from '../models/card.model';
-import * as fromStore from '../store';
+import * as fromCards from '../store';
 
 @Component({
   selector: 'app-card-list-container',
@@ -19,31 +20,27 @@ export class CardListContainerComponent {
   cards$: Observable<Card[]>;
 
   constructor(
-    private store: Store<fromStore.CardsFeatureState>,
+    private store: Store<fromCards.CardsFeatureState>,
     private router: Router,
     private route: ActivatedRoute,
     private modalService: ModalService,
   ) {
     if (this.router.url === '/cards') {
-      this.cards$ = of(this.store.dispatch(new fromStore.LoadCards())).pipe(
-        switchMap((): Observable<Card[]> => this.store.pipe(select(fromStore.getAllCards)))
-      );
+      this.store.dispatch(new fromCards.LoadCards());
+      this.cards$ = this.store.select(fromCards.getAllCards);
     } else {
-      this.cards$ = this.route.paramMap.pipe(
-        map((params: ParamMap) => params.get('username')),
-        switchMap((username: string): Observable<void> => {
-          return of(this.store.dispatch(new fromStore.LoadUsersCards('tonymacaroni')));
-        }),
-        switchMap((): Observable<Card[]> => this.store.select(fromStore.getAllCards))
+      this.cards$ = this.store.select(fromStore.getUsername).pipe(
+        map(username => this.store.dispatch(new fromCards.LoadUsersCards(username))),
+        switchMap(() => this.store.select(fromCards.getAllCards)),
       );
     }
   }
 
   addCard(id: string) {
-    this.store.dispatch(new fromStore.AddCardToUsers(id));
+    this.store.dispatch(new fromCards.AddCardToUsers(id));
   }
   removeCard(id: string) {
-    this.store.dispatch(new fromStore.RemoveCard(id));
+    this.store.dispatch(new fromCards.RemoveCard(id));
   }
 
 }
