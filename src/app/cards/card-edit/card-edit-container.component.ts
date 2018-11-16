@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { ModalService } from '../../services/modal.service';
@@ -32,7 +32,7 @@ export class CardEditContainerComponent {
       if (this.id !== 'new') {
         this.store.dispatch(new fromStore.LoadCard(this.id));
       }
-      return this.store.pipe(select(fromStore.selectCard(this.id)));
+      return this.store.select(fromStore.selectCard(this.id));
     }));
   }
 

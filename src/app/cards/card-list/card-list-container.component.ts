@@ -34,7 +34,7 @@ export class CardListContainerComponent {
         switchMap((username: string): Observable<void> => {
           return of(this.store.dispatch(new fromStore.LoadUsersCards('tonymacaroni')));
         }),
-        switchMap((): Observable<Card[]> => this.store.pipe(select(fromStore.getAllCards)))
+        switchMap((): Observable<Card[]> => this.store.select(fromStore.getAllCards))
       );
     }
   }
