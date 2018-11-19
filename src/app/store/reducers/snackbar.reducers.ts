@@ -12,7 +12,6 @@ export const snackbarInitialState: Snackbar = {
   type: null,
 };
 
-
 export function snackbarReducer(state: any = snackbarInitialState, action: any) {
   const payload = action.payload;
   switch (action.type) {

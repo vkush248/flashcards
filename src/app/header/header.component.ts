@@ -11,13 +11,9 @@ import * as fromStore from '../store';
 export class HeaderComponent {
   username$: Observable<string>;
 
-
-  constructor(
-    private readonly store: Store<any>
-  ) {
+  constructor(private readonly store: Store<any>) {
     this.username$ = this.store.select(fromStore.getUsername);
   }
-
 
   logOut(username) {
     this.store.dispatch(new fromStore.LogoutUser(username));

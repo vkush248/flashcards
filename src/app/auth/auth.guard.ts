@@ -9,10 +9,7 @@ import * as fromStore from '../store';
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate, CanActivateChild {
-  constructor(
-
-    private store: Store<any>,
-  ) { }
+  constructor(private store: Store<any>) { }
 
   canActivate(
     next: ActivatedRouteSnapshot,
@@ -33,7 +30,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     );
     const isNotLoggedIn$ = this.checkLoginInStore().pipe(
       filter((isLoggedIn: boolean) => !isLoggedIn),
-      tap(() => this.store.dispatch(new fromStore.checkIfLoggedIn())),
+      tap(() => this.store.dispatch(new fromStore.CheckIfLoggedIn())),
     );
     return isLoggedIn$.pipe(merge(isNotLoggedIn$));
   }

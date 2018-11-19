@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { ModalService } from '../../services/modal.service';
+import * as fromStore from '../../store';
 import { Card } from '../models/card.model';
-import * as fromStore from '../store';
+import * as fromCards from '../store';
 
 @Component({
   selector: 'app-card-edit-container',
@@ -23,43 +24,41 @@ export class CardEditContainerComponent {
 
   constructor(
     public modalService: ModalService,
-    private router: Router,
     private route: ActivatedRoute,
-    private store: Store<fromStore.CardsFeatureState>
+    private store: Store<fromCards.CardsFeatureState>
   ) {
     this.card$ = this.route.paramMap.pipe(switchMap((params: ParamMap): any => {
       this.id = params.get('id');
       if (this.id !== 'new') {
-        this.store.dispatch(new fromStore.LoadCard(this.id));
+        this.store.dispatch(new fromCards.LoadCard(this.id));
       }
-      return this.store.select(fromStore.selectCard(this.id));
+      return this.store.select(fromCards.selectCard(this.id));
     }));
   }
 
   removeCard(id: string) {
-    this.modalService.openDialog({
-      width: '350px',
-      data: {
-        title: 'Removing',
-        message: 'Are you sure you want to remove this card from your cards?',
-        ok: 'Ok',
-        cancel: 'Cancel',
+    this.store.dispatch(new fromStore.OpenDialog({
+      config: {
+        width: '350px',
+        data: {
+          title: 'Removing',
+          message: 'Are you sure you want to remove this card from your cards?',
+          ok: 'Ok',
+          cancel: 'Cancel',
+        }
+      },
+      action: {
+        name: 'RemoveCard',
+        payload: this.id
       }
-    }).subscribe((agree: boolean) => {
-      if (agree) {
-        this.store.dispatch(new fromStore.RemoveCard(id));
-        this.router.navigate(['/cards']);
-      }
-    });
+    }));
   }
 
   onUpdateCard(card: Card) {
     if (card._id) {
-      of(this.store.dispatch(new fromStore.UpdateCard(card)))
-        .subscribe(() => this.router.navigate(['/cards']));
+      this.store.dispatch(new fromCards.UpdateCard(card));
     } else {
-      of(this.store.dispatch(new fromStore.AddCard(card)))
-        .subscribe(() => this.router.navigate(['/cards']));
+      this.store.dispatch(new fromCards.AddCard(card));
     }
   }
 }

@@ -46,7 +46,7 @@ export class UsersEffects {
 
   @Effect()
   checkIfLoggedIn$ = this.actions$.pipe(ofType(usersActions.CHECK_IF_LOGGED_IN)).pipe(
-    switchMap((action: usersActions.checkIfLoggedIn) => {
+    switchMap((action: usersActions.CheckIfLoggedIn) => {
       return this.authService.isLoggedIn().pipe(
         map((isLoggedIn: boolean) => {
           if (!isLoggedIn) {
@@ -54,8 +54,8 @@ export class UsersEffects {
             throw new Error('Please log in');
           }
         }),
-        map((isLoggedIn: boolean) => new usersActions.checkIfLoggedInSuccess({ isLoggedIn })),
-        catchError((error: Error) => of(new usersActions.checkIfLoggedInError({ message: error.message }))),
+        map((isLoggedIn: boolean) => new usersActions.CheckIfLoggedInSuccess({ isLoggedIn })),
+        catchError((error: Error) => of(new usersActions.CheckIfLoggedInError({ message: error.message }))),
       );
     })
   );

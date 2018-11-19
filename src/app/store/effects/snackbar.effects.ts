@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { map } from 'rxjs/operators';
+import { delay, map } from 'rxjs/operators';
 import * as cardsActions from '../../cards/store/actions';
 import * as snackbarActions from '../actions/snackbar.actions';
 import * as authActions from '../actions/users.actions';
@@ -8,9 +8,8 @@ import * as authActions from '../actions/users.actions';
 
 @Injectable()
 export class SnackbarsEffects {
-  constructor(
-    private actions$: Actions,
-  ) { }
+  constructor(private actions$: Actions) { }
+
   @Effect()
   showErrorMessage$ = this.actions$.pipe(ofType(
     cardsActions.DELETE_CARD_ERROR,
@@ -38,12 +37,21 @@ export class SnackbarsEffects {
     map(() => new snackbarActions.SelectSnackbar({ message: 'Done!', type: 'success' }))
   );
 
-
   @Effect()
   showWelcomeMessage$ = this.actions$.pipe(ofType(
     authActions.REGISTER_USER_SUCCESS,
+    authActions.LOGIN_USER_SUCCESS,
   )).pipe(
     map((action: any) => action.payload),
     map(() => new snackbarActions.SelectSnackbar({ message: 'Welcome', type: 'success' }))
   );
+
+  @Effect()
+  openSnackbar$ = this.actions$.pipe(ofType(
+    snackbarActions.SELECT_SNACKBAR,
+  )).pipe(
+    delay(3500),
+    map(() => new snackbarActions.CloseSnackbar())
+  );
+
 }

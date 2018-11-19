@@ -100,12 +100,14 @@ export class CardsEffects {
 
   @Effect()
   removeCard$ = this.actions$.pipe(ofType(cardsActions.REMOVE_CARD)).pipe(
+    tap(x => console.log(x)),
     map((action: cardsActions.RemoveCard) => action.payload),
     switchMap((id: string) => {
       return this.cardService.deleteUsersCard(id)
         .pipe(
           map(() => new cardsActions.RemoveCardSuccess(id)),
           catchError(error => of(new cardsActions.RemoveCardError(JSON.parse(error._body)))),
+          tap(() => this.router.navigate(['/cards'])),
         );
     })
   );

@@ -57,17 +57,17 @@ export class LogoutUserError implements Action {
   constructor(public payload: any) { }
 }
 
-export class checkIfLoggedIn implements Action {
+export class CheckIfLoggedIn implements Action {
   readonly type = CHECK_IF_LOGGED_IN;
   constructor() { }
 }
 
-export class checkIfLoggedInSuccess implements Action {
+export class CheckIfLoggedInSuccess implements Action {
   readonly type = CHECK_IF_LOGGED_IN_SUCCESS;
   constructor(public payload: any) { }
 }
 
-export class checkIfLoggedInError implements Action {
+export class CheckIfLoggedInError implements Action {
   readonly type = CHECK_IF_LOGGED_IN_ERROR;
   constructor(public payload: any) { }
 }
@@ -82,6 +82,6 @@ export type UserAction =
   | LogoutUser
   | LogoutUserSuccess
   | LogoutUserError
-  | checkIfLoggedIn
-  | checkIfLoggedInSuccess
-  | checkIfLoggedInError;
+  | CheckIfLoggedIn
+  | CheckIfLoggedInSuccess
+  | CheckIfLoggedInError;
