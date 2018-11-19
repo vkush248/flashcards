@@ -32,8 +32,7 @@ export class DialogEffects {
     dialogActions.OPEN_DIALOG,
   )).pipe(
     delay(5000),
-    map(() => new dialogActions.CloseDialog());
-  )
-
+    map(() => new dialogActions.CloseDialog())
+  );
 
 }
