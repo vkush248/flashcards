@@ -8,6 +8,9 @@ export const REGISTER_USER_ERROR = '[User] REGISTER_USER_ERROR';
 export const LOGOUT_USER = '[User] LOGOUT_USER';
 export const LOGOUT_USER_SUCCESS = '[User] LOGOUT_USER_SUCCESS';
 export const LOGOUT_USER_ERROR = '[User] LOGOUT_USER_ERROR';
+export const CHECK_IF_LOGGED_IN = '[User] CHECK_IF_LOGGED_IN';
+export const CHECK_IF_LOGGED_IN_SUCCESS = '[User] CHECK_IF_LOGGED_IN_SUCCESS';
+export const CHECK_IF_LOGGED_IN_ERROR = '[User] CHECK_IF_LOGGED_IN_ERROR';
 
 export class LoginUser implements Action {
   readonly type = LOGIN_USER;
@@ -54,6 +57,21 @@ export class LogoutUserError implements Action {
   constructor(public payload: any) { }
 }
 
+export class checkIfLoggedIn implements Action {
+  readonly type = CHECK_IF_LOGGED_IN;
+  constructor() { }
+}
+
+export class checkIfLoggedInSuccess implements Action {
+  readonly type = CHECK_IF_LOGGED_IN_SUCCESS;
+  constructor(public payload: any) { }
+}
+
+export class checkIfLoggedInError implements Action {
+  readonly type = CHECK_IF_LOGGED_IN_ERROR;
+  constructor(public payload: any) { }
+}
+
 export type UserAction =
   LoginUser
   | LoginUserSuccess
@@ -63,4 +81,7 @@ export type UserAction =
   | LoginUserError
   | LogoutUser
   | LogoutUserSuccess
-  | LogoutUserError;
+  | LogoutUserError
+  | checkIfLoggedIn
+  | checkIfLoggedInSuccess
+  | checkIfLoggedInError;

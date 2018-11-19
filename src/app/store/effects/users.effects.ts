@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
@@ -9,6 +10,7 @@ import * as usersActions from '../actions';
 export class UsersEffects {
   constructor(
     private actions$: Actions,
+    private router: Router,
     private authService: AuthService,
   ) { }
 
@@ -38,6 +40,22 @@ export class UsersEffects {
       return this.authService.logOut().pipe(
         map((username) => new usersActions.LogoutUserSuccess(username)),
         catchError((error: Error) => of(new usersActions.LogoutUserError(error)))
+      );
+    })
+  );
+
+  @Effect()
+  checkIfLoggedIn$ = this.actions$.pipe(ofType(usersActions.CHECK_IF_LOGGED_IN)).pipe(
+    switchMap((action: usersActions.checkIfLoggedIn) => {
+      return this.authService.isLoggedIn().pipe(
+        map((isLoggedIn: boolean) => {
+          if (!isLoggedIn) {
+            this.router.navigate(['/login']);
+            throw new Error('Please log in');
+          }
+        }),
+        map((isLoggedIn: boolean) => new usersActions.checkIfLoggedInSuccess({ isLoggedIn })),
+        catchError((error: Error) => of(new usersActions.checkIfLoggedInError({ message: error.message }))),
       );
     })
   );

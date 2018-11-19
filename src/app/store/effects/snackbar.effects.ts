@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import * as cardsActions from '../../cards/store/actions';
 import * as snackbarActions from '../actions/snackbar.actions';
 import * as authActions from '../actions/users.actions';
@@ -19,6 +19,7 @@ export class SnackbarsEffects {
     authActions.LOGIN_USER_ERROR,
     authActions.LOGOUT_USER_ERROR,
     authActions.REGISTER_USER_ERROR,
+    authActions.CHECK_IF_LOGGED_IN_ERROR,
   )).pipe(
     map((action: any) => action.payload),
     map((payload: { message: string } = { message: 'Something went wrong!' }) => {
@@ -43,7 +44,6 @@ export class SnackbarsEffects {
     authActions.REGISTER_USER_SUCCESS,
   )).pipe(
     map((action: any) => action.payload),
-    tap(x => console.log(x)),
     map(() => new snackbarActions.SelectSnackbar({ message: 'Welcome', type: 'success' }))
   );
 }

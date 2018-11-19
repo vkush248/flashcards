@@ -3,10 +3,12 @@ import * as actions from '../actions';
 export interface User {
   username: string;
   password?: string;
+  isLoggedIn: boolean;
 }
 
 export const userInitialState: User = {
   username: null,
+  isLoggedIn: false,
 };
 
 
@@ -28,6 +30,10 @@ export function userReducer(state: User = userInitialState, action: any) {
 
     case actions.LOGIN_USER_SUCCESS:
     case actions.REGISTER_USER_SUCCESS: {
+      return { ...state, ...payload, isLoggedIn: true, loading: false, loaded: true };
+    }
+
+    case actions.checkIfLoggedInSuccess: {
       return { ...state, ...payload, loading: false, loaded: true };
     }
 

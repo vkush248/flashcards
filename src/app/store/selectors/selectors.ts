@@ -8,3 +8,5 @@ export const getSnackbarMessage = createSelector(getSnackbarState, (snackbar: an
 export const getUserState = createFeatureSelector<AppState>('user');
 
 export const getUsername = createSelector(getUserState, (user: any) => user.username);
+
+export const getIsLoggedIn = createSelector(getUserState, (user: any) => user.isLoggedIn);
