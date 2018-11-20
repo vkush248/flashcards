@@ -2,14 +2,12 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { catchError, map, pluck, tap } from 'rxjs/operators';
+import { catchError, map, pluck } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  redirectUrl: string;
-
   constructor(private _http: Http, private router: Router) { }
 
   signIn(userData): Observable<any> {
@@ -19,11 +17,6 @@ export class AuthService {
         const error = response.json();
         throw new Error(error.message);
       }),
-      tap(() => {
-        if (this.redirectUrl) {
-          this.router.navigate([`${this.redirectUrl}`]);
-        } else { this.router.navigate(['cards']); }
-      })
     );
   }
 
@@ -35,11 +28,6 @@ export class AuthService {
           const error = response.json();
           throw new Error(error.message);
         }),
-        tap(() => {
-          if (this.redirectUrl) {
-            this.router.navigate([`${this.redirectUrl}`]);
-          } else { this.router.navigate(['cards']); }
-        })
       );
   }
 
@@ -65,7 +53,6 @@ export class AuthService {
       catchError(error => {
         throw error.json();
       }),
-      tap(() => this.router.navigate(['login']))
     );
   }
 

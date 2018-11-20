@@ -11,7 +11,6 @@ export const userInitialState: User = {
   isLoggedIn: false,
 };
 
-
 export function userReducer(state: User = userInitialState, action: any) {
   const payload = action.payload;
   switch (action.type) {
