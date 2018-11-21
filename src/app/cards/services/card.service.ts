@@ -1,43 +1,33 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
 import { Observable } from 'rxjs';
-import { map, pluck } from 'rxjs/operators';
+import { pluck } from 'rxjs/operators';
 import { Card } from '../models/card.model';
 
 @Injectable()
 export class CardService {
   cards: Card[];
 
-  constructor(private _http: Http) { }
+  constructor(private _http: HttpClient) { }
 
-  getCards(): Observable<Card[]> {
-    return this._http.get('/api/cards/').pipe(
-      map(cards => cards.json()),
-    );
+  getCards(): Observable<any> {
+    return this._http.get('/api/cards/');
   }
 
-  getUsersCards(username): Observable<Card[]> {
-    return this._http.get('/api/cards/' + username).pipe(
-      map(cards => cards.json()),
-    );
+  getUsersCards(username): Observable<any> {
+    return this._http.get('/api/cards/' + username);
   }
 
-  getCard(id): Observable<Card> {
-    return this._http.get('/api/cards/card/' + id).pipe(
-      map(card => card.json())
-    );
+  getCard(id): Observable<any> {
+    return this._http.get('/api/cards/card/' + id);
   }
 
   updateCard(card: Card): any {
-    return this._http.put('/api/cards/update/' + card._id, card).pipe(
-      map(result => result.json()),
-    );
+    return this._http.put('/api/cards/update/' + card._id, card);
   }
 
-  addCard(card: Card): Observable<Card> {
-    return this._http.post('api/cards/new', card).pipe(
-      map(result => result.json()),
-    );
+  addCard(card: Card): Observable<any> {
+    return this._http.post('api/cards/new', card);
   }
 
   deleteCard(id: String) {

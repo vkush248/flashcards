@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, filter, map, switchMap } from 'rxjs/operators';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import * as usersActions from '../actions';
+import { AppState } from '../app.state';
+import { getIsLoggedIn } from '../selectors';
 
 @Injectable()
 export class UsersEffects {
@@ -12,6 +15,7 @@ export class UsersEffects {
     private actions$: Actions,
     private router: Router,
     private authService: AuthService,
+    private store: Store<AppState>
   ) { }
 
   @Effect()
@@ -46,6 +50,8 @@ export class UsersEffects {
 
   @Effect()
   checkIfLoggedIn$ = this.actions$.pipe(ofType(usersActions.CHECK_IF_LOGGED_IN)).pipe(
+    switchMap(() => this.store.select(getIsLoggedIn)),
+    filter(isLoggedIn => !isLoggedIn),
     switchMap((action: usersActions.CheckIfLoggedIn) => {
       return this.authService.isLoggedIn().pipe(
         map((isLoggedIn: boolean) => {

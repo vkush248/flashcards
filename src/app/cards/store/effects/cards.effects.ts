@@ -100,7 +100,6 @@ export class CardsEffects {
 
   @Effect()
   removeCard$ = this.actions$.pipe(ofType(cardsActions.REMOVE_CARD)).pipe(
-    tap(x => console.log(x)),
     map((action: cardsActions.RemoveCard) => action.payload),
     switchMap((id: string) => {
       return this.cardService.deleteUsersCard(id)
