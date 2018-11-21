@@ -65,8 +65,7 @@ export class CardsEffects {
     switchMap(card => {
       return this.cardService.addCard(card)
         .pipe(
-          // tslint:disable-next-line:no-shadowed-variable
-          map(card => new cardsActions.AddCardSuccess(card)),
+          map(addedCard => new cardsActions.AddCardSuccess(addedCard)),
           catchError(error => of(new cardsActions.AddCardError(JSON.parse(error._body)))),
           tap(() => this.router.navigate(['/cards'])),
         );
@@ -91,8 +90,7 @@ export class CardsEffects {
     switchMap(card => {
       return this.cardService.addCardToUsers(card)
         .pipe(
-          // tslint:disable-next-line:no-shadowed-variable
-          map(card => new cardsActions.AddCardToUsersSuccess(card)),
+          map(addedCard => new cardsActions.AddCardToUsersSuccess(addedCard)),
           catchError(error => of(new cardsActions.AddCardToUsersError(JSON.parse(error._body)))),
         );
     })

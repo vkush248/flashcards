@@ -1,7 +1,19 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-// tslint:disable-next-line:max-line-length
-import { MatButtonModule, MatButtonToggleModule, MatCardModule, MatDialogModule, MatIconModule, MatInputModule, MatListModule, MatMenuModule, MatProgressSpinnerModule, MatSnackBarModule, MatTableModule, MatToolbarModule } from '@angular/material';
+import {
+  MatButtonModule,
+  MatButtonToggleModule,
+  MatCardModule,
+  MatDialogModule,
+  MatIconModule,
+  MatInputModule,
+  MatMenuModule,
+  MatProgressSpinnerModule,
+  MatSnackBarModule,
+  MatTableModule,
+  MatToolbarModule,
+  MatListModule,
+  } from '@angular/material';
 import { ClickStopPropagationDirective } from './directives/click-stop-propagation.directive';
 import { ModalComponent } from './modal/modal.component';
 import { SnackbarComponent } from './snackbar/snackbar.component';
