@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { tap } from 'rxjs/operators';
-import { AuthService } from 'src/app/auth/services/auth.service';
 import * as usersActions from '../actions';
 import { CHECK_IF_LOGGED_IN_ERROR } from '../actions';
 
@@ -11,7 +10,6 @@ export class RouterEffects {
   constructor(
     private actions$: Actions,
     private router: Router,
-    private authService: AuthService,
   ) { }
 
   @Effect(({ dispatch: false }))

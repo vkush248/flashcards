@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
@@ -13,7 +12,6 @@ import { getIsLoggedIn } from '../selectors';
 export class UsersEffects {
   constructor(
     private actions$: Actions,
-    private router: Router,
     private authService: AuthService,
     private store: Store<AppState>
   ) { }
