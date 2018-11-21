@@ -4,6 +4,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { tap } from 'rxjs/operators';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import * as usersActions from '../actions';
+import { CHECK_IF_LOGGED_IN_ERROR } from '../actions';
 
 @Injectable()
 export class RouterEffects {
@@ -23,7 +24,8 @@ export class RouterEffects {
 
   @Effect(({ dispatch: false }))
   redirectToLogin$ = this.actions$.pipe(ofType(
-    usersActions.LOGOUT_USER_SUCCESS
+    usersActions.LOGOUT_USER_SUCCESS,
+    CHECK_IF_LOGGED_IN_ERROR
   )).pipe(
     tap(() => this.router.navigate(['login'])),
   );
