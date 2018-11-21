@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { catchError, pluck } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -31,14 +31,8 @@ export class AuthService {
     return this._http.get('/api/profile/:username', username);
   }
 
-  isLoggedIn(): Observable<boolean> {
-    return this._http.get('/api/is-logged-in').pipe(
-      catchError(error => {
-        this.router.navigate(['login']);
-        throw new Error(error.message);
-      }),
-      pluck('isLoggedIn'),
-    );
+  isLoggedIn(): Observable<any> {
+    return this._http.get('/api/is-logged-in');
   }
 
   logOut(): Observable<any> {

@@ -32,7 +32,7 @@ export function userReducer(state: User = userInitialState, action: any) {
       return { ...state, ...payload, isLoggedIn: true, loading: false, loaded: true };
     }
 
-    case actions.CheckIfLoggedInSuccess: {
+    case actions.CHECK_IF_LOGGED_IN_SUCCESS: {
       return { ...state, ...payload, loading: false, loaded: true };
     }
 
