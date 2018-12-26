@@ -2,11 +2,10 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
-import { catchError, filter, map, switchMap } from 'rxjs/operators';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import * as usersActions from '../actions';
 import { AppState } from '../app.state';
-import { getIsLoggedIn } from '../selectors';
 
 @Injectable()
 export class UsersEffects {
@@ -48,14 +47,12 @@ export class UsersEffects {
 
   @Effect()
   checkIfLoggedIn$ = this.actions$.pipe(ofType(usersActions.CHECK_IF_LOGGED_IN)).pipe(
-    switchMap(() => this.store.select(getIsLoggedIn)),
-    filter(isLoggedIn => !isLoggedIn),
     switchMap(() => {
       return this.authService.isLoggedIn().pipe(
         map((result: { username: string, isLoggedIn: string }) => new usersActions.CheckIfLoggedInSuccess(result)),
         catchError((error: Error) => of(new usersActions.CheckIfLoggedInError({ message: 'Please log in' }))),
       );
-    })
+    }),
   );
 
 }
